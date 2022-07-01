@@ -1,0 +1,18 @@
+spring:
+  banner:
+    location: classpath:banner.txt
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:gridcapa}
+    password: ${RABBITMQ_PASSWORD:gridcapa}
+    template:
+      reply-timeout: 6000000
+
+cse-valid-publication:
+  amqp:
+    queue-name: cse-valid-requests
+    expiration: 60000
+
+server:
+  port: 9090
