@@ -34,8 +34,8 @@ public class CseValidPublicationService {
     }
 
     public ProcessStartRequest publishProcess(String nullableId, String region, String process, String targetDate, int targetDateOffset) {
-        System.out.println("Publish process " + process + "for region " + region + "with target date " + targetDate);
-        //todo iport TTC adjustment and run asynchronous cse valid request
+        System.out.println("Publish process " + process + " for region " + region + " with target date " + targetDate);
+        // todo iport TTC adjustment and run asynchronous cse valid request
         // write TTC validtion file for business date
         return null;
     }
