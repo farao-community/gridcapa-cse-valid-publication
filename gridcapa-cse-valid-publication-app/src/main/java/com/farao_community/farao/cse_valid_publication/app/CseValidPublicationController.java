@@ -28,9 +28,9 @@ public class CseValidPublicationController {
     }
 
     @PostMapping(value = "/publish")
-    public ResponseEntity<byte[]> publishProcess(@RequestParam(required = false) String id, @RequestParam String region, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
-        LOGGER.info("Process publication request received with following attributes: id={} region={} process={} targetDate={}", id, region, process, targetDate);
-        ProcessStartRequest request = cseValidPublicationService.publishProcess(id, region, process, targetDate, targetDateOffset);
+    public ResponseEntity<byte[]> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
+        LOGGER.info("Process publication request received with following attributes: id={} process={} targetDate={}", id, process, targetDate);
+        ProcessStartRequest request = cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset);
         return ResponseEntity.ok().body(jsonConverter.toJsonMessage(request));
     }
 }

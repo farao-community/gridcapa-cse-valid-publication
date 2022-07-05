@@ -7,10 +7,20 @@
 package com.farao_community.farao.cse_valid_publication.app;
 
 import com.farao_community.farao.cse_valid_publication.app.configuration.AmqpMessagesConfiguration;
+import com.farao_community.farao.cse_valid_publication.app.configuration.CseValidPublicationProperties;
+import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
+import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
+import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
+import com.farao_community.farao.cse_valid_publication.app.services.TcDocumentTypeWriter;
+import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TcDocumentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.stereotype.Service;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
@@ -26,18 +36,44 @@ public class CseValidPublicationService {
     private final AmqpMessagesConfiguration amqpMessagesConfiguration;
     private final AmqpTemplate amqpTemplate;
     private final JsonConverter jsonConverter;
+    private final FileImporter fileImporter;
+    private final FileExporter fileExporter;
+    private final CseValidPublicationProperties cseValidPublicationProperties;
+    private TcDocumentTypeWriter tcDocumentTypeWriter;
 
-    public CseValidPublicationService(AmqpMessagesConfiguration amqpMessagesConfiguration, AmqpTemplate amqpTemplate, JsonConverter jsonConverter) {
+    public CseValidPublicationService(AmqpMessagesConfiguration amqpMessagesConfiguration, AmqpTemplate amqpTemplate, JsonConverter jsonConverter, FileImporter fileImporter, FileExporter fileExporter, CseValidPublicationProperties cseValidPublicationProperties) {
         this.amqpMessagesConfiguration = amqpMessagesConfiguration;
         this.amqpTemplate = amqpTemplate;
         this.jsonConverter = jsonConverter;
+        this.fileImporter = fileImporter;
+        this.fileExporter = fileExporter;
+        this.cseValidPublicationProperties = cseValidPublicationProperties;
     }
 
-    public ProcessStartRequest publishProcess(String nullableId, String region, String process, String targetDate, int targetDateOffset) {
-        System.out.println("Publish process " + process + " for region " + region + " with target date " + targetDate);
-        // todo iport TTC adjustment and run asynchronous cse valid request
-        // write TTC validtion file for business date
-        return null;
+    public ProcessStartRequest publishProcess(String nullableId, String process, String targetDate, int targetDateOffset) {
+        String id = nullableId;
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+            LOGGER.warn("No ID provided for process request, auto generated to {}", id);
+        }
+        LocalDate localTargetDate;
+        try {
+            localTargetDate = LocalDate.parse(targetDate);
+        } catch (DateTimeException e) {
+            throw new CseValidPublicationInvalidDataException(String.format("Incorrect format for target date : '%s' is invalid, please use ISO-8601 format", targetDate), e);
+        }
+        localTargetDate = localTargetDate.plusDays(targetDateOffset);
+
+        tcDocumentTypeWriter = new TcDocumentTypeWriter(process, localTargetDate);
+        TcDocumentType tcDocument = fileImporter.importTtcAdjustment(process, localTargetDate);
+        if (tcDocument != null) {
+            // todo run asynchronous cse valid request
+
+        } else {
+            tcDocumentTypeWriter.fillWithNoTtcAdjustmentError();
+        }
+        fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, localTargetDate);
+        return null; //todo response json
     }
 
 }

@@ -6,14 +6,17 @@
  */
 package com.farao_community.farao.cse_valid_publication.app;
 
+import com.farao_community.farao.cse_valid_publication.app.configuration.CseValidPublicationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
  */
 @SuppressWarnings("hideutilityclassconstructor")
 @SpringBootApplication
+@EnableConfigurationProperties(CseValidPublicationProperties.class)
 public class CseValidPublicationApplication {
     public static void main(String[] args) {
         SpringApplication.run(CseValidPublicationApplication.class, args);

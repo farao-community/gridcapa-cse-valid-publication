@@ -40,7 +40,7 @@ class CseValidPublicationControllerTest {
     @Test
     public void checkCorrectResponseWhenPublicationServiceSucceeds() throws Exception {
         ProcessStartRequest processStartRequest = new ProcessStartRequest("id", "CSE", "D2CC", LocalDate.of(2020, 11, 24));
-        Mockito.when(cseValidPublicationService.publishProcess("id", "CSE", "D2CC", "2020-11-24", 0)).thenReturn(processStartRequest);
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenReturn(processStartRequest);
 
         mockMvc.perform(post("/publish")
                         .param("id", "id")
@@ -54,7 +54,7 @@ class CseValidPublicationControllerTest {
     @Test
     public void checkErrorWhenPublicationServiceFailsWithKnownException() throws Exception {
         AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Something really bad happened");
-        Mockito.when(cseValidPublicationService.publishProcess("id", "CSE", "D2CC", "2020-11-24", 0)).thenThrow(exception);
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
 
         mockMvc.perform(post("/publish")
                         .param("id", "id")
@@ -68,7 +68,7 @@ class CseValidPublicationControllerTest {
     @Test
     public void checkErrorWhenPublicationServiceFailsWithUnknownException() throws Exception {
         Exception exception = new RuntimeException("Something really bad happened");
-        Mockito.when(cseValidPublicationService.publishProcess("id", "CSE", "D2CC", "2020-11-24", 0)).thenThrow(exception);
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
 
         CseValidPublicationInternalException wrappingException = new CseValidPublicationInternalException("Unexpected exception", exception);
         mockMvc.perform(post("/publish")
@@ -83,7 +83,7 @@ class CseValidPublicationControllerTest {
     @Test
     public void checkCorrectResponseWhenPublicationServiceSucceedsWithD2ccOffset() throws Exception {
         ProcessStartRequest processStartRequest = new ProcessStartRequest("id", "CSE", "D2CC", LocalDate.of(2020, 11, 26));
-        Mockito.when(cseValidPublicationService.publishProcess("id", "CSE", "D2CC", "2020-11-24", 2)).thenReturn(processStartRequest);
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 2)).thenReturn(processStartRequest);
 
         mockMvc.perform(post("/publish")
                         .param("id", "id")

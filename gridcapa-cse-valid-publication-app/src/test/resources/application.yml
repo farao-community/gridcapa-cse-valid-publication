@@ -8,9 +8,17 @@ spring:
       reply-timeout: 6000000
 
 cse-valid-publication:
+  filenames:
+    ttc-adjustment: "TTC_Adjustment_[0-9]{8}_(ID|2D)[1-7]_CSE(?<version>[0-9]{1,2}).xml"
+    ttc-validation: "'TTC_RTEValidation_'yyyyMMdd'_%s'e'_(?<version>[0-9]{1,2}).xml'"
+    crac: "[0-9]{8}_(?<heure>[0-9]{4})_(ID|2D)[1-7]_CRAC_FR(?<version>[0-9]{1,2}).xml"
   amqp:
     queue-name: cse-valid-requests
     expiration: 60000
 
-server:
-  port: 9090
+minio-adapter:
+  bucket: gridcapa
+  base-path: CSE/VALID
+  access-key: gridcapa
+  secret-key: gridcapa
+  url: http://localhost:9000/

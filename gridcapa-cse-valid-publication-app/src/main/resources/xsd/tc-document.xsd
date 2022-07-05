@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- édité avec XMLSpy v2017 rel. 3 sp1 (x64) (http://www.altova.com) par RTE (RTE) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by RTE (RTE) -->
+<!--W3C Schema erstellt mit XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com)-->
+<!--TC_Document : Version 9 Release 4 -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ecc="etso-core-cmpts.xsd">
+	<xsd:import namespace="etso-core-cmpts.xsd" schemaLocation="etso-core-cmpts.xsd"/>
+	<!--_____________________________________________________ -->
+	<xsd:element name="TTC_calculation_document" type="Tc_DocumentType"/>
+	<xsd:element name="TTC_selection_document" type="Tc_DocumentType"/>
+	<xsd:element name="TTC_validation_document" type="Tc_DocumentType"/>
+	<xsd:element name="TTC_adjustment_document" type="Tc_DocumentType"/>
+	<xsd:element name="NTC_calculation1_document" type="Tc_DocumentType"/>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="Tc_DocumentType">
+		<xsd:annotation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DocumentIdentification" type="ecc:LongIdentificationType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DocumentVersion" type="ecc:VersionType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DocumentType" type="ecc:MessageType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcessType" type="ecc:ProcessType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SenderIdentification" type="ecc:PartyType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SenderRole" type="ecc:RoleType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiverIdentification" type="ecc:PartyType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiverRole" type="ecc:RoleType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreationDateTime" type="ecc:MessageDateTimeType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ResultTimeInterval" type="ecc:TimeIntervalType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Domain" type="ecc:AreaType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="CalculationTimeseries" type="T_ResultTimeseries" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="SelectionResults" type="T_ResultTimeseries" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="AdjustmentResults" type="T_ResultTimeseries" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="ValidationResults" type="T_ResultTimeseries" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="ResultTimeseries" type="T_ResultTimeseries" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="DtdVersion" type="xsd:string" use="required"/>
+		<xsd:attribute name="DtdRelease" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_ResultTimeseries">
+		<xsd:annotation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TimeSeriesIdentification" type="ecc:IdentificationType">
+				<xsd:annotation>
+					<xsd:documentation>Unique ID of the Times Series - "YYYYMMDD (Business Date)-0001 to n (number of Times Series)" (ex : 20131216-0004)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BusinessType" type="ecc:BusinessType">
+				<xsd:annotation>
+					<xsd:documentation>A81 (Total Transfer Capacity) for the "TTC Documents"   -   A27  (Net transfer capacity (NTC)) for the "NTC Documents"</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Product" type="ecc:EnergyProductType">
+				<xsd:annotation>
+					<xsd:documentation>8716867000016</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InArea" type="ecc:AreaType">
+				<xsd:annotation>
+					<xsd:documentation>TERNA's EIC CODE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutArea" type="ecc:AreaType">
+				<xsd:annotation>
+					<xsd:documentation>CSE's EIC CODE </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MeasureUnit" type="ecc:UnitOfMeasureType">
+				<xsd:annotation>
+					<xsd:documentation>MAW</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Timestamp" type="T_Timestamp" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Timestamp">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="Time" type="T_Time" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="TimeInterval" type="ecc:TimeIntervalType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ReferenceCalculationTime" type="T_Time" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Validated" type="T_Number" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="RedFlagReason" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Valid" type="T_Number" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="STATUS" type="T_Number" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Provider" type="ecc:PartyType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="TTC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MNII" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MIEC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="TTCImportingCountries" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MNIE" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="TTCExportingCountries" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MiBNII" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ANTCFinal" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="NTCbilateral" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="TTCLimitedBy" type="T_TTCLimitedBy" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CountryBalances" type="CountryBalancesType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="BorderExchanges" type="BorderExchangesType" minOccurs="0" maxOccurs="1"/>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element name="NTCvalues" type="NTCvaluesType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="RedFlags" type="RedFlagsType" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+				<xsd:sequence>
+					<xsd:element name="CGMfile" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="GSKfile" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="CRACfile" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="BASECASEfile" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="Reason" type="Reason_Type" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="CalculationDirections" type="T_CalculationDirections" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="SplittingFactors" type="T_SplittingFactors" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:choice>
+			<xsd:element name="Inputfiles" type="T_Inputfiles" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="LimitingElement" type="T_LimitingElement" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Results" type="T_Results" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CostlyRemedialActions" type="T_CostlyRemedialActions" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Inputfiles">
+		<xsd:sequence>
+			<xsd:element name="CRACfiles" type="T_Files" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="D2CFfiles" type="T_Files" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="GSKfiles" type="T_Files" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="DACFfiles" type="T_Files" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="NTCRedfiles" type="T_Files" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_CostlyRemedialActions">
+		<xsd:sequence>
+			<xsd:element name="UpwardMargin" type="T_UDMargin" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="DownwardMargin" type="T_UDMargin" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_________________________________________________-->
+	<xsd:complexType name="T_UDMargin">
+		<xsd:sequence>
+			<xsd:element name="Operator" type="ecc:IdentificationType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="TimeInterval" type="ecc:TimeIntervalType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Margin" type="T_Margin" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_________________________________________________-->
+	<xsd:complexType name="T_Margin">
+		<xsd:attribute name="v" type="xsd:short" use="required"/>
+		<xsd:attribute name="unit" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="MW"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="T_Files">
+		<xsd:sequence>
+			<xsd:element name="File" type="T_File" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+		<!--_________________________________________________-->
+	<xsd:complexType name="T_minMargin">
+		<xsd:attribute name="v" type="xsd:short" use="required"/>
+		<xsd:attribute name="unit" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="%"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_File">
+		<xsd:sequence>
+			<xsd:element name="Filename" type="ecc:TextType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Country" type="CountryType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="CreationDateTime" type="T_Time" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Backupfile" type="ecc:IndicatorType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="CountryType">
+		<xsd:attribute name="v" type="CountryString"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:simpleType name="CountryString">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z][A-Z]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="BorderType">
+		<xsd:attribute name="v" type="BorderString"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:simpleType name="BorderString">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z][A-Z]-[A-Z][A-Z]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_CalculationDirections">
+		<xsd:sequence>
+			<xsd:element name="CalculationDirection" type="T_CalculationDirection" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_SplittingFactors">
+		<xsd:sequence>
+			<xsd:element name="SplittingFactor" type="T_Factor" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Results">
+		<xsd:sequence>
+			<xsd:element name="Preventive" type="ActionsType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CriticalBranch" type="T_CriticalBranch" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="VerificationPhaseType">
+		<xsd:sequence>
+			<xsd:element name="RedFlag" type="RedFlagType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="MNELimitationType">
+		<xsd:sequence>
+			<xsd:element name="Branch" type="BranchType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="GSKLimitationType">
+		<xsd:sequence>
+			<xsd:element name="Country" type="CountryType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_______________________________________________________-->
+	<xsd:complexType name="T_Outage">
+		<xsd:sequence>
+			<xsd:element name="Name" type="ecc:TextType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="EIC" type="T_EIC" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Element" type="T_Element" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_______________________________________________________-->
+	<xsd:complexType name="T_MonitoredElement">
+		<xsd:sequence>
+			<xsd:element name="Element" type="T_Element" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_________________________________________________-->
+	<xsd:complexType name="T_EIC">
+		<xsd:attribute name="v" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--_______________________________________________________-->
+	<xsd:complexType name="T_Element">
+		<xsd:all>
+			<xsd:element name="Name" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="EIC" type="T_EIC" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Code" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Selected" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Sensitivity" type="T_Range" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="AlwaysSelected" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="LimitingState" type="T_State" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="areafrom" type="T_Area" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="areato" type="T_Area" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ImaxAfterOutage" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="IAfterOutage" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ImaxAfterSPS" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="IAfterSPS" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ImaxAfterCRA" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="IAfterCRA" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="I" type="T_Imax" minOccurs="0"/>
+			<xsd:element name="Imax" type="T_Imax" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Vn" type="T_Vn" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Margin" type="T_Margin" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="minMargin" type="T_minMargin" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ANTC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="pSensitivity" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MCCC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MNCC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="SelectionStatus" type="T_SelectionStatusType" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<!--_________________________________________________-->
+	<xsd:complexType name="T_SelectionStatusType">
+		<xsd:sequence>
+			<xsd:element name="Selected" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="AlwaysSelected" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Sensitivity" type="T_Percent" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="PTDFListRef" type="T_PTDFList" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="PTDFListNTC" type="T_PTDFList" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:simpleType name="T_Range">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="-100.00"/>
+			<xsd:maxInclusive value="100.00"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="T_State">
+		<xsd:attribute name="v" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="BaseCase"/>
+					<xsd:enumeration value="AfterOutage"/>
+					<xsd:enumeration value="AfterSPS"/>
+					<xsd:enumeration value="AfterCRA"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="T_Area">
+		<xsd:attribute name="v" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="CH"/>
+					<xsd:enumeration value="FR"/>
+					<xsd:enumeration value="AT"/>
+					<xsd:enumeration value="SI"/>
+					<xsd:enumeration value="IT"/>
+					<xsd:enumeration value="HR"/>
+					<xsd:enumeration value="CZ"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="T_LimitingElement">
+		<xsd:sequence>
+			<xsd:element name="AdditionalConstraint" type="T_AdditionalConstraint" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CriticalBranch" type="T_CriticalBranch" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="MonitoredElement" type="T_MonitoredElement" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="GSKLimitation" type="GSKLimitationType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="VerificationPhase" type="VerificationPhaseType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MNELimitation" type="MNELimitationType" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_CalculationDirection">
+		<xsd:sequence>
+			<xsd:element name="InArea" type="ecc:AreaType">
+				<xsd:annotation>
+					<xsd:documentation>TERNA's EIC CODE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutArea" type="ecc:AreaType">
+				<xsd:annotation>
+					<xsd:documentation>CSE's EIC CODE </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Factor">
+		<xsd:sequence>
+			<xsd:element name="Factor" type="ecc:QuantityType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Country" type="CountryType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="ActionsType">
+		<xsd:sequence>
+			<xsd:element name="Action" type="T_Action" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Action">
+		<xsd:sequence>
+			<xsd:element name="Name" type="ecc:TextType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="PSTtap" type="T_Number" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Setpoint" type="T_Number" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_TTCLimitedBy">
+		<xsd:attribute name="v" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Critical Branch"/>
+					<xsd:enumeration value="Additional Constraint"/>
+					<xsd:enumeration value="Validation phase"/>
+					<xsd:enumeration value="Scheduled TTC"/>
+					<xsd:enumeration value="TTC Selection - UTTC"/>
+					<xsd:enumeration value="TTC Selection - LTTC"/>
+					<xsd:enumeration value="TTC Selection - Mean"/>
+					<xsd:enumeration value="GSK Limitation"/>
+					<xsd:enumeration value="No secure TTC found"/>
+					<xsd:enumeration value="Minimum Margin"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--_______________________________________________________-->
+	<xsd:complexType name="T_CriticalBranch">
+		<xsd:sequence>
+			<xsd:element name="Outage" type="T_Outage" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="SPS" type="ActionsType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CurativeAction" type="ActionsType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MonitoredElement" type="T_MonitoredElement" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_AdditionalConstraint">
+		<xsd:sequence>
+			<xsd:element name="TTCmax" type="ecc:QuantityType" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="Reason_Type">
+		<xsd:annotation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReasonCode" type="ecc:ReasonCodeType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReasonText" type="ecc:ReasonTextType" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="CountryBalancesType">
+		<xsd:sequence>
+			<xsd:element name="CountryBalance" type="CountryBalanceType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="CountryBalanceType">
+		<xsd:sequence>
+			<xsd:element name="Country" type="CountryType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="BalanceValue" type="ecc:QuantityType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="BorderExchangesType">
+		<xsd:sequence>
+			<xsd:element name="BorderExchange" type="BorderExchangeType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="BorderExchangeType">
+		<xsd:sequence>
+			<xsd:element name="Border" type="BorderType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="ExchangeValue" type="ecc:QuantityType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="RedFlagsType">
+		<xsd:sequence>
+			<xsd:element name="RedFlag" type="RedFlagType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="RedFlagType">
+		<xsd:sequence>
+			<xsd:element name="Country" type="CountryType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="MNIIvalue" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="BilateralReduction" type="ecc:CodeType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="NTCbilateral" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Reason" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CriticalBranch" type="T_CriticalBranch" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="InArea" type="ecc:AreaType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>TERNA's EIC CODE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutArea" type="ecc:AreaType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>CSE's EIC CODE </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="BranchType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="EIC" type="T_EIC" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Code" type="ecc:TextType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Direction" type="T_Direction" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Imax" type="T_Lim" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Ibefore" type="T_Lim" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Iafter" type="T_Lim" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="NTCvaluesType">
+		<xsd:sequence>
+			<xsd:element name="NTCvalue" type="NTCTypes" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="NTCTypes">
+		<xsd:sequence>
+			<xsd:element name="NTC" type="ecc:QuantityType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="Country" type="CountryType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Number">
+		<xsd:attribute name="v" type="xsd:integer"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Imax">
+		<xsd:attribute name="v" type="xsd:integer" use="required"/>
+		<xsd:attribute name="unit" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Lim">
+		<xsd:attribute name="v" type="xsd:integer" use="required"/>
+		<xsd:attribute name="unit" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A"/>
+					<xsd:enumeration value="Pct"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Direction">
+		<xsd:attribute name="v" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Transit"/>
+					<xsd:enumeration value="Import"/>
+					<xsd:enumeration value="Export"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Vn">
+		<xsd:attribute name="v" type="xsd:integer" use="required"/>
+		<xsd:attribute name="unit" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Time">
+		<xsd:attribute name="v" type="DateTimeUTCType" use="required"/>
+	</xsd:complexType>
+	<!--___________________________________________________ -->
+	<xsd:simpleType name="DateTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>The time must be expressed in a form respecting ISO 8601 : YYYY-MM-DDTHH:MMZ. ISO 8601 rules for reduction may apply. The time must always be expressed in UTC.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[2][0][0-9][0-9][\-][0-1][0-9][\-][0-3][0-9][T][0-2][0-9][:][0-6][0-9][Z]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="T_PTDF">
+		<xsd:all>
+			<xsd:element name="State" type="T_State" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Factor" type="T_Percent" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Country" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ControlBlock" type="ecc:TextType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ANTC" type="ecc:QuantityType" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_PTDFList">
+		<xsd:sequence>
+			<xsd:element name="PTDF" type="T_PTDF" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--_____________________________________________________ -->
+	<xsd:complexType name="T_Percent">
+		<xsd:attribute name="v" type="T_Range" use="required"/>
+		<xsd:attribute name="unit" type="xsd:string" use="required"/>
+	</xsd:complexType>
+</xsd:schema>
