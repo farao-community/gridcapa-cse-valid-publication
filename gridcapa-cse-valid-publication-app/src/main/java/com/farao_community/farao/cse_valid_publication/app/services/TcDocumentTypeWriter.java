@@ -49,12 +49,12 @@ public class TcDocumentTypeWriter {
     private final MessageDateTimeType creationTime;
     private final AreaType domainAreaType;
     private final TimeIntervalType timeIntervalType;
-    private final String process;
+    private final String processCode;
     private final LocalDate localTargetDate;
 
-    public TcDocumentTypeWriter(String process, LocalDate localDate) {
+    public TcDocumentTypeWriter(String processCode, LocalDate localDate) {
         this.tcDocumentType = new TcDocumentType();
-        this.process = process;
+        this.processCode = processCode;
         this.localTargetDate = localDate;
         this.documentIdentification = new LongIdentificationType();
         this.versionType = new VersionType();
@@ -77,7 +77,7 @@ public class TcDocumentTypeWriter {
         OffsetDateTime startDateTime = localTargetDate.atStartOfDay().atZone(EUROPE_BRUSSELS_ZONE_ID).toOffsetDateTime().withMinute(30);
         OffsetDateTime endDateTime;
 
-        if (process.equals("IDCC")) {
+        if (processCode.equals("ID")) {
             startDateTime = startDateTime.plusHours(12);
             endDateTime = startDateTime.plusHours(12);
         } else {
@@ -305,7 +305,7 @@ public class TcDocumentTypeWriter {
     }
 
     private String getDocumentIdentification() {
-        String pattern = String.format("'TTC_RTEValidation_'yyyyMMdd'_%s'e", process); // todo ProcessTYpe.getCode()
+        String pattern = String.format("'TTC_RTEValidation_'yyyyMMdd'_%s'e", processCode);
         return localTargetDate.format(DateTimeFormatter.ofPattern(pattern, Locale.FRANCE));
     }
 

@@ -36,10 +36,10 @@ class FileExporterTest {
 
     @Test
     void testSaveTtcValidation() {
-        TcDocumentTypeWriter tcDocumentTypeWriter = new TcDocumentTypeWriter("D2CC", localDate);
+        TcDocumentTypeWriter tcDocumentTypeWriter = new TcDocumentTypeWriter("2D", localDate);
         when(minioAdapter.listFiles(any())).thenReturn(Collections.emptyList());
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, "D2CC", localDate);
-        //assertTrue(minioAdapter.fileExists("D2CC/TTC_VALIDATION/TTC_RTEValidation_20200813_D2CC4_1.xml")); todo en local
+        //assertTrue(minioAdapter.fileExists("D2CC/TTC_VALIDATION/TTC_RTEValidation_20200813_2D4_1.xml")); only without mockminioAdapter
 
     }
 

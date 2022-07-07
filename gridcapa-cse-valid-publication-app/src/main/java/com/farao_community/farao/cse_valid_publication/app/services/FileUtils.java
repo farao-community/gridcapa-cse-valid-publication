@@ -57,12 +57,11 @@ public class FileUtils {
     }
 
     private String replaceDateTimeInCracFilename(String cracFileRegex, OffsetDateTime offsetDateTime) {
-        String newCracRegex = cracFileRegex.replace("(?<year>[0-9]{4})", String.format("%04d", offsetDateTime.getYear()))
+        return cracFileRegex.replace("(?<year>[0-9]{4})", String.format("%04d", offsetDateTime.getYear()))
                 .replace("(?<month>[0-9]{2})", String.format("%02d", offsetDateTime.getMonthValue()))
                 .replace("(?<day>[0-9]{2})", String.format("%02d", offsetDateTime.getDayOfMonth()))
                 .replace("(?<hour>[0-9]{2})", String.format("%02d", offsetDateTime.getHour()))
                 .replace("(?<minute>[0-9]{2})", String.format("%02d", offsetDateTime.getMinute()));
-        return newCracRegex;
     }
 
     private String getMostRecentFile(String prefixPath, String regex) {
@@ -97,7 +96,7 @@ public class FileUtils {
     }
 
     public CseValidFileResource createFileResource(String filePath) {
-        String filename = FilenameUtils.getName(filePath); //todo a tester
+        String filename = FilenameUtils.getName(filePath);
         return createFileResource(filename, filePath);
     }
 }

@@ -59,7 +59,8 @@ public class FileExporter {
                 }
             }
 
-            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), process);
+            String processCode = process.equals("IDCC") ? "ID" : "2D";
+            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), processCode);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);
             return String.format("%s/%s", folder, filenameFormatted);
