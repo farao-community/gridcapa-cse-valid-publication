@@ -6,7 +6,6 @@
  */
 package com.farao_community.farao.cse_valid_publication.app.services;
 
-import com.farao_community.farao.cse_valid_publication.app.configuration.CseValidPublicationProperties;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.ObjectFactory;
 import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TcDocumentType;
@@ -18,10 +17,8 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBIntrospector;
+import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
@@ -31,47 +28,42 @@ public class FileImporter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileImporter.class);
     private final MinioAdapter minioAdapter;
-    private final CseValidPublicationProperties properties;
+    private final UrlValidationService urlValidationService;
 
-    public FileImporter(MinioAdapter minioAdapter, CseValidPublicationProperties properties) {
+    public FileImporter(MinioAdapter minioAdapter, UrlValidationService urlValidationService) {
         this.minioAdapter = minioAdapter;
-        this.properties = properties;
+        this.urlValidationService = urlValidationService;
     }
 
-    public TcDocumentType importTtcAdjustment(String process, LocalDate targetDate) {
+    public TcDocumentType importTtcAdjustment(String ttcAdjustmentFilePath) {
         try {
-            String folder = String.format("%s/TTC_ADJUSTMENT/", process);
-            String filenameRegex = properties.getFilenames().getTtcAdjustment().replace("[0-9]{8}", targetDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-            String ttcAdjustmentFileName = getMostRecentFile(folder, filenameRegex);
-            if (minioAdapter.fileExists(ttcAdjustmentFileName)) {
-                InputStream inputStream = minioAdapter.getFile(ttcAdjustmentFileName);
+            if (minioAdapter.fileExists(ttcAdjustmentFilePath)) {
+                InputStream inputStream = minioAdapter.getFile(ttcAdjustmentFilePath);
                 JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
-                LOGGER.info("Importing TTC adjustment file '{}'", ttcAdjustmentFileName);
+                LOGGER.info("Importing TTC adjustment file '{}'", ttcAdjustmentFilePath);
                 return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
             } else {
-                LOGGER.warn("TTC adjustment file does not exist {} ", ttcAdjustmentFileName);
+                LOGGER.warn("TTC adjustment file does not exist {} ", ttcAdjustmentFilePath);
                 return null;
             }
         } catch (Exception e) {
-            String message = String.format("Cannot retrieve TTC adjustment file for CSE, process '%s' and date '%s'", process, targetDate.format(DateTimeFormatter.ISO_DATE));
+            String message = String.format("Cannot retrieve TTC adjustment file %s ", ttcAdjustmentFilePath);
             throw new CseValidPublicationInvalidDataException(message, e);
         }
     }
 
-    private String getMostRecentFile(String prefixDate, String regex) {
-        List<String> files = minioAdapter.listFiles(prefixDate);
-        int mostRecentVersion = -1;
-        String mostRecentFilename = null;
-
-        for (String filename : files) {
-            int version = Utils.getVersionNumber(regex, filename);
-
-            if (version > mostRecentVersion) {
-                mostRecentFilename = filename;
-                mostRecentVersion = version;
-            }
+    public TcDocumentType importTtcValidation(String ttcValidationUrl) {
+        try {
+            InputStream inputStream = urlValidationService.openUrlStream(ttcValidationUrl);
+            JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
+            return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
+        } catch (IOException e) {
+            LOGGER.warn("Cannot open TTC validation url {} with error {}", ttcValidationUrl, e.getMessage());
+            return null;
+        } catch (Exception e) {
+            LOGGER.warn("Cannot retrieve TTC validation file {} with error {}", ttcValidationUrl, e.getMessage());
+            return null;
         }
-        return mostRecentFilename;
     }
 
 }

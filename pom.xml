@@ -53,7 +53,7 @@
 
 
     <properties>
-        <cse-valid-runner.version>1.0.1</cse-valid-runner.version>
+        <cse-valid-runner.version>1.0.2-SNAPSHOT</cse-valid-runner.version>
         <gridcapa.starter.minio.version>0.2.0</gridcapa.starter.minio.version>
         <jsonapi.converter.version>0.10</jsonapi.converter.version>
         <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
@@ -77,16 +77,6 @@
         <dependencies>
             <dependency>
                 <groupId>com.farao-community.farao</groupId>
-                <artifactId>gridcapa-starter-minio-adapter</artifactId>
-                <version>${gridcapa.starter.minio.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.jasminb</groupId>
-                <artifactId>jsonapi-converter</artifactId>
-                <version>${jsonapi.converter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.farao-community.farao</groupId>
                 <artifactId>gridcapa-cse-valid-api</artifactId>
                 <version>${cse-valid-runner.version}</version>
             </dependency>
@@ -94,6 +84,16 @@
                 <groupId>com.farao-community.farao</groupId>
                 <artifactId>gridcapa-cse-valid-spring-boot-starter</artifactId>
                 <version>${cse-valid-runner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.farao-community.farao</groupId>
+                <artifactId>gridcapa-starter-minio-adapter</artifactId>
+                <version>${gridcapa.starter.minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jasminb</groupId>
+                <artifactId>jsonapi-converter</artifactId>
+                <version>${jsonapi.converter.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>

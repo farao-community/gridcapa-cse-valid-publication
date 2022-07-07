@@ -6,7 +6,7 @@
  */
 package com.farao_community.farao.cse_valid_publication.app.services;
 
-import com.farao_community.farao.cse_valid_publication.app.configuration.CseValidPublicationProperties;
+import com.farao_community.farao.cse_valid_publication.app.configuration.FilenamesConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.slf4j.Logger;
@@ -27,15 +27,17 @@ public class FileExporter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileExporter.class);
     private final MinioAdapter minioAdapter;
-    private final CseValidPublicationProperties properties;
+    private final FilenamesConfiguration filenamesConfiguration;
+    private final FileUtils fileUtils;
 
-    public FileExporter(MinioAdapter minioAdapter, CseValidPublicationProperties properties) {
+    public FileExporter(MinioAdapter minioAdapter, FilenamesConfiguration properties, FileUtils fileUtils) {
         this.minioAdapter = minioAdapter;
-        this.properties = properties;
+        this.filenamesConfiguration = properties;
+        this.fileUtils = fileUtils;
     }
 
     public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, String process, LocalDate localDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(properties.getFilenames().getTtcValidation());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation());
         String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), process), tcDocumentTypeWriter); //todo use process Code
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
         LOGGER.info("Save TTC validation file '{}'", filename);
@@ -43,21 +45,21 @@ public class FileExporter {
     }
 
     private String putMostRecentFile(LocalDate localDate, String process, String regex, TcDocumentTypeWriter tcDocumentTypeWriter) {
-        String folder = String.format("%s/TTC_VALIDATION/", process);
+        String folder = String.format("%s/TTC_VALIDATION", process);
         List<String> files = minioAdapter.listFiles(folder);
 
         try {
             int mostRecentVersion = 0;
 
             for (String filename : files) {
-                int version = Utils.getVersionNumber(regex, filename);
+                int version = fileUtils.getVersionNumber(regex, filename);
 
                 if (version > mostRecentVersion) {
                     mostRecentVersion = version;
                 }
             }
 
-            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(properties.getFilenames().getTtcValidation(), Locale.FRANCE)), process);
+            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), process);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);
             return String.format("%s/%s", folder, filenameFormatted);

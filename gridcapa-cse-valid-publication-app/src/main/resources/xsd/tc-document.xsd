@@ -11,6 +11,7 @@
 	<xsd:element name="TTC_validation_document" type="Tc_DocumentType"/>
 	<xsd:element name="TTC_adjustment_document" type="Tc_DocumentType"/>
 	<xsd:element name="NTC_calculation1_document" type="Tc_DocumentType"/>
+	<xsd:element name="TTC_rtevalidation_document" type="Tc_DocumentType"/>
 	<!--_____________________________________________________ -->
 	<xsd:complexType name="Tc_DocumentType">
 		<xsd:annotation>

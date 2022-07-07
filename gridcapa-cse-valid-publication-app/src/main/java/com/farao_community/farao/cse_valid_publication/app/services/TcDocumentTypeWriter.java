@@ -141,8 +141,10 @@ public class TcDocumentTypeWriter {
         listTimestamps.sort(Comparator.comparing(c -> OffsetDateTime.parse(c.getTime().getV())));
     }
 
-    public synchronized void fillTimestampWithDichotomyResponse(TTimestamp timestampData, String timestampId) {
-        //todo import timestamp from cseResponse Url
+    public synchronized void fillWithTimestampResult(TTimestamp timestampResult) {
+        List<TTimestamp> listTimestamps = tcDocumentType.getValidationResults().get(0).getTimestamp();
+        listTimestamps.add(timestampResult);
+        listTimestamps.sort(Comparator.comparing(c -> OffsetDateTime.parse(c.getTime().getV())));
     }
 
     public synchronized void fillTimestampWithNoComputationNeeded(TTimestamp initialTs) {
@@ -303,7 +305,7 @@ public class TcDocumentTypeWriter {
     }
 
     private String getDocumentIdentification() {
-        String pattern = String.format("'TTC_RTEValidation_'yyyyMMdd'_%s'e", process); //todo ProcessTYpe.getCode()
+        String pattern = String.format("'TTC_RTEValidation_'yyyyMMdd'_%s'e", process); // todo ProcessTYpe.getCode()
         return localTargetDate.format(DateTimeFormatter.ofPattern(pattern, Locale.FRANCE));
     }
 

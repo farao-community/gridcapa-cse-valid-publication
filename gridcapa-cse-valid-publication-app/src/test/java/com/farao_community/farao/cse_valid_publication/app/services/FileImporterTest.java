@@ -14,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -34,13 +30,14 @@ class FileImporterTest {
     @MockBean
     MinioAdapter minioAdapter;
 
+    private String testResourcePath = "/services/";
+
     @Test
     void importExistingTtcAdjustment() {
-        String ttcFileName = "com.farao_community.farao.cse_valid_publication.app/services/TTC_Adjustment_20200813_2D4_CSE1.xml";
-        when(minioAdapter.listFiles(any())).thenReturn(Collections.singletonList(ttcFileName));
-        when(minioAdapter.fileExists(any())).thenReturn(true);
-        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream("/" + ttcFileName));
-        TcDocumentType document = fileImporter.importTtcAdjustment("D2CC", LocalDate.of(2020, 8, 13));
+        String ttcFileName = "TTC_Adjustment_20200813_2D4_CSE1.xml";
+        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName));
+        when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName)).thenReturn(true);
+        TcDocumentType document = fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName);
 
         assertEquals("TTC_Adjustment_20200813_2D4_CSE", document.getDocumentIdentification().getV());
         assertEquals(1, document.getDocumentVersion().getV());
@@ -51,12 +48,10 @@ class FileImporterTest {
 
     @Test
     void importExistingTtcAdjustmentVersion2() {
-        String ttcFileName1 = "com.farao_community.farao.cse_valid_publication.app/services/TTC_Adjustment_20200813_2D4_CSE1.xml";
-        String ttcFileName2 = "com.farao_community.farao.cse_valid_publication.app/services/TTC_Adjustment_20200813_2D4_CSE2.xml";
-        when(minioAdapter.listFiles(any())).thenReturn(Arrays.asList(ttcFileName1, ttcFileName2));
-        when(minioAdapter.fileExists(ttcFileName2)).thenReturn(true);
-        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream("/" + ttcFileName2));
-        TcDocumentType document = fileImporter.importTtcAdjustment("D2CC", LocalDate.of(2020, 8, 13));
+        String ttcFileName2 = "TTC_Adjustment_20200813_2D4_CSE2.xml";
+        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName2));
+        when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName2)).thenReturn(true);
+        TcDocumentType document = fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName2);
 
         assertEquals("TTC_Adjustment_20200813_2D4_CSE", document.getDocumentIdentification().getV());
         assertEquals(2, document.getDocumentVersion().getV());
@@ -66,18 +61,16 @@ class FileImporterTest {
     @Test
     void importMissingTtcAdjustment() {
         String ttcFileName = "TTC_Adjustment_20200813_2D4_CSE1_doesNotExist.xml";
-        when(minioAdapter.listFiles(any())).thenReturn(Collections.singletonList(ttcFileName));
+        when(minioAdapter.getFile(any())).thenReturn(null);
         when(minioAdapter.fileExists(any())).thenReturn(false);
-        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream("/" + ttcFileName));
-        assertNull(fileImporter.importTtcAdjustment("D2CC", LocalDate.of(2020, 8, 13)));
+        assertNull(fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName));
     }
 
     @Test
-    void importTtcAdjustmentError() {
-        String ttcFileName = "TTC_Adjustment_20200813_2D4_CSE1_doesNotExist.xml";
-        when(minioAdapter.listFiles(any())).thenReturn(Collections.singletonList(ttcFileName));
-        when(minioAdapter.fileExists(any())).thenReturn(true);
-        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream("/" + ttcFileName));
-        assertThrows(CseValidPublicationInvalidDataException.class, () -> fileImporter.importTtcAdjustment("D2CC", LocalDate.of(2020, 8, 13)));
+    void importTtcAdjustmentWithError() {
+        String ttcFileName = "TTC_Adjustment_20200813_2D4_CSE1_error.xml";
+        when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName));
+        when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName)).thenReturn(true);
+        assertThrows(CseValidPublicationInvalidDataException.class, () -> fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName));
     }
 }

@@ -3,8 +3,7 @@
 	<DocumentIdentification v="TTC_Adjustment_20200813_2D4_CSE"/>
 	<DocumentVersion v="2"/>
 	<DocumentType v="A32"/>
-	<ProcessType v="A15"/>
-	<SenderIdentification v="10X1001A1001A345" codingScheme="A01"/>
+	<ProcessType v="A15"/>	<SenderIdentification v="10X1001A1001A345" codingScheme="A01"/>
 	<SenderRole v="A36"/>
 	<ReceiverIdentification v="10XFR-RTE------Q" codingScheme="A01"/>
 	<ReceiverRole v="A04"/>

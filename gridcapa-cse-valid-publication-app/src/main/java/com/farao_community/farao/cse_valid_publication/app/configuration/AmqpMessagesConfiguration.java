@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
  */
 @Configuration
-public class AmqpMessagesConfiguration {
+public class AmqpMessagesConfiguration { //todo delete ou add other elements?
+
     @Value("${cse-valid-publication.amqp.queue-name}")
     private String queueName;
 
