@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,7 +31,10 @@ class FileImporterTest {
     private FileImporter fileImporter;
 
     @MockBean
-    MinioAdapter minioAdapter;
+    private MinioAdapter minioAdapter;
+
+    @MockBean
+    private UrlValidationService urlValidationService;
 
     private String testResourcePath = "/services/";
 
@@ -72,5 +78,25 @@ class FileImporterTest {
         when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName));
         when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName)).thenReturn(true);
         assertThrows(CseValidPublicationInvalidDataException.class, () -> fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName));
+    }
+
+    @Test
+    void importTtcValidationTest() throws IOException {
+        String ttcValidationUrl = "TTC_RTEValidation_20200813_2D4_1.xml";
+
+        InputStream inputStream = getClass().getResourceAsStream(testResourcePath + ttcValidationUrl);
+        when(urlValidationService.openUrlStream(ttcValidationUrl)).thenReturn(inputStream);
+        TcDocumentType tcDocument = fileImporter.importTtcValidation(ttcValidationUrl);
+        assertEquals("TTC_RTEValidation_20200813_2D4", tcDocument.getDocumentIdentification().getV());
+    }
+
+    @Test
+    void importTtcValidationErrorTest() throws IOException {
+        String ttcValidationUrl = "TTC_RTEValidation_20200813_doesNotExist.xml";
+
+        InputStream inputStream = getClass().getResourceAsStream(testResourcePath + ttcValidationUrl);
+        when(urlValidationService.openUrlStream(ttcValidationUrl)).thenReturn(inputStream);
+        TcDocumentType tcDocument = fileImporter.importTtcValidation(ttcValidationUrl);
+        assertNull(tcDocument);
     }
 }
