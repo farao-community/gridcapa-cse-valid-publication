@@ -16,10 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -31,59 +28,23 @@ class CseValidPublicationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private JsonConverter jsonConverter;
-
     @MockBean
     private CseValidPublicationService cseValidPublicationService;
 
     @Test
     public void checkCorrectResponseWhenPublicationServiceSucceeds() throws Exception {
-        ProcessStartRequest processStartRequest = new ProcessStartRequest("id", "CSE", "D2CC", LocalDate.of(2020, 11, 24));
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenReturn(processStartRequest);
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenReturn(true);
 
         mockMvc.perform(post("/publish")
                         .param("id", "id")
-                        .param("region", "CSE")
                         .param("process", "D2CC")
                         .param("targetDate", "2020-11-24"))
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(jsonConverter.toJsonMessage(processStartRequest)));
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void checkErrorWhenPublicationServiceFailsWithKnownException() throws Exception {
-        AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Something really bad happened");
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
-
-        mockMvc.perform(post("/publish")
-                        .param("id", "id")
-                        .param("region", "CSE")
-                        .param("process", "D2CC")
-                        .param("targetDate", "2020-11-24"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().bytes(jsonConverter.toJsonMessage(exception)));
-    }
-
-    @Test
-    public void checkErrorWhenPublicationServiceFailsWithUnknownException() throws Exception {
-        Exception exception = new RuntimeException("Something really bad happened");
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
-
-        CseValidPublicationInternalException wrappingException = new CseValidPublicationInternalException("Unexpected exception", exception);
-        mockMvc.perform(post("/publish")
-                        .param("id", "id")
-                        .param("region", "CSE")
-                        .param("process", "D2CC")
-                        .param("targetDate", "2020-11-24"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().bytes(jsonConverter.toJsonMessage(wrappingException)));
-    }
-
-    @Test
-    public void checkCorrectResponseWhenPublicationServiceSucceedsWithD2ccOffset() throws Exception {
-        ProcessStartRequest processStartRequest = new ProcessStartRequest("id", "CSE", "D2CC", LocalDate.of(2020, 11, 26));
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 2)).thenReturn(processStartRequest);
+    public void checkCorrectResponseWhenPublicationServiceFailedWithD2ccOffset() throws Exception {
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 2)).thenReturn(false);
 
         mockMvc.perform(post("/publish")
                         .param("id", "id")
@@ -91,7 +52,18 @@ class CseValidPublicationControllerTest {
                         .param("process", "D2CC")
                         .param("targetDate", "2020-11-24")
                         .param("targetDateOffset", "2"))
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(jsonConverter.toJsonMessage(processStartRequest)));
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void checkErrorWhenPublicationServiceFailsWithException() throws Exception {
+        AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Something really bad happened");
+        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
+
+        mockMvc.perform(post("/publish")
+                        .param("id", "id")
+                        .param("process", "D2CC")
+                        .param("targetDate", "2020-11-24"))
+                .andExpect(status().isInternalServerError());
     }
 }

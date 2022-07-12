@@ -39,15 +39,10 @@ import java.util.concurrent.CompletableFuture;
  */
 @Service
 public class CseValidPublicationService {
-    private static final String APPLICATION_ID = "process-publication-server";
-    private static final String CONTENT_ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "application/vnd.api+json";
-    private static final int PRIORITY = 1;
     private static final Logger LOGGER = LoggerFactory.getLogger(CseValidPublicationService.class);
 
     private final AmqpMessagesConfiguration amqpMessagesConfiguration;
     private final AmqpTemplate amqpTemplate;
-    private final JsonConverter jsonConverter;
     private final FileImporter fileImporter;
     private final FileExporter fileExporter;
     private final FilenamesConfiguration filenamesConfiguration;
@@ -56,11 +51,10 @@ public class CseValidPublicationService {
     private final FileUtils fileUtils;
     private final CseValidClient cseValidClient;
 
-    public CseValidPublicationService(AmqpMessagesConfiguration amqpMessagesConfiguration, AmqpTemplate amqpTemplate, JsonConverter jsonConverter, FileImporter fileImporter, FileExporter fileExporter, FilenamesConfiguration filenamesConfiguration, MinioAdapter minioAdapter, FileUtils fileUtils, CseValidClient cseValidClient) {
+    public CseValidPublicationService(AmqpMessagesConfiguration amqpMessagesConfiguration, AmqpTemplate amqpTemplate, FileImporter fileImporter, FileExporter fileExporter, FilenamesConfiguration filenamesConfiguration, MinioAdapter minioAdapter, FileUtils fileUtils, CseValidClient cseValidClient) {
         this.amqpMessagesConfiguration = amqpMessagesConfiguration;
         this.filenamesConfiguration = filenamesConfiguration;
         this.amqpTemplate = amqpTemplate;
-        this.jsonConverter = jsonConverter;
         this.fileImporter = fileImporter;
         this.fileExporter = fileExporter;
         this.minioAdapter = minioAdapter;
@@ -68,7 +62,7 @@ public class CseValidPublicationService {
         this.cseValidClient = cseValidClient;
     }
 
-    public ProcessStartRequest publishProcess(String nullableId, String process, String targetDate, int targetDateOffset) {
+    public boolean publishProcess(String nullableId, String process, String targetDate, int targetDateOffset) {
         String id = nullableId;
         if (id == null) {
             id = UUID.randomUUID().toString();
@@ -81,7 +75,7 @@ public class CseValidPublicationService {
             throw new CseValidPublicationInvalidDataException(String.format("Incorrect format for target date : '%s' is invalid, please use ISO-8601 format", targetDate), e);
         }
         localTargetDate = localTargetDate.plusDays(targetDateOffset);
-        String processCode = process.equals("IDCC") ? "ID" : "2D";
+        String processCode = getProcessCode(process);
         tcDocumentTypeWriter = new TcDocumentTypeWriter(processCode, localTargetDate);
         String ttcAdjustmentFilePath = fileUtils.getTtcAdjustmentFileName(process, localTargetDate);
         TcDocumentType tcDocument = fileImporter.importTtcAdjustment(ttcAdjustmentFilePath);
@@ -92,26 +86,16 @@ public class CseValidPublicationService {
             for (TTimestamp ts : timestampsToBeValidated) {
                 LOGGER.info("Running validation for timestamp : {}", ts.getTime().getV());
                 if (checkIfComputationIsNeeded(process, ts, tcDocumentTypeWriter)) {
-                    OffsetDateTime targetTimestamp = OffsetDateTime.parse(ts.getReferenceCalculationTime().getV()).atZoneSameInstant(ZoneId.of("Europe/Brussels")).toOffsetDateTime();
-                    CseValidFileResource ttcAdjustmentFile = fileUtils.createFileResource(ttcAdjustmentFilePath);
-                    CseValidFileResource cracFile = fileUtils.createFileResource(fileUtils.getFrCracFilePath(process,  ts.getReferenceCalculationTime().getV()));
-                    CseValidFileResource cgmFile = fileUtils.createFileResource(ts.getCGMfile().getV(), process + "/CGMs/" + ts.getCGMfile().getV());
-                    CseValidFileResource glskFile = fileUtils.createFileResource(ts.getGSKfile().getV(), process + "/GLSKs/" + ts.getGSKfile().getV());
 
-                    CseValidRequest cseValidRequest = buildCseValidRequest(process, id, targetTimestamp, ttcAdjustmentFile, cracFile, cgmFile, glskFile);
-                    CseValidResponse cseValidResponse = cseValidClient.run(cseValidRequest);
-                    LOGGER.info("Cse valid response received: {}", cseValidResponse);
-                    fillWithCseValidResponse(ts, cseValidResponse);
-                    /*
-                    timestamps.add(addAliasesToInputNetwork(request, ts, timestampId)
-                            .thenCompose(aliasesResponse -> callDichotomyService(request, ts, timestampId, aliasesResponse))
-                            .thenAccept(dichotomyResponse -> fillResultsWithDichotomyResponse(ts, dichotomyResponse, timestampId, tcDocumentTypeWriter))
+                    timestamps.add(addCseValidRequest(process, id, ttcAdjustmentFilePath, ts)
+                            .thenCompose(this::runCseValidRequest)
+                            .thenAccept(cseValidResponse -> fillWithCseValidResponse(ts, cseValidResponse))
                             .exceptionally(ex -> {
-                                LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTimeInterval().getV()), ex);
+                                LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), ex);
                                 tcDocumentTypeWriter.fillWithError(ts);
                                 return null;
                             })
-                    );*/
+                    );
                 }
             }
             CompletableFuture.allOf(timestamps.toArray(new CompletableFuture[0])).join();
@@ -120,7 +104,34 @@ public class CseValidPublicationService {
             tcDocumentTypeWriter.fillWithNoTtcAdjustmentError();
         }
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, localTargetDate);
-        return null; //todo response json
+        return true;
+    }
+
+    private String getProcessCode(String process) {
+        switch (process) {
+            case "IDCC":
+                return "ID";
+            case "D2CC":
+                return "2D";
+            default:
+                throw new CseValidPublicationInvalidDataException(String.format("Unknown target process for CSE: %s", process));
+        }
+    }
+
+    private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) {
+        return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest))
+                .exceptionally(ex -> {
+                    LOGGER.error(String.format("Exception during running Cse Valid request for timestamp '%s'", cseValidRequest.getTimestamp()), ex);
+                    return null;
+                });
+    }
+
+    private  CompletableFuture<CseValidRequest> addCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
+        return CompletableFuture.supplyAsync(() -> buildCseValidRequest(process, id, ttcAdjustmentFilePath, ts))
+                .exceptionally(ex -> {
+                    LOGGER.error(String.format("Exception during cse valid request creation for timestamp '%s'", ts.getTime().getV()), ex);
+                    return null;
+                });
     }
 
     private void fillWithCseValidResponse(TTimestamp ts, CseValidResponse cseValidResponse) {
@@ -141,7 +152,7 @@ public class CseValidPublicationService {
 
     private TTimestamp getTimestampResult(TcDocumentType tcDocumentType, TTime time) {
         if (tcDocumentType != null) {
-            return tcDocumentType.getValidationResults().get(0).getTimestamp().stream()
+            return tcDocumentType.getValidationResults().get(0).getTimestamp().stream() //todo not working check time
                     .filter(t -> t.getTime().getV().equals(time.getV()))
                     .findFirst()
                     .orElse(null);
@@ -150,18 +161,23 @@ public class CseValidPublicationService {
         }
     }
 
-    CseValidRequest buildCseValidRequest(String process, String id, OffsetDateTime timestamp, CseValidFileResource ttcAdjustmentFile, CseValidFileResource cracFile, CseValidFileResource cgmFile, CseValidFileResource glskFile) {
+    CseValidRequest buildCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
+        OffsetDateTime targetTimestamp = OffsetDateTime.parse(ts.getReferenceCalculationTime().getV()).atZoneSameInstant(ZoneId.of("Europe/Brussels")).toOffsetDateTime();
+        CseValidFileResource ttcAdjustmentFile = fileUtils.createFileResource(ttcAdjustmentFilePath);
+        CseValidFileResource cracFile = fileUtils.createFileResource(fileUtils.getFrCracFilePath(process,  ts.getReferenceCalculationTime().getV()));
+        CseValidFileResource cgmFile = fileUtils.createFileResource(ts.getCGMfile().getV(), process + "/CGMs/" + ts.getCGMfile().getV());
+        CseValidFileResource glskFile = fileUtils.createFileResource(ts.getGSKfile().getV(), process + "/GLSKs/" + ts.getGSKfile().getV());
         switch (process) {
             case "IDCC":
                 return CseValidRequest.buildIdccValidRequest(id,
-                        timestamp,
+                        targetTimestamp,
                         ttcAdjustmentFile,
                         cracFile,
                         cgmFile,
                         glskFile);
             case "D2CC":
                 return CseValidRequest.buildD2ccValidRequest(id,
-                        timestamp,
+                        targetTimestamp,
                         ttcAdjustmentFile,
                         cracFile,
                         cgmFile,

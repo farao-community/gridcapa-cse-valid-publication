@@ -20,17 +20,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class CseValidPublicationController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CseValidPublicationController.class);
     private final CseValidPublicationService cseValidPublicationService;
-    private final JsonConverter jsonConverter;
 
-    public CseValidPublicationController(CseValidPublicationService processPublicationService, JsonConverter jsonConverter) {
+    public CseValidPublicationController(CseValidPublicationService processPublicationService) {
         this.cseValidPublicationService = processPublicationService;
-        this.jsonConverter = jsonConverter;
     }
 
     @PostMapping(value = "/publish")
-    public ResponseEntity<byte[]> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
+    public ResponseEntity<Void> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
         LOGGER.info("Process publication request received with following attributes: id={} process={} targetDate={}", id, process, targetDate);
-        ProcessStartRequest request = cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset);
-        return ResponseEntity.ok().body(jsonConverter.toJsonMessage(request));
+        try {
+            if (cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset)) {
+                return ResponseEntity.ok().build();
+            } else {
+                return getEmptyResponseEntity(process, targetDate);
+            }
+        } catch (Exception e) {
+            return getErrorResponseEntity(process, targetDate, e.getMessage());
+        }
+    }
+
+    private ResponseEntity<Void> getEmptyResponseEntity(String process, String targetDate) {
+        LOGGER.error("Failed to run computation for process {} and target date {} ", process, targetDate);
+        return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<Void> getErrorResponseEntity(String process, String targetDate, String message) {
+        LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process, targetDate, message);
+        return ResponseEntity.internalServerError().build();
     }
 }
