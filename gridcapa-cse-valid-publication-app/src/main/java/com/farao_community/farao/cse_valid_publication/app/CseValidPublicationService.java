@@ -85,21 +85,18 @@ public class CseValidPublicationService {
             LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
             for (TTimestamp ts : timestampsToBeValidated) {
                 LOGGER.info("Running validation for timestamp : {}", ts.getTime().getV());
-                if (checkIfComputationIsNeeded(process, ts, tcDocumentTypeWriter)) {
 
-                    timestamps.add(addCseValidRequest(process, id, ttcAdjustmentFilePath, ts)
-                            .thenCompose(this::runCseValidRequest)
-                            .thenAccept(cseValidResponse -> fillWithCseValidResponse(ts, cseValidResponse))
-                            .exceptionally(ex -> {
-                                LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), ex);
-                                tcDocumentTypeWriter.fillWithError(ts);
-                                return null;
-                            })
-                    );
-                }
+                timestamps.add(addCseValidRequest(process, id, ttcAdjustmentFilePath, ts)
+                        .thenCompose(this::runCseValidRequest)
+                        .thenAccept(cseValidResponse -> fillWithCseValidResponse(ts, cseValidResponse))
+                        .exceptionally(ex -> {
+                            LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), ex);
+                            tcDocumentTypeWriter.fillWithError(ts);
+                            return null;
+                        })
+                );
             }
             CompletableFuture.allOf(timestamps.toArray(new CompletableFuture[0])).join();
-
         } else {
             tcDocumentTypeWriter.fillWithNoTtcAdjustmentError();
         }
@@ -119,7 +116,10 @@ public class CseValidPublicationService {
     }
 
     private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) {
-        return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest))
+        if (cseValidRequest == null) {
+            return CompletableFuture.completedFuture(null);
+        }
+        return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest)) //todo cse publication send requests asynchronously but cse valid runner does not allow yet asynchronous run
                 .exceptionally(ex -> {
                     LOGGER.error(String.format("Exception during running Cse Valid request for timestamp '%s'", cseValidRequest.getTimestamp()), ex);
                     return null;
@@ -135,24 +135,26 @@ public class CseValidPublicationService {
     }
 
     private void fillWithCseValidResponse(TTimestamp ts, CseValidResponse cseValidResponse) {
-        if (cseValidResponse.getResultFileUrl() != null) {
+        LOGGER.info("Cse valid response received {}", cseValidResponse);
+        if (cseValidResponse != null && cseValidResponse.getResultFileUrl() != null) {
             TcDocumentType tcDocumentType = fileImporter.importTtcValidation(cseValidResponse.getResultFileUrl());
             TTimestamp timestampResult = getTimestampResult(tcDocumentType, ts.getTime());
             if (timestampResult != null) {
+                LOGGER.info("Filling timestamp result for {}", ts.getTime().getV());
                 tcDocumentTypeWriter.fillWithTimestampResult(timestampResult);
             } else {
-                LOGGER.warn("No timestamp result found for {}", ts.getTime());
+                LOGGER.warn("No timestamp result found for {}", ts.getTime().getV());
                 tcDocumentTypeWriter.fillWithError(ts);
             }
         } else {
-            LOGGER.warn("No TTC validation url found for {}", ts.getTime());
+            LOGGER.warn("No TTC validation url found for {}", ts.getTime().getV());
             tcDocumentTypeWriter.fillWithError(ts);
         }
     }
 
     private TTimestamp getTimestampResult(TcDocumentType tcDocumentType, TTime time) {
         if (tcDocumentType != null) {
-            return tcDocumentType.getValidationResults().get(0).getTimestamp().stream() //todo not working check time
+            return tcDocumentType.getValidationResults().get(0).getTimestamp().stream()
                     .filter(t -> t.getTime().getV().equals(time.getV()))
                     .findFirst()
                     .orElse(null);
@@ -164,9 +166,10 @@ public class CseValidPublicationService {
     CseValidRequest buildCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
         OffsetDateTime targetTimestamp = OffsetDateTime.parse(ts.getReferenceCalculationTime().getV()).atZoneSameInstant(ZoneId.of("Europe/Brussels")).toOffsetDateTime();
         CseValidFileResource ttcAdjustmentFile = fileUtils.createFileResource(ttcAdjustmentFilePath);
-        CseValidFileResource cracFile = fileUtils.createFileResource(fileUtils.getFrCracFilePath(process,  ts.getReferenceCalculationTime().getV()));
         CseValidFileResource cgmFile = fileUtils.createFileResource(ts.getCGMfile().getV(), process + "/CGMs/" + ts.getCGMfile().getV());
         CseValidFileResource glskFile = fileUtils.createFileResource(ts.getGSKfile().getV(), process + "/GLSKs/" + ts.getGSKfile().getV());
+        String cracFilePath = fileUtils.getFrCracFilePath(process,  ts.getReferenceCalculationTime().getV());
+        CseValidFileResource cracFile = cracFilePath != null ? fileUtils.createFileResource(cracFilePath) : fileUtils.createFileResource("NOT_PRESENT", null);
         switch (process) {
             case "IDCC":
                 return CseValidRequest.buildIdccValidRequest(id,
@@ -188,72 +191,4 @@ public class CseValidPublicationService {
         }
     }
 
-    private boolean checkIfComputationIsNeeded(String process, TTimestamp ts, TcDocumentTypeWriter tcDocumentTypeWriter) {
-        // This TTC_Adjustment file must contains important non null values (Mnii, MiBnii, Antc)
-        if (!datasPresentInTTCAdjustmentFile(ts)) {
-            tcDocumentTypeWriter.fillTimestampWithMissingInputFiles(ts, "Process fail during TSO validation phase: Missing datas.");
-            return false;
-        }
-
-        // The timestamp must need to be validated (MiBnii - Antc <= Mnii)
-        if (!actualMaxImportAugmented(ts)) {
-            tcDocumentTypeWriter.fillTimestampWithNoComputationNeeded(ts);
-            return false;
-        }
-
-        // The files (CRAC, CGM, GLSK) specified inside the timestamp must be present on the MinIO server
-        return areFilesPresent(process, tcDocumentTypeWriter, ts);
-
-    }
-
-    private boolean datasPresentInTTCAdjustmentFile(TTimestamp ts) {
-        if (ts.getMNII() == null || ts.getMiBNII() == null || ts.getANTCFinal() == null
-                || (ts.getMiBNII().getV().intValue() == 0 && ts.getANTCFinal().getV().intValue() == 0)) {
-            LOGGER.info("Missing datas in TTC Adjustment");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean actualMaxImportAugmented(TTimestamp ts) {
-        // In theory , test should be ==, but >= ensure that no calculation is done if MNII > MiBNII, which should not happen
-        // But who knows...
-        int mibniiMinusAntc = ts.getMiBNII().getV().intValue() - ts.getANTCFinal().getV().intValue();
-        int mnii = ts.getMNII().getV().intValue();
-        if (mibniiMinusAntc >= mnii) {
-            LOGGER.info("Timestamp '{}' NTC has not been augmented by adjustment process, no computation needed.", ts.getTime().getV());
-            return false;
-        }
-        LOGGER.info("Timestamp '{}' augmented NTC must be validated.", ts.getTime().getV());
-        return true;
-    }
-
-    private boolean areFilesPresent(String process, TcDocumentTypeWriter tcDocumentTypeWriter, TTimestamp ts) {
-        boolean isCgmFileAvailable = ts.getCGMfile() != null && minioAdapter.fileExists(process + "/CGMs/" + ts.getCGMfile().getV());
-        boolean isGlskFileAvailable = ts.getGSKfile() != null && minioAdapter.fileExists(process + "/GLSKs/" + ts.getGSKfile().getV());
-        boolean isCracFileAvailable = ts.getReferenceCalculationTime() != null && minioAdapter.fileExists(fileUtils.getFrCracFilePath(process, ts.getReferenceCalculationTime().getV()));
-
-        if (!isCgmFileAvailable || !isCracFileAvailable || !isGlskFileAvailable) {
-            LOGGER.error("Missing some input files for timestamp '{}'", ts.getTime().getV());
-            tcDocumentTypeWriter.fillTimestampWithMissingInputFiles(ts, redFlagReasonError(isCgmFileAvailable, isCracFileAvailable, isGlskFileAvailable));
-            return false;
-        }
-        return true;
-    }
-
-    private String redFlagReasonError(boolean cgmFileMissing, boolean cracFileMissing, boolean glskFileMissing) {
-        StringJoiner stringJoiner = new StringJoiner(", ", "Process fail during TSO validation phase: Missing ", ".");
-
-        if (!cgmFileMissing) {
-            stringJoiner.add("CGM file");
-        }
-        if (!cracFileMissing) {
-            stringJoiner.add("CRAC file");
-        }
-        if (!glskFileMissing) {
-            stringJoiner.add("GLSK file");
-        }
-
-        return stringJoiner.toString();
-    }
 }

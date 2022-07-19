@@ -123,53 +123,9 @@ public class TcDocumentTypeWriter {
 
     }
 
-    public synchronized void fillTimestampWithMissingInputFiles(TTimestamp timestampData, String redFlagError) {
-        List<TTimestamp> listTimestamps = tcDocumentType.getValidationResults().get(0).getTimestamp();
-
-        TTimestamp ts = initializeTimestampResult(timestampData);
-
-        TNumber status = new TNumber();
-        status.setV(BigInteger.ZERO);
-        ts.setSTATUS(status);
-
-        TextType errorMessage = new TextType();
-        errorMessage.setV(redFlagError);
-        ts.setRedFlagReason(errorMessage);
-
-        listTimestamps.add(ts);
-
-        listTimestamps.sort(Comparator.comparing(c -> OffsetDateTime.parse(c.getTime().getV())));
-    }
-
     public synchronized void fillWithTimestampResult(TTimestamp timestampResult) {
         List<TTimestamp> listTimestamps = tcDocumentType.getValidationResults().get(0).getTimestamp();
         listTimestamps.add(timestampResult);
-        listTimestamps.sort(Comparator.comparing(c -> OffsetDateTime.parse(c.getTime().getV())));
-    }
-
-    public synchronized void fillTimestampWithNoComputationNeeded(TTimestamp initialTs) {
-        List<TTimestamp> listTimestamps = tcDocumentType.getValidationResults().get(0).getTimestamp();
-
-        TTimestamp ts = new TTimestamp();
-        ts.setReferenceCalculationTime(initialTs.getReferenceCalculationTime());
-
-        QuantityType mnii = new QuantityType();
-        mnii.setV(initialTs.getMiBNII().getV().subtract(initialTs.getANTCFinal().getV()));
-
-        ts.setTimeInterval(initialTs.getTimeInterval());
-        ts.setTime(initialTs.getTime());
-
-        TNumber status = new TNumber();
-        status.setV(BigInteger.TWO);
-        ts.setSTATUS(status);
-        ts.setMNII(mnii);
-        ts.setTTCLimitedBy(initialTs.getTTCLimitedBy());
-        ts.setCRACfile(initialTs.getCRACfile());
-        ts.setCGMfile(initialTs.getCGMfile());
-        ts.setGSKfile(initialTs.getGSKfile());
-        ts.setLimitingElement(initialTs.getLimitingElement());
-
-        listTimestamps.add(ts);
         listTimestamps.sort(Comparator.comparing(c -> OffsetDateTime.parse(c.getTime().getV())));
     }
 
@@ -316,10 +272,6 @@ public class TcDocumentTypeWriter {
         } catch (DatatypeConfigurationException e) {
             throw new CseValidPublicationInternalException("Internal date-time conversion error", e);
         }
-    }
-
-    TcDocumentType getTcDocumentType() {
-        return tcDocumentType;
     }
 
     public void setVersionNumber(int versionNumber) {
