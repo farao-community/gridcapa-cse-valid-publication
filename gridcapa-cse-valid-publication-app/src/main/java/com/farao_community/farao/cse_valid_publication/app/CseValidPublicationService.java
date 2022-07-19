@@ -9,8 +9,6 @@ package com.farao_community.farao.cse_valid_publication.app;
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidRequest;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
-import com.farao_community.farao.cse_valid_publication.app.configuration.AmqpMessagesConfiguration;
-import com.farao_community.farao.cse_valid_publication.app.configuration.FilenamesConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
@@ -20,11 +18,9 @@ import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TTime;
 import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TTimestamp;
 import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TcDocumentType;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
-import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.*;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -41,23 +37,15 @@ import java.util.concurrent.CompletableFuture;
 public class CseValidPublicationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CseValidPublicationService.class);
 
-    private final AmqpMessagesConfiguration amqpMessagesConfiguration;
-    private final AmqpTemplate amqpTemplate;
     private final FileImporter fileImporter;
     private final FileExporter fileExporter;
-    private final FilenamesConfiguration filenamesConfiguration;
-    private final MinioAdapter minioAdapter;
     private TcDocumentTypeWriter tcDocumentTypeWriter;
     private final FileUtils fileUtils;
     private final CseValidClient cseValidClient;
 
-    public CseValidPublicationService(AmqpMessagesConfiguration amqpMessagesConfiguration, AmqpTemplate amqpTemplate, FileImporter fileImporter, FileExporter fileExporter, FilenamesConfiguration filenamesConfiguration, MinioAdapter minioAdapter, FileUtils fileUtils, CseValidClient cseValidClient) {
-        this.amqpMessagesConfiguration = amqpMessagesConfiguration;
-        this.filenamesConfiguration = filenamesConfiguration;
-        this.amqpTemplate = amqpTemplate;
+    public CseValidPublicationService(FileImporter fileImporter, FileExporter fileExporter, FileUtils fileUtils, CseValidClient cseValidClient) {
         this.fileImporter = fileImporter;
         this.fileExporter = fileExporter;
-        this.minioAdapter = minioAdapter;
         this.fileUtils = fileUtils;
         this.cseValidClient = cseValidClient;
     }
