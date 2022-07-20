@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TTC_rtevalidation_document DtdVersion="1" DtdRelease="1">
+    <DocumentIdentification v="TTC_RTEValidation_20200813_2D4"/>
+    <DocumentVersion v="1"/>
+    <DocumentType v="A32"/>
+    <ProcessType v="A15"/>
+    <SenderIdentification v="10XFR-RTE------Q" codingScheme="A01"/>
+    <SenderRole v="A04"/>
+    <ReceiverIdentification v="10XFR-RTE------Q" codingScheme="A01"/>
+    <ReceiverRole v="A04"/>
+    <CreationDateTime v="2022-07-07T17:58:15.406+02:00"/>
+    <ResultTimeInterval v="2020-08-12T22:00:00Z/2020-08-13T22:00:00Z"/>
+    <Domain v="10YDOM-1001A061T" codingScheme="A01"/>
+    <ValidationResults>
+        <TimeSeriesIdentification v="20200813-0001"/>
+        <BusinessType v="A81"/>
+        <Product v="8716867000016"/>
+        <InArea v="10YIT-GRTN-----B" codingScheme="A01"/>
+        <OutArea v="10YDOM-1001A061T" codingScheme="A01"/>
+        <MeasureUnit v="MAW"/>
+    </ValidationResults>
+</TTC_rtevalidation_document>

@@ -1,0 +1,3946 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<TTC_adjustment_document DtdVersion="8" DtdRelease="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///D:/Users/ortizperezter/Downloads/tc-document.xsd">
+	<DocumentIdentification v="TTC_Adjustment_20200813_2D4_CSE"/>
+	<DocumentVersion v="1"/>
+	<DocumentType v="A32"/>
+	<ProcessType v="A15"/>
+	<SenderIdentification v="10X1001A1001A345" codingScheme="A01"/>
+	<SenderRole v="A36"/>
+	<ReceiverIdentification v="10XFR-RTE------Q" codingScheme="A01"/>
+	<ReceiverRole v="A04"/>
+	<CreationDateTime v="2020-08-12T00:59:36Z"/>
+	<ResultTimeInterval v="2020-08-12T22:00Z/2020-08-13T22:00Z"/>
+	<Domain v="10YDOM-1001A061T" codingScheme="A01"/>
+	<AdjustmentResults>
+		<TimeSeriesIdentification v="20200813-0001"/>
+		<BusinessType v="A01"/>
+		<Product v="8716867000016"/>
+		<InArea v="10YIT-GRTN-----B" codingScheme="A01"/>
+		<OutArea v="10YDOM-1001A061T" codingScheme="A01"/>
+		<MeasureUnit v="MAW"/>
+		<Timestamp>
+			<Time v="2020-08-12T22:30Z"/>
+			<TimeInterval v="2020-08-12T22:00Z/2020-08-12T23:00Z"/>
+			<ReferenceCalculationTime v="2020-08-12T22:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4884"/>
+			<MNII v="4634"/>
+			<MiBNII v="5000"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_0030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_0030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Sils-Soazza"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 11 SSOAZZ11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+							<IAfterCRA unit="A" v="1826"/>
+							<ImaxAfterCRA unit="A" v="1830"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1846"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-12T22:00Z/2020-08-12T23:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-12T22:00Z/2020-08-12T23:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T01:30Z"/>
+			<TimeInterval v="2020-08-13T01:00Z/2020-08-13T02:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T01:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="3625"/>
+			<MNII v="3375"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="TTC Selection - LTTC"/>
+			<CGMfile v="20200813_0330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T01:00Z/2020-08-13T02:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T01:00Z/2020-08-13T02:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T05:30Z"/>
+			<TimeInterval v="2020-08-13T05:00Z/2020-08-13T06:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T05:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4686"/>
+			<MNII v="4431"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_0730_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0730_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0730_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0730_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Divaca-Padriciano"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XPA_DI21 IPDRV121 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="SI"/>
+							<areato v="IT"/>
+							<I unit="A" v="377"/>
+							<Imax unit="A" v="377"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Albertville-Rondissone"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 FALBER13 1"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 IRONT112 1"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 FALBER12 2"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 IRONT113 2"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="PST La Praz Saint Andre"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FP.AND11 FDEPHG11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1498"/>
+							<ImaxAfterCRA unit="A" v="1500"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Montjovet-Leyni"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IMTJT121 ILEYTA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="726"/>
+							<ImaxAfterCRA unit="A" v="730"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T05:00Z/2020-08-13T06:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T05:00Z/2020-08-13T06:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T08:30Z"/>
+			<TimeInterval v="2020-08-13T08:00Z/2020-08-13T09:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T08:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4469"/>
+			<MNII v="4214"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Baggio-Magenta"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IBAGM122 IMAGMA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="689"/>
+							<ImaxAfterCRA unit="A" v="690"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T08:00Z/2020-08-13T09:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T08:00Z/2020-08-13T09:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T11:30Z"/>
+			<TimeInterval v="2020-08-13T11:00Z/2020-08-13T12:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T11:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4127"/>
+			<MNII v="3872"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Divaca-Padriciano"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XPA_DI21 IPDRV121 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="SI"/>
+							<areato v="IT"/>
+							<I unit="A" v="374"/>
+							<Imax unit="A" v="377"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T11:00Z/2020-08-13T12:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T11:00Z/2020-08-13T12:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T14:30Z"/>
+			<TimeInterval v="2020-08-13T14:00Z/2020-08-13T15:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T14:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4842"/>
+			<MNII v="4587"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1630_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1630_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1630_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1630_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="220kV Pallanzeno-Verampio"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IPLLTA21 IVRPTA21 1"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Serra-Pallanzeno"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSERRA21 XSE_PA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="727"/>
+							<ImaxAfterOutage unit="A" v="730"/>
+							<IAfterCRA unit="A" v="727"/>
+							<ImaxAfterCRA unit="A" v="730"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Albertville-Rondissone"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 FALBER13 1"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 IRONT112 1"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 FALBER12 2"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 IRONT113 2"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="PST La Praz Saint Andre"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FP.AND11 FDEPHG11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1490"/>
+							<ImaxAfterCRA unit="A" v="1500"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Lienz-Soverzene"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XLI_SO21 ISOVVA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="AT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="633"/>
+							<ImaxAfterCRA unit="A" v="637"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results>
+			</Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T14:00Z/2020-08-13T15:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T14:00Z/2020-08-13T15:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T17:30Z"/>
+			<TimeInterval v="2020-08-13T17:00Z/2020-08-13T18:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T17:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4659"/>
+			<MNII v="4404"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1930_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1930_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_1930_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_1930_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton-Camporosso"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XB._CA21 ICMPTA22 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+							<I unit="A" v="755"/>
+							<Imax unit="A" v="760"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Robbia"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SROBBI12 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="995"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1853"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1853"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1849"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results/>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T17:00Z/2020-08-13T18:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T17:00Z/2020-08-13T18:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T20:30Z"/>
+			<TimeInterval v="2020-08-13T20:00Z/2020-08-13T21:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T20:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4803"/>
+			<MNII v="4548"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_2230_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_2230_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_2230_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_2230_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Sils"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SSILS 11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1001"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1859"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1859"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1856"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1856"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-12T23:30Z"/>
+			<TimeInterval v="2020-08-12T23:00Z/2020-08-13T00:00Z"/>
+			<ReferenceCalculationTime v="2020-08-12T22:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4884"/>
+			<MNII v="4634"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_0030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_0030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Sils-Soazza"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 11 SSOAZZ11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+							<IAfterCRA unit="A" v="1826"/>
+							<ImaxAfterCRA unit="A" v="1830"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1846"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results/>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-12T23:00Z/2020-08-13T00:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-12T23:00Z/2020-08-13T00:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T00:30Z"/>
+			<TimeInterval v="2020-08-13T00:00Z/2020-08-13T01:00Z"/>
+			<ReferenceCalculationTime v="2020-08-12T22:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4884"/>
+			<MNII v="4634"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_0030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_0030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Sils-Soazza"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 11 SSOAZZ11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+							<IAfterCRA unit="A" v="1826"/>
+							<ImaxAfterCRA unit="A" v="1830"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="1846"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T02:30Z"/>
+			<TimeInterval v="2020-08-13T02:00Z/2020-08-13T03:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T01:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="3625"/>
+			<MNII v="3375"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="TTC Selection - LTTC"/>
+			<CGMfile v="20200813_0330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<Results/>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T02:00Z/2020-08-13T03:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T02:00Z/2020-08-13T03:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T03:30Z"/>
+			<TimeInterval v="2020-08-13T03:00Z/2020-08-13T04:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T01:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="3625"/>
+			<MNII v="3375"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="TTC Selection - LTTC"/>
+			<CGMfile v="20200813_0330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T03:00Z/2020-08-13T04:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T03:00Z/2020-08-13T04:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T04:30Z"/>
+			<TimeInterval v="2020-08-13T04:00Z/2020-08-13T05:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T01:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="3625"/>
+			<MNII v="3375"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="TTC Selection - LTTC"/>
+			<CGMfile v="20200813_0330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.577778"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.339181"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.059649"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.023392"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T04:00Z/2020-08-13T05:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T04:00Z/2020-08-13T05:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T06:30Z"/>
+			<TimeInterval v="2020-08-13T06:00Z/2020-08-13T07:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T05:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4686"/>
+			<MNII v="4431"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_0730_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_0730_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_0730_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_0730_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Divaca-Padriciano"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XPA_DI21 IPDRV121 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="SI"/>
+							<areato v="IT"/>
+							<I unit="A" v="377"/>
+							<Imax unit="A" v="377"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Albertville-Rondissone"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 FALBER13 1"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 IRONT112 1"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 FALBER12 2"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 IRONT113 2"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="PST La Praz Saint Andre"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FP.AND11 FDEPHG11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1498"/>
+							<ImaxAfterCRA unit="A" v="1500"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Montjovet-Leyni"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IMTJT121 ILEYTA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="726"/>
+							<ImaxAfterCRA unit="A" v="730"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T06:00Z/2020-08-13T07:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T06:00Z/2020-08-13T07:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T07:30Z"/>
+			<TimeInterval v="2020-08-13T07:00Z/2020-08-13T08:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T08:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4469"/>
+			<MNII v="4214"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Baggio-Magenta"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IBAGM122 IMAGMA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="689"/>
+							<ImaxAfterCRA unit="A" v="690"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T07:00Z/2020-08-13T08:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T07:00Z/2020-08-13T08:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T09:30Z"/>
+			<TimeInterval v="2020-08-13T09:00Z/2020-08-13T10:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T08:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4469"/>
+			<MNII v="4214"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1030_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1030_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1030_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1030_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Baggio-Magenta"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IBAGM122 IMAGMA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="689"/>
+							<ImaxAfterCRA unit="A" v="690"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T09:00Z/2020-08-13T10:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T09:00Z/2020-08-13T10:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T10:30Z"/>
+			<TimeInterval v="2020-08-13T10:00Z/2020-08-13T11:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T11:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4127"/>
+			<MNII v="3872"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Divaca-Padriciano"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XPA_DI21 IPDRV121 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="SI"/>
+							<areato v="IT"/>
+							<I unit="A" v="374"/>
+							<Imax unit="A" v="377"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T10:00Z/2020-08-13T11:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T10:00Z/2020-08-13T11:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T12:30Z"/>
+			<TimeInterval v="2020-08-13T12:00Z/2020-08-13T13:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T11:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4127"/>
+			<MNII v="3872"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1330_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1330_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1330_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1330_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Divaca-Padriciano"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XPA_DI21 IPDRV121 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="SI"/>
+							<areato v="IT"/>
+							<I unit="A" v="374"/>
+							<Imax unit="A" v="377"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T12:00Z/2020-08-13T13:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T12:00Z/2020-08-13T13:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T13:30Z"/>
+			<TimeInterval v="2020-08-13T13:00Z/2020-08-13T14:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T14:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4842"/>
+			<MNII v="4587"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1630_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1630_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1630_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1630_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="220kV Pallanzeno-Verampio"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IPLLTA21 IVRPTA21 1"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Serra-Pallanzeno"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSERRA21 XSE_PA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="727"/>
+							<ImaxAfterOutage unit="A" v="730"/>
+							<IAfterCRA unit="A" v="727"/>
+							<ImaxAfterCRA unit="A" v="730"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Albertville-Rondissone"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 FALBER13 1"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 IRONT112 1"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 FALBER12 2"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 IRONT113 2"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="PST La Praz Saint Andre"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FP.AND11 FDEPHG11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1490"/>
+							<ImaxAfterCRA unit="A" v="1500"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Lienz-Soverzene"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XLI_SO21 ISOVVA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="AT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="633"/>
+							<ImaxAfterCRA unit="A" v="637"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T13:00Z/2020-08-13T14:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T13:00Z/2020-08-13T14:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T15:30Z"/>
+			<TimeInterval v="2020-08-13T15:00Z/2020-08-13T16:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T14:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4842"/>
+			<MNII v="4587"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1630_2D4_CO_Final_CSE3.uct"/>
+			<GSKfile v="20200813_1630_2D4_CO_GSK_CSE2.xml"/>
+			<CRACfile v="20200813_1630_2D4_CO_CRAC_CSE2.xml"/>
+			<BASECASEfile v="20200813_1630_2D4_CO_CSE3.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.685279"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.220812"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.068528"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.025381"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="220kV Pallanzeno-Verampio"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="IPLLTA21 IVRPTA21 1"/>
+							<areafrom v="IT"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Serra-Pallanzeno"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSERRA21 XSE_PA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="727"/>
+							<ImaxAfterOutage unit="A" v="730"/>
+							<IAfterCRA unit="A" v="727"/>
+							<ImaxAfterCRA unit="A" v="730"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Albertville-Rondissone"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 FALBER13 1"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO11 IRONT112 1"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 FALBER12 2"/>
+							<areafrom v="IT"/>
+							<areato v="FR"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XAL_RO12 IRONT113 2"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="PST La Praz Saint Andre"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FP.AND11 FDEPHG11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1490"/>
+							<ImaxAfterCRA unit="A" v="1500"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Lienz-Soverzene"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XLI_SO21 ISOVVA21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="AT"/>
+							<areato v="IT"/>
+							<IAfterCRA unit="A" v="633"/>
+							<ImaxAfterCRA unit="A" v="637"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T15:00Z/2020-08-13T16:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T15:00Z/2020-08-13T16:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T16:30Z"/>
+			<TimeInterval v="2020-08-13T16:00Z/2020-08-13T17:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T17:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4659"/>
+			<MNII v="4404"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1930_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1930_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_1930_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_1930_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton-Camporosso"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XB._CA21 ICMPTA22 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+							<I unit="A" v="755"/>
+							<Imax unit="A" v="760"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Robbia"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SROBBI12 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="995"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1853"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1853"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1849"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T16:00Z/2020-08-13T17:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T16:00Z/2020-08-13T17:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T18:30Z"/>
+			<TimeInterval v="2020-08-13T18:00Z/2020-08-13T19:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T17:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4659"/>
+			<MNII v="4404"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_1930_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_1930_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_1930_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_1930_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N situation"/>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton-Camporosso"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XB._CA21 ICMPTA22 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="IT"/>
+							<I unit="A" v="755"/>
+							<Imax unit="A" v="760"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Robbia"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SROBBI12 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="995"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1853"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1853"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1849"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1849"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T18:00Z/2020-08-13T19:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T18:00Z/2020-08-13T19:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T19:30Z"/>
+			<TimeInterval v="2020-08-13T19:00Z/2020-08-13T20:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T20:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4803"/>
+			<MNII v="4548"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_2230_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_2230_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_2230_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_2230_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Sils"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SSILS 11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1001"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1859"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1859"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1856"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1856"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T19:00Z/2020-08-13T20:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T19:00Z/2020-08-13T20:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+		<Timestamp>
+			<Time v="2020-08-13T21:30Z"/>
+			<TimeInterval v="2020-08-13T21:00Z/2020-08-13T22:00Z"/>
+			<ReferenceCalculationTime v="2020-08-13T20:30Z"/>
+			<STATUS v="1"/>
+			<Provider v="22XCORESO------S" codingScheme="A01"/>
+			<TTC v="4438"/>
+			<MNII v="4188"/>
+			<MiBNII v="500"/>
+			<ANTCFinal v="500"/>
+			<TTCLimitedBy v="Critical Branch"/>
+			<CGMfile v="20200813_2230_2D4_CO_Final_CSE2.uct"/>
+			<GSKfile v="20200813_2230_2D4_CO_GSK_CSE1.xml"/>
+			<CRACfile v="20200813_2230_2D4_CO_CRAC_CSE1.xml"/>
+			<BASECASEfile v="20200813_2230_2D4_CO_CSE2.uct"/>
+			<SplittingFactors>
+				<SplittingFactor>
+					<Factor v="0.581897"/>
+					<Country v="FR"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.338362"/>
+					<Country v="CH"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.058190"/>
+					<Country v="AT"/>
+				</SplittingFactor>
+				<SplittingFactor>
+					<Factor v="0.021552"/>
+					<Country v="SI"/>
+				</SplittingFactor>
+			</SplittingFactors>
+			<LimitingElement>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Pradella-Robbia/Sils + Filisur-Sils"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SFILIS11 SSILS 11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SPRADE14 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSILS 12 SY_PUN11 1"/>
+							<areafrom v="CH"/>
+							<areato v="CH"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Menton - Trinite Victor"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="FT.VIC22 FZMENT21 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="FR"/>
+							<areato v="FR"/>
+							<IAfterCRA unit="A" v="1001"/>
+							<ImaxAfterCRA unit="A" v="1001"/>
+							<Vn unit="kV" v="220"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="FR"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+				<CriticalBranch>
+					<Outage>
+						<Name v="N-2 Robbia-Gorlago + Robbia-S.Fiorano"/>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI11 XRO_SF11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SROBBI13 XRO_GO11 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_GO11 IGORM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+						<Element>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XRO_SF11 ISFIM111 1"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+						</Element>
+					</Outage>
+					<MonitoredElement>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="SSOAZZ11 XSO_BU11 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1859"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1859"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+						<Element>
+							<Name v="Soazza-Bulciago"/>
+							<EIC v="17T-FR-00000057Q"/>
+							<Code v="XSO_BU11 IBULM111 1"/>
+							<Selected>true</Selected>
+							<Sensitivity>5.00</Sensitivity>
+							<AlwaysSelected>false</AlwaysSelected>
+							<LimitingState v="AfterOutage"/>
+							<areafrom v="CH"/>
+							<areato v="IT"/>
+							<IAfterOutage unit="A" v="1856"/>
+							<ImaxAfterOutage unit="A" v="1860"/>
+							<IAfterCRA unit="A" v="1856"/>
+							<ImaxAfterCRA unit="A" v="1860"/>
+							<Vn unit="kV" v="380"/>
+							<Margin unit="MW" v="70"/>
+							<minMargin unit="%" v="70"/>
+							<SelectionStatus>
+								<Selected>true</Selected>
+								<AlwaysSelected>false</AlwaysSelected>
+								<Sensitivity v="5.00" unit="%"/>
+								<PTDFListRef>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListRef>
+								<PTDFListNTC>
+									<PTDF>
+										<State v="AfterCRA"/>
+										<Factor unit="%" v="5.00"/>
+										<Country v="IT"/>
+										<ControlBlock v=""/>
+									</PTDF>
+								</PTDFListNTC>
+							</SelectionStatus>
+							<ANTC v="0.00"/>
+						</Element>
+					</MonitoredElement>
+				</CriticalBranch>
+			</LimitingElement>
+			<Results></Results>
+			<CostlyRemedialActions>
+				<UpwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T21:00Z/2020-08-13T22:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</UpwardMargin>
+				<DownwardMargin>
+					<Operator v="FR"/>
+					<TimeInterval v="2020-08-13T21:00Z/2020-08-13T22:00Z"/>
+					<Margin v="0" unit="MW"/>
+				</DownwardMargin>
+			</CostlyRemedialActions>
+		</Timestamp>
+	</AdjustmentResults>
+</TTC_adjustment_document>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<TTC_adjustment_document DtdVersion="8" DtdRelease="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///D:/Users/ortizperezter/Downloads/tc-document.xsd">
+	<DocumentIdentification v="TTC_Adjustment_20200813_2D4_CSE"/>
+	<DocumentVersion v="1"/>
+	<DocumentType v="A32"/>
+	<ProcessType v="A15"/>
+	<SenderIdentification v="10X1001A1001A345" codingScheme="A01"/>
+	<SenderRole v="A36"/>
+	<ReceiverIdentification v="10XFR-RTE------Q" codingScheme="A01"/>
+	<ReceiverRole v="A04"/>
+	<CreationDateTime v="2020-08-12T00:59:36Z"/>
+	<ResultTimeInterval v="2020-08-12T22:00Z/2020-08-13T22:00Z"/>
+	<Domain v="10YDOM-1001A061T" codingScheme="A01"/>
+	<AdjustmentResults>
+		<TimeSeriesIdentification v="20200813-0001"/>
+		<BusinessType v="A01"/>
+		<Product v="8716867000016"/>
+		<InArea v="10YIT-GRTN-----B" codingScheme="A01"/>
+		<OutArea v="10YDOM-1001A061T" codingScheme="A01"/>
+		<MeasureUnit v="MAW"/>
+		<Timestamp>
+	</AdjustmentResults>
+</TTC_adjustment_document>
