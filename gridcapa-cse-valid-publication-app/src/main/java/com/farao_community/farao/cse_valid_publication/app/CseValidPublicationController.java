@@ -35,7 +35,7 @@ public class CseValidPublicationController {
                 return getEmptyResponseEntity(process, targetDate);
             }
         } catch (Exception e) {
-            return getErrorResponseEntity(process, targetDate, e.getMessage());
+            return getErrorResponseEntity(process, targetDate, e);
         }
     }
 
@@ -44,8 +44,8 @@ public class CseValidPublicationController {
         return ResponseEntity.notFound().build();
     }
 
-    private ResponseEntity<Void> getErrorResponseEntity(String process, String targetDate, String message) {
-        LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process, targetDate, message);
+    private ResponseEntity<Void> getErrorResponseEntity(String process, String targetDate, Exception exception) {
+        LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process, targetDate, exception);
         return ResponseEntity.internalServerError().build();
     }
 }

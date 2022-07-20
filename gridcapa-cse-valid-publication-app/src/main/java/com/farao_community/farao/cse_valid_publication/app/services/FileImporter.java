@@ -58,10 +58,10 @@ public class FileImporter {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
         } catch (IOException e) {
-            LOGGER.warn("Cannot open TTC validation url {} with error {}", ttcValidationUrl, e.getStackTrace());
+            LOGGER.warn("Cannot open TTC validation url {} with error {}", ttcValidationUrl, e.getCause());
             return null;
         } catch (Exception e) {
-            LOGGER.warn("Cannot retrieve TTC validation file {} with error {}", ttcValidationUrl, e.getStackTrace());
+            LOGGER.warn("Cannot retrieve TTC validation file {} with error {}", ttcValidationUrl, e.getCause());
             return null;
         }
     }

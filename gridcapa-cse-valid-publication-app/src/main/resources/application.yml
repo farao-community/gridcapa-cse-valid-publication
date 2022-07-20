@@ -27,6 +27,3 @@ minio-adapter:
   access-key: gridcapa
   secret-key: gridcapa
   url: http://localhost:9000/
-
-server:
-  port: 9090
