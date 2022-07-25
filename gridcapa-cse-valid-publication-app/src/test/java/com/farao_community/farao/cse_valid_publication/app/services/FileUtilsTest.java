@@ -33,8 +33,8 @@ class FileUtilsTest {
 
     @Test
     void testTtcAdjustmentVersion() {
-        String ttcFileName1 = "TTC_Adjustment_20200813_2D4_CSE1.xml";
-        String ttcFileName2 = "TTC_Adjustment_20200813_2D4_CSE2.xml";
+        String ttcFileName1 = "TTC_Adjustment_20200813_2D4_Final_CSE1.xml";
+        String ttcFileName2 = "TTC_Adjustment_20200813_2D4_Final_CSE2.xml";
         when(minioAdapter.listFiles(any())).thenReturn(Arrays.asList(ttcFileName1, ttcFileName2));
         assertEquals(ttcFileName2, fileUtils.getTtcAdjustmentFileName("D2CC", LocalDate.of(2020, 8, 13)));
     }

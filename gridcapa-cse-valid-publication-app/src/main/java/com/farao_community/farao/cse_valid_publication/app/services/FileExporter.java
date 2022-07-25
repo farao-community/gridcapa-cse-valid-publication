@@ -38,14 +38,15 @@ public class FileExporter {
 
     public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, String process, LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation());
-        String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), process), tcDocumentTypeWriter); //todo use process Code
+        String processCode = process.equals("IDCC") ? "ID" : "2D";
+        String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
         LOGGER.info("Save TTC validation file '{}'", filename);
         minioAdapter.uploadOutput(filename, ttcValidationIs);
     }
 
     private String putMostRecentFile(LocalDate localDate, String process, String regex, TcDocumentTypeWriter tcDocumentTypeWriter) {
-        String folder = String.format("%s/TTC_VALIDATION", process);
+        String folder = String.format("%s/TTC_VALIDATION/", process);
         List<String> files = minioAdapter.listFiles(folder);
 
         try {

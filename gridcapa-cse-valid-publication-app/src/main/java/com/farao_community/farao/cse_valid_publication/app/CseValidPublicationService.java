@@ -9,6 +9,7 @@ package com.farao_community.farao.cse_valid_publication.app;
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidRequest;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
+import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
@@ -26,9 +27,9 @@ import org.springframework.stereotype.Service;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
@@ -68,28 +69,47 @@ public class CseValidPublicationService {
         String ttcAdjustmentFilePath = fileUtils.getTtcAdjustmentFileName(process, localTargetDate);
         TcDocumentType tcDocument = fileImporter.importTtcAdjustment(ttcAdjustmentFilePath);
         if (tcDocument != null) {
-            List<CompletableFuture<Void>> timestamps = new ArrayList<>();
+            HashMap<TTimestamp, CseValidRequest> timestampCseValidRequests = new HashMap<>();
             List<TTimestamp> timestampsToBeValidated = tcDocument.getAdjustmentResults().get(0).getTimestamp();
             LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
-            for (TTimestamp ts : timestampsToBeValidated) {
-                LOGGER.info("Running validation for timestamp : {}", ts.getTime().getV());
-
-                timestamps.add(addCseValidRequest(process, id, ttcAdjustmentFilePath, ts)
-                        .thenCompose(this::runCseValidRequest)
-                        .thenAccept(cseValidResponse -> fillWithCseValidResponse(ts, cseValidResponse))
-                        .exceptionally(ex -> {
-                            LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), ex);
-                            tcDocumentTypeWriter.fillWithError(ts);
-                            return null;
-                        })
-                );
+            String cseValidRequestId = UUID.randomUUID().toString();
+            timestampsToBeValidated.forEach(ts -> timestampCseValidRequests.put(ts, buildCseValidRequest(process, cseValidRequestId, ttcAdjustmentFilePath, ts)));
+            Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCseValidResponses = new HashMap<>();
+            try {
+                runCseValidRequests(timestampCseValidRequests, timestampCseValidResponses);
+            } catch (Exception e) {
+                throw new CseValidPublicationInternalException(String.format("Error during Cse valid running for date %s ", targetDate), e);
             }
-            CompletableFuture.allOf(timestamps.toArray(new CompletableFuture[0])).join();
+            fillResultForAllTimestamps(timestampCseValidResponses);
         } else {
             tcDocumentTypeWriter.fillWithNoTtcAdjustmentError();
         }
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, localTargetDate);
         return true;
+    }
+
+    private void fillResultForAllTimestamps(Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCseValidResponses) {
+        timestampCseValidResponses.forEach((ts, cseValidResponseCompletableFuture) -> {
+            try {
+                fillWithCseValidResponse(ts, cseValidResponseCompletableFuture.get());
+            } catch (Exception e) {
+                LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), e);
+                tcDocumentTypeWriter.fillWithError(ts);
+            }
+        });
+    }
+
+    private void runCseValidRequests(HashMap<TTimestamp, CseValidRequest> timestampCseValidRequests, Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCompletableFutures) throws ExecutionException, InterruptedException {
+        timestampCseValidRequests.forEach((ts, request) -> {
+            CompletableFuture<CseValidResponse> cseValidResponseCompletable = runCseValidRequest(request);
+            timestampCompletableFutures.put(ts, cseValidResponseCompletable);
+            cseValidResponseCompletable.thenAccept(cseValidResponse1 -> LOGGER.info("Cse valid response received {}", cseValidResponse1))
+                    .exceptionally(ex -> {
+                        LOGGER.error(String.format("Exception occurred during running Cse valid request for time %s", ts.getTime().getV()), ex);
+                        return null;
+                    });
+        });
+        CompletableFuture.allOf(timestampCompletableFutures.values().toArray(new CompletableFuture[0])).get();
     }
 
     private String getProcessCode(String process) {
@@ -103,11 +123,11 @@ public class CseValidPublicationService {
         }
     }
 
-    private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) {
+    private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) { //todo cse publication send requests asynchronously but cse valid runner does not allow yet asynchronous run
         if (cseValidRequest == null) {
             return CompletableFuture.completedFuture(null);
         }
-        return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest)) //todo cse publication send requests asynchronously but cse valid runner does not allow yet asynchronous run
+        return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest))
                 .exceptionally(ex -> {
                     LOGGER.error(String.format("Exception during running Cse Valid request for timestamp '%s'", cseValidRequest.getTimestamp()), ex);
                     return null;
@@ -123,25 +143,24 @@ public class CseValidPublicationService {
     }
 
     private void fillWithCseValidResponse(TTimestamp ts, CseValidResponse cseValidResponse) {
-        LOGGER.info("Cse valid response received {}", cseValidResponse);
         if (cseValidResponse != null && cseValidResponse.getResultFileUrl() != null) {
             TcDocumentType tcDocumentType = fileImporter.importTtcValidation(cseValidResponse.getResultFileUrl());
             TTimestamp timestampResult = getTimestampResult(tcDocumentType, ts.getTime());
             if (timestampResult != null) {
-                LOGGER.info("Filling timestamp result for {}", ts.getTime().getV());
+                LOGGER.info("Filling timestamp result for time {}", ts.getTime().getV());
                 tcDocumentTypeWriter.fillWithTimestampResult(timestampResult);
             } else {
-                LOGGER.warn("No timestamp result found for {}", ts.getTime().getV());
+                LOGGER.warn("No timestamp result found for time {}", ts.getTime().getV());
                 tcDocumentTypeWriter.fillWithError(ts);
             }
         } else {
-            LOGGER.warn("No TTC validation url found for {}", ts.getTime().getV());
+            LOGGER.warn("No TTC validation url found for time {}", ts.getTime().getV());
             tcDocumentTypeWriter.fillWithError(ts);
         }
     }
 
     private TTimestamp getTimestampResult(TcDocumentType tcDocumentType, TTime time) {
-        if (tcDocumentType != null) {
+        if (tcDocumentType != null && tcDocumentType.getValidationResults().get(0) != null) {
             return tcDocumentType.getValidationResults().get(0).getTimestamp().stream()
                     .filter(t -> t.getTime().getV().equals(time.getV()))
                     .findFirst()
@@ -151,8 +170,9 @@ public class CseValidPublicationService {
         }
     }
 
-    CseValidRequest buildCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
-        OffsetDateTime targetTimestamp = OffsetDateTime.parse(ts.getReferenceCalculationTime().getV()).atZoneSameInstant(ZoneId.of("Europe/Brussels")).toOffsetDateTime();
+    private CseValidRequest buildCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
+        OffsetDateTime time = OffsetDateTime.parse(ts.getTime().getV());
+        OffsetDateTime targetTimestamp = OffsetDateTime.parse(ts.getReferenceCalculationTime().getV());
         CseValidFileResource ttcAdjustmentFile = fileUtils.createFileResource(ttcAdjustmentFilePath);
         CseValidFileResource cgmFile = fileUtils.createFileResource(ts.getCGMfile().getV(), process + "/CGMs/" + ts.getCGMfile().getV());
         CseValidFileResource glskFile = fileUtils.createFileResource(ts.getGSKfile().getV(), process + "/GLSKs/" + ts.getGSKfile().getV());
@@ -165,14 +185,16 @@ public class CseValidPublicationService {
                         ttcAdjustmentFile,
                         cracFile,
                         cgmFile,
-                        glskFile);
+                        glskFile,
+                        time);
             case "D2CC":
                 return CseValidRequest.buildD2ccValidRequest(id,
                         targetTimestamp,
                         ttcAdjustmentFile,
                         cracFile,
                         cgmFile,
-                        glskFile);
+                        glskFile,
+                        time);
             default:
                 throw new NotImplementedException(String.format("Unknown target process for CSE: %s", process));
 

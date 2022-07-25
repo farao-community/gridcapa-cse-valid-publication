@@ -40,7 +40,7 @@ class FileImporterTest {
 
     @Test
     void importExistingTtcAdjustment() {
-        String ttcFileName = "TTC_Adjustment_20200813_2D4_CSE1.xml";
+        String ttcFileName = "TTC_Adjustment_20200813_2D4_Final_CSE1.xml";
         when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName));
         when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName)).thenReturn(true);
         TcDocumentType document = fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName);
@@ -54,7 +54,7 @@ class FileImporterTest {
 
     @Test
     void importExistingTtcAdjustmentVersion2() {
-        String ttcFileName2 = "TTC_Adjustment_20200813_2D4_CSE2.xml";
+        String ttcFileName2 = "TTC_Adjustment_20200813_2D4_Final_CSE2.xml";
         when(minioAdapter.getFile(any())).thenReturn(getClass().getResourceAsStream(testResourcePath + ttcFileName2));
         when(minioAdapter.fileExists("D2CC/TTC_ADJUSTMENT/" + ttcFileName2)).thenReturn(true);
         TcDocumentType document = fileImporter.importTtcAdjustment("D2CC/TTC_ADJUSTMENT/" + ttcFileName2);

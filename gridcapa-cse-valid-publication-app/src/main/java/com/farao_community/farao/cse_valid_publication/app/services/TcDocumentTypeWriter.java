@@ -232,7 +232,7 @@ public class TcDocumentTypeWriter {
         TimeIntervalType timeInterval = new TimeIntervalType();
         timeInterval.setV(timestampData.getTimeInterval().getV());
 
-        ts.setReferenceCalculationTime(time);
+        ts.setReferenceCalculationTime(timestampData.getReferenceCalculationTime());
 
         ts.setTimeInterval(timeInterval);
         ts.setTime(time);

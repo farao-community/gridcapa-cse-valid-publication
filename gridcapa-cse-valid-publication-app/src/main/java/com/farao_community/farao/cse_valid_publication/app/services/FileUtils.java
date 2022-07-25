@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +40,9 @@ public class FileUtils {
 
     public String getTtcAdjustmentFileName(String process, LocalDate targetDate) {
         String folder = String.format("%s/TTC_ADJUSTMENT/", process);
-        String filenameRegex = filenamesConfiguration.getTtcAdjustment().replace("[0-9]{8}", targetDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        //String filenameRegex = filenamesConfiguration.getTtcAdjustment().replace("'yyyyMMdd'", targetDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        String filenameRegex = replaceDateInTtcFilename(filenamesConfiguration.getTtcAdjustment(), targetDate);
+        LOGGER.debug(String.format("Trying to find the TTC adjustment file %s%s", folder, filenameRegex));
         return getMostRecentFile(folder, filenameRegex);
     }
 
@@ -49,11 +51,17 @@ public class FileUtils {
         String parentDirectory = String.format("%s/CRACs/", process);
         String regexWithDateTime = replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime);
         try {
-            LOGGER.info(String.format("Trying to find the CRAC file %s%s", parentDirectory, replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime)));
+            LOGGER.debug(String.format("Trying to find the CRAC file %s%s", parentDirectory, replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime)));
             return getMostRecentFile(parentDirectory, regexWithDateTime);
         } catch (CseValidPublicationInvalidDataException e) {
             return null;
         }
+    }
+
+    private String replaceDateInTtcFilename(String fileRegex, LocalDate targetDate) {
+        return fileRegex.replace("(?<year>[0-9]{4})", String.format("%04d", targetDate.getYear()))
+                .replace("(?<month>[0-9]{2})", String.format("%02d", targetDate.getMonthValue()))
+                .replace("(?<day>[0-9]{2})", String.format("%02d", targetDate.getDayOfMonth()));
     }
 
     private String replaceDateTimeInCracFilename(String cracFileRegex, OffsetDateTime offsetDateTime) {
