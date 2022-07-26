@@ -53,11 +53,11 @@
 
 
     <properties>
-        <cse-valid-runner.version>1.0.2-SNAPSHOT</cse-valid-runner.version>
+        <cse-valid-runner.version>1.0.2</cse-valid-runner.version>
         <gridcapa.starter.minio.version>0.2.0</gridcapa.starter.minio.version>
         <jsonapi.converter.version>0.10</jsonapi.converter.version>
-        <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
-        <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
+        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+        <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
         <maven.jaxb2.version>0.14.0</maven.jaxb2.version>
     </properties>
 
@@ -96,14 +96,17 @@
                 <version>${jsonapi.converter.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.xml.bind</groupId>
-                <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>${jakarta.xml.bind.version}</version>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb-api.version}</version>
             </dependency>
+
+            <!-- RUNTIME DEPENDENCIES -->
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
                 <version>${jaxb-runtime.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

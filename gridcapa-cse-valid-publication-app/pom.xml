@@ -44,6 +44,8 @@
                 <version>${maven.jaxb2.version}</version>
                 <executions>
                     <execution>
+                        <id>tc_document</id>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -51,10 +53,22 @@
                 </executions>
                 <configuration>
                     <schemaDirectory>src/main/resources/xsd</schemaDirectory>
-                    <bindingDirectory>src/main/resources/xjb</bindingDirectory>
+                    <generatePackage>com.farao_community.farao.cse_valid_publication.app.xsd</generatePackage>
+                    <generateDirectory>${project.build.directory}/generated-sources/xjc-tc_document</generateDirectory>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <excludePackageNames>com.farao_community.farao.cse_valid_publication.app.xsd</excludePackageNames>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <dependencies>
@@ -88,14 +102,16 @@
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
         </dependency>
+
+        <!-- RUNTIME -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
+            <scope>runtime</scope>
         </dependency>
-
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

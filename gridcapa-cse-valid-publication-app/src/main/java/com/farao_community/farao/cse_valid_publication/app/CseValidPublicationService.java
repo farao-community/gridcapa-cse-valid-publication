@@ -15,9 +15,9 @@ import com.farao_community.farao.cse_valid_publication.app.services.FileExporter
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileUtils;
 import com.farao_community.farao.cse_valid_publication.app.services.TcDocumentTypeWriter;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TTime;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TTimestamp;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TcDocumentType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TTime;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
@@ -196,6 +196,5 @@ public class CseValidPublicationService {
     public TcDocumentTypeWriter getTcDocumentTypeWriter() {
         return tcDocumentTypeWriter;
     }
-
 
 }

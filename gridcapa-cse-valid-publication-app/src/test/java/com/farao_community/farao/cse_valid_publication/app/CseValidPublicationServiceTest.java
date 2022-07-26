@@ -7,17 +7,14 @@
 package com.farao_community.farao.cse_valid_publication.app;
 
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TTimestamp;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.TcDocumentType;
-import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

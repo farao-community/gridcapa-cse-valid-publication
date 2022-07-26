@@ -8,9 +8,7 @@ package com.farao_community.farao.cse_valid_publication.app.services;
 
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
-import com.farao_community.farao.cse_valid_publication.app.ttc_adjustment.*;
-import xsd.etso_code_lists.*;
-import xsd.etso_core_cmpts.*;
+import com.farao_community.farao.cse_valid_publication.app.xsd.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
