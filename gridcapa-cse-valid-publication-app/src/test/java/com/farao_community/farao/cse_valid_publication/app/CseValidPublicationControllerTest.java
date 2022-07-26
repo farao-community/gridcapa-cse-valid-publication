@@ -32,7 +32,7 @@ class CseValidPublicationControllerTest {
     private CseValidPublicationService cseValidPublicationService;
 
     @Test
-    public void checkCorrectResponseWhenPublicationServiceSucceeds() throws Exception {
+    void checkCorrectResponseWhenPublicationServiceSucceeds() throws Exception {
         Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenReturn(true);
 
         mockMvc.perform(post("/publish")
@@ -43,7 +43,7 @@ class CseValidPublicationControllerTest {
     }
 
     @Test
-    public void checkCorrectResponseWhenPublicationServiceFailedWithD2ccOffset() throws Exception {
+    void checkCorrectResponseWhenPublicationServiceFailedWithD2ccOffset() throws Exception {
         Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 2)).thenReturn(false);
 
         mockMvc.perform(post("/publish")
@@ -56,7 +56,7 @@ class CseValidPublicationControllerTest {
     }
 
     @Test
-    public void checkErrorWhenPublicationServiceFailsWithException() throws Exception {
+    void checkErrorWhenPublicationServiceFailsWithException() throws Exception {
         AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Something really bad happened");
         Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
 

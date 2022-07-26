@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class CseValidPublicationInternalExceptionTest {
     @Test
-    public void checkStandardExceptionUsage() {
+    void checkStandardExceptionUsage() {
         AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Exception message");
         assertEquals("Exception message", exception.getMessage());
         assertNull(exception.getCause());

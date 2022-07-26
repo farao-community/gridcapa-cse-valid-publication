@@ -41,7 +41,7 @@ public class FileUtils {
     public String getTtcAdjustmentFileName(String process, LocalDate targetDate) {
         String folder = String.format("%s/TTC_ADJUSTMENT/", process);
         String filenameRegex = replaceDateInTtcFilename(filenamesConfiguration.getTtcAdjustment(), targetDate);
-        LOGGER.debug(String.format("Trying to find the TTC adjustment file %s%s", folder, filenameRegex));
+        LOGGER.debug("Trying to find the TTC adjustment file {}{}", folder, filenameRegex);
         return getMostRecentFile(folder, filenameRegex);
     }
 
@@ -50,7 +50,7 @@ public class FileUtils {
         String parentDirectory = String.format("%s/CRACs/", process);
         String regexWithDateTime = replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime);
         try {
-            LOGGER.debug(String.format("Trying to find the CRAC file %s%s", parentDirectory, replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime)));
+            LOGGER.debug("Trying to find the CRAC file {}{}", parentDirectory, replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime));
             return getMostRecentFile(parentDirectory, regexWithDateTime);
         } catch (CseValidPublicationInvalidDataException e) {
             return null;

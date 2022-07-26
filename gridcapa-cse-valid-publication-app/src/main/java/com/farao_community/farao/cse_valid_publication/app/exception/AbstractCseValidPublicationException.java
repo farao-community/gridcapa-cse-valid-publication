@@ -16,11 +16,11 @@ import org.springframework.core.NestedExceptionUtils;
  */
 public abstract class AbstractCseValidPublicationException extends RuntimeException {
 
-    public AbstractCseValidPublicationException(String message) {
+    protected AbstractCseValidPublicationException(String message) {
         super(message);
     }
 
-    public AbstractCseValidPublicationException(String message, Throwable throwable) {
+    protected AbstractCseValidPublicationException(String message, Throwable throwable) {
         super(message, throwable);
     }
 

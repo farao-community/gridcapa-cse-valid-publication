@@ -53,8 +53,7 @@ public class FileImporter {
     }
 
     public TcDocumentType importTtcValidation(String ttcValidationUrl) {
-        try {
-            InputStream inputStream = urlValidationService.openUrlStream(ttcValidationUrl);
+        try (InputStream inputStream = urlValidationService.openUrlStream(ttcValidationUrl)) {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
         } catch (IOException e) {

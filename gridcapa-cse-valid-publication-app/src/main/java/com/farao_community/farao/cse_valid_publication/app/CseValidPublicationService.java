@@ -77,7 +77,12 @@ public class CseValidPublicationService {
             Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCseValidResponses = new HashMap<>();
             try {
                 runCseValidRequests(timestampCseValidRequests, timestampCseValidResponses);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
+                LOGGER.error("Error during Cse valid running for date {}", targetDate, e);
+                Thread.currentThread().interrupt();
+                throw new CseValidPublicationInternalException(String.format("Error during Cse valid running for date %s ", targetDate), e);
+            } catch (ExecutionException e) {
+                LOGGER.error("Error during Cse valid running for date {}", targetDate, e);
                 throw new CseValidPublicationInternalException(String.format("Error during Cse valid running for date %s ", targetDate), e);
             }
             fillResultForAllTimestamps(timestampCseValidResponses);
@@ -92,8 +97,12 @@ public class CseValidPublicationService {
         timestampCseValidResponses.forEach((ts, cseValidResponseCompletableFuture) -> {
             try {
                 fillWithCseValidResponse(ts, cseValidResponseCompletableFuture.get());
-            } catch (Exception e) {
+            } catch (ExecutionException e) {
                 LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), e);
+                tcDocumentTypeWriter.fillWithError(ts);
+            } catch (InterruptedException e) {
+                LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", ts.getTime().getV()), e);
+                Thread.currentThread().interrupt();
                 tcDocumentTypeWriter.fillWithError(ts);
             }
         });
@@ -123,7 +132,8 @@ public class CseValidPublicationService {
         }
     }
 
-    private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) { //todo cse publication send requests asynchronously but cse valid runner does not allow yet asynchronous run
+    private CompletableFuture<CseValidResponse> runCseValidRequest(CseValidRequest cseValidRequest) {
+        //cse publication send requests asynchronously but cse valid runner does not allow yet asynchronous run
         if (cseValidRequest == null) {
             return CompletableFuture.completedFuture(null);
         }
