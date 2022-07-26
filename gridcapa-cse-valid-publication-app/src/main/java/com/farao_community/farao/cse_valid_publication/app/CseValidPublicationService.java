@@ -64,6 +64,7 @@ public class CseValidPublicationService {
             throw new CseValidPublicationInvalidDataException(String.format("Incorrect format for target date : '%s' is invalid, please use ISO-8601 format", targetDate), e);
         }
         localTargetDate = localTargetDate.plusDays(targetDateOffset);
+        LOGGER.info("Local target date with offset to {}", localTargetDate);
         String processCode = getProcessCode(process);
         tcDocumentTypeWriter = new TcDocumentTypeWriter(processCode, localTargetDate);
         String ttcAdjustmentFilePath = fileUtils.getTtcAdjustmentFileName(process, localTargetDate);

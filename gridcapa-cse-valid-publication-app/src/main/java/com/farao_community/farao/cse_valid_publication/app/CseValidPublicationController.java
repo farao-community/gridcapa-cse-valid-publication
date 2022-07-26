@@ -27,10 +27,10 @@ public class CseValidPublicationController {
 
     @PostMapping(value = "/publish")
     public ResponseEntity<Void> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
-        String id1 = id.replaceAll("[\n\r\t]", "_"); //for sonar vulnerability
+        //for sonar vulnerability
         String targetDate1 = targetDate.replaceAll("[\n\r\t]", "_");
         String process1 = process.replaceAll("[\n\r\t]", "_");
-        LOGGER.info("Process publication request received with following attributes: id={} process={} targetDate={}", id1, process1, targetDate1);
+        LOGGER.info("Process publication request received with following attributes: process={} targetDate={}", process1, targetDate1);
         try {
             if (cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset)) {
                 return ResponseEntity.ok().build();
