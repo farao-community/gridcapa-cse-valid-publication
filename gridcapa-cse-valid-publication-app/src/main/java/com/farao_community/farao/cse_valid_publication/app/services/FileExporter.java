@@ -64,7 +64,7 @@ public class FileExporter {
             String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), processCode);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);
-            return String.format("%s/%s", folder, filenameFormatted);
+            return String.format("%s%s", folder, filenameFormatted);
         } catch (Exception e) {
             String message = String.format("Cannot upload TTC validation file for process '%s', target date '%s'", process, localDate);
             throw new CseValidPublicationInternalException(message, e);
