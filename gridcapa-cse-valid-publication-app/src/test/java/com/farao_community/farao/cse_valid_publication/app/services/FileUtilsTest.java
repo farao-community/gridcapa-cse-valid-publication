@@ -49,11 +49,9 @@ class FileUtilsTest {
 
     @Test
     void getFrCracFilePathTest() {
-        //todo
-    }
-
-    @Test
-    void createFileResourceTest() {
-        //todo
+        String cracFileName1 = "20200813_0230_112_CRAC_FR1.xml";
+        String cracFileName2 = "20200813_0230_112_CRAC_FR2.xml";
+        when(minioAdapter.listFiles(any())).thenReturn(Arrays.asList(cracFileName1, cracFileName2));
+        assertEquals("20200813_0230_112_CRAC_FR2.xml", fileUtils.getFrCracFilePath("IDCC", "2020-08-13T00:30Z"));
     }
 }

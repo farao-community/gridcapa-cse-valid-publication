@@ -279,4 +279,9 @@ public class TcDocumentTypeWriter {
         version.setV(versionNumber);
         tcDocumentType.setDocumentVersion(version);
     }
+
+    public TcDocumentType getTcDocumentType() {
+        return tcDocumentType;
+    }
+
 }

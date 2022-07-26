@@ -134,14 +134,6 @@ public class CseValidPublicationService {
                 });
     }
 
-    private  CompletableFuture<CseValidRequest> addCseValidRequest(String process, String id, String ttcAdjustmentFilePath, TTimestamp ts) {
-        return CompletableFuture.supplyAsync(() -> buildCseValidRequest(process, id, ttcAdjustmentFilePath, ts))
-                .exceptionally(ex -> {
-                    LOGGER.error(String.format("Exception during cse valid request creation for timestamp '%s'", ts.getTime().getV()), ex);
-                    return null;
-                });
-    }
-
     private void fillWithCseValidResponse(TTimestamp ts, CseValidResponse cseValidResponse) {
         if (cseValidResponse != null && cseValidResponse.getResultFileUrl() != null) {
             TcDocumentType tcDocumentType = fileImporter.importTtcValidation(cseValidResponse.getResultFileUrl());
@@ -200,5 +192,10 @@ public class CseValidPublicationService {
 
         }
     }
+
+    public TcDocumentTypeWriter getTcDocumentTypeWriter() {
+        return tcDocumentTypeWriter;
+    }
+
 
 }

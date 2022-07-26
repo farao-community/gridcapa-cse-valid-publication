@@ -40,7 +40,6 @@ public class FileUtils {
 
     public String getTtcAdjustmentFileName(String process, LocalDate targetDate) {
         String folder = String.format("%s/TTC_ADJUSTMENT/", process);
-        //String filenameRegex = filenamesConfiguration.getTtcAdjustment().replace("'yyyyMMdd'", targetDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         String filenameRegex = replaceDateInTtcFilename(filenamesConfiguration.getTtcAdjustment(), targetDate);
         LOGGER.debug(String.format("Trying to find the TTC adjustment file %s%s", folder, filenameRegex));
         return getMostRecentFile(folder, filenameRegex);
