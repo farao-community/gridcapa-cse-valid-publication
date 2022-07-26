@@ -27,25 +27,21 @@ public class CseValidPublicationController {
 
     @PostMapping(value = "/publish")
     public ResponseEntity<Void> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
-        LOGGER.info("Process publication request received with following attributes: id={} process={} targetDate={}", id, process, targetDate);
+        String id1 = id.replaceAll("[\n\r\t]", "_"); //for sonar vulnerability
+        String targetDate1 = targetDate.replaceAll("[\n\r\t]", "_");
+        String process1 = process.replaceAll("[\n\r\t]", "_");
+        LOGGER.info("Process publication request received with following attributes: id={} process={} targetDate={}", id1, process1, targetDate1);
         try {
             if (cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset)) {
                 return ResponseEntity.ok().build();
             } else {
-                return getEmptyResponseEntity(process, targetDate);
+                LOGGER.error("Failed to run computation for process {} and target date {} ", process1, targetDate1);
+                return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            return getErrorResponseEntity(process, targetDate, e);
+            LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process1, targetDate1, e);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
-    private ResponseEntity<Void> getEmptyResponseEntity(String process, String targetDate) {
-        LOGGER.error("Failed to run computation for process {} and target date {} ", process, targetDate);
-        return ResponseEntity.notFound().build();
-    }
-
-    private ResponseEntity<Void> getErrorResponseEntity(String process, String targetDate, Exception exception) {
-        LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process, targetDate, exception);
-        return ResponseEntity.internalServerError().build();
-    }
 }
