@@ -10,18 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
- */
 @SpringBootTest
-class FilenamesConfigurationTest {
+class UrlConfigurationTest {
     @Autowired
-    private FilenamesConfiguration filenamesConfiguration;
+    private UrlConfiguration urlConfiguration;
 
     @Test
     void getTtcValidation() {
-        assertEquals("'TTC_RTEValidation_'yyyyMMdd'_%s'e'_(?<version>[0-9]{1,2}).xml'", filenamesConfiguration.getTtcValidation());
+        assertEquals("http://localhost:8080/tasks/businessdate/", urlConfiguration.getTaskManagerBusinessDateUrl());
     }
 }

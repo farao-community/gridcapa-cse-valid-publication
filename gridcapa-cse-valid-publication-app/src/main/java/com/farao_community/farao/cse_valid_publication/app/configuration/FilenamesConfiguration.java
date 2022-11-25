@@ -17,25 +17,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties
 @ConstructorBinding
 public class FilenamesConfiguration {
-    private final String ttcAdjustment;
     private final String ttcValidation;
-    private final String crac;
 
-    public FilenamesConfiguration(String ttcAdjustment, String ttcValidation, String crac) {
-        this.ttcAdjustment = ttcAdjustment;
+    public FilenamesConfiguration(String ttcValidation) {
         this.ttcValidation = ttcValidation;
-        this.crac = crac;
-    }
-
-    public String getTtcAdjustment() {
-        return ttcAdjustment;
     }
 
     public String getTtcValidation() {
         return ttcValidation;
-    }
-
-    public String getCrac() {
-        return crac;
     }
 }

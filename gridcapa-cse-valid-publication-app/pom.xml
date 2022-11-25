@@ -79,6 +79,10 @@
         </dependency>
         <dependency>
             <groupId>com.farao-community.farao</groupId>
+            <artifactId>gridcapa-task-manager-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.farao-community.farao</groupId>
             <artifactId>gridcapa-cse-valid-spring-boot-starter</artifactId>
         </dependency>
         <dependency>

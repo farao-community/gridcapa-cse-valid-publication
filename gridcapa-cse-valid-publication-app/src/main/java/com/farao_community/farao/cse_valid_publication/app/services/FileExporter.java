@@ -28,17 +28,15 @@ public class FileExporter {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileExporter.class);
     private final MinioAdapter minioAdapter;
     private final FilenamesConfiguration filenamesConfiguration;
-    private final FileUtils fileUtils;
 
-    public FileExporter(MinioAdapter minioAdapter, FilenamesConfiguration properties, FileUtils fileUtils) {
+    public FileExporter(MinioAdapter minioAdapter, FilenamesConfiguration properties) {
         this.minioAdapter = minioAdapter;
         this.filenamesConfiguration = properties;
-        this.fileUtils = fileUtils;
     }
 
     public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, String process, LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation());
-        String processCode = process.equals("IDCC") ? "ID" : "2D";
+        String processCode = ProcessUtils.getProcessCode(process);
         String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
         LOGGER.info("Save TTC validation file '{}'", filename);
@@ -53,14 +51,14 @@ public class FileExporter {
             int mostRecentVersion = 0;
 
             for (String filename : files) {
-                int version = fileUtils.getVersionNumber(regex, filename);
+                int version = FileUtils.getVersionNumber(regex, filename);
 
                 if (version > mostRecentVersion) {
                     mostRecentVersion = version;
                 }
             }
 
-            String processCode = process.equals("IDCC") ? "ID" : "2D";
+            String processCode = ProcessUtils.getProcessCode(process);
             String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), processCode);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);

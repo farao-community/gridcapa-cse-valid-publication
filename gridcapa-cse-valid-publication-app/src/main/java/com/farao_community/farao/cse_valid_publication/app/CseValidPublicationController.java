@@ -26,22 +26,16 @@ public class CseValidPublicationController {
     }
 
     @PostMapping(value = "/publish")
-    public ResponseEntity<Void> publishProcess(@RequestParam(required = false) String id, @RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
-        //for sonar vulnerability
-        String targetDate1 = targetDate.replaceAll("[\n\r\t]", "_");
-        String process1 = process.replaceAll("[\n\r\t]", "_");
-        LOGGER.info("Process publication request received with following attributes: process={} targetDate={}", process1, targetDate1);
+    public ResponseEntity<Void> publishProcess(@RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
+        String formattedTargetDate = targetDate.replaceAll("[\n\r\t]", "_");
+        String formattedProcess = process.replaceAll("[\n\r\t]", "_");
+        LOGGER.info("Process publication request received with following attributes: process={} targetDate={}", formattedProcess, formattedTargetDate);
         try {
-            if (cseValidPublicationService.publishProcess(id, process, targetDate, targetDateOffset)) {
-                return ResponseEntity.ok().build();
-            } else {
-                LOGGER.error("Failed to run computation for process {} and target date {} ", process1, targetDate1);
-                return ResponseEntity.notFound().build();
-            }
+            cseValidPublicationService.publishProcess(process, targetDate, targetDateOffset);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            LOGGER.error("Failed to run computation for process {} and target date {} with error {} ", process1, targetDate1, e);
+            LOGGER.error("Failed to run computation for process {} and target date {} with error {}", formattedProcess, formattedTargetDate, e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
     }
-
 }

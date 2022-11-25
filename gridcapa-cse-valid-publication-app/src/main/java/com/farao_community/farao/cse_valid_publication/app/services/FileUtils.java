@@ -7,19 +7,10 @@
 package com.farao_community.farao.cse_valid_publication.app.services;
 
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
-import com.farao_community.farao.cse_valid_publication.app.configuration.FilenamesConfiguration;
-import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,65 +20,13 @@ import java.util.regex.Pattern;
 @Component
 public class FileUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
     private final MinioAdapter minioAdapter;
-    private final FilenamesConfiguration filenamesConfiguration;
 
-    public FileUtils(MinioAdapter minioAdapter, FilenamesConfiguration filenamesConfiguration) {
+    public FileUtils(MinioAdapter minioAdapter) {
         this.minioAdapter = minioAdapter;
-        this.filenamesConfiguration = filenamesConfiguration;
     }
 
-    public String getTtcAdjustmentFileName(String process, LocalDate targetDate) {
-        String folder = String.format("%s/TTC_ADJUSTMENT/", process);
-        String filenameRegex = replaceDateInTtcFilename(filenamesConfiguration.getTtcAdjustment(), targetDate);
-        LOGGER.debug("Trying to find the TTC adjustment file {}{}", folder, filenameRegex);
-        return getMostRecentFile(folder, filenameRegex);
-    }
-
-    public String getFrCracFilePath(String process, String timestamp) {
-        OffsetDateTime offsetDateTime = OffsetDateTime.parse(timestamp).atZoneSameInstant(ZoneId.of("Europe/Brussels")).toOffsetDateTime();
-        String parentDirectory = String.format("%s/CRACs/", process);
-        String regexWithDateTime = replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime);
-        try {
-            LOGGER.debug("Trying to find the CRAC file {}{}", parentDirectory, replaceDateTimeInCracFilename(filenamesConfiguration.getCrac(), offsetDateTime));
-            return getMostRecentFile(parentDirectory, regexWithDateTime);
-        } catch (CseValidPublicationInvalidDataException e) {
-            return null;
-        }
-    }
-
-    private String replaceDateInTtcFilename(String fileRegex, LocalDate targetDate) {
-        return fileRegex.replace("(?<year>[0-9]{4})", String.format("%04d", targetDate.getYear()))
-                .replace("(?<month>[0-9]{2})", String.format("%02d", targetDate.getMonthValue()))
-                .replace("(?<day>[0-9]{2})", String.format("%02d", targetDate.getDayOfMonth()));
-    }
-
-    private String replaceDateTimeInCracFilename(String cracFileRegex, OffsetDateTime offsetDateTime) {
-        return cracFileRegex.replace("(?<year>[0-9]{4})", String.format("%04d", offsetDateTime.getYear()))
-                .replace("(?<month>[0-9]{2})", String.format("%02d", offsetDateTime.getMonthValue()))
-                .replace("(?<day>[0-9]{2})", String.format("%02d", offsetDateTime.getDayOfMonth()))
-                .replace("(?<hour>[0-9]{2})", String.format("%02d", offsetDateTime.getHour()))
-                .replace("(?<minute>[0-9]{2})", String.format("%02d", offsetDateTime.getMinute()));
-    }
-
-    private String getMostRecentFile(String prefixPath, String regex) {
-        List<String> files = minioAdapter.listFiles(prefixPath); // files contains prefixFolder
-        int mostRecentVersion = -1;
-        String mostRecentFilename = null;
-
-        for (String filename : files) {
-            int version = getVersionNumber(regex, filename);
-
-            if (version > mostRecentVersion) {
-                mostRecentFilename = filename;
-                mostRecentVersion = version;
-            }
-        }
-        return mostRecentFilename;
-    }
-
-    int getVersionNumber(String regex, String filename) {
+    static int getVersionNumber(String regex, String filename) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(FilenameUtils.getName(filename));
         if (matcher.matches()) {
@@ -98,12 +37,11 @@ public class FileUtils {
         }
     }
 
-    public CseValidFileResource createFileResource(String filename, String filePath) {
-        return new CseValidFileResource(filename, minioAdapter.generatePreSignedUrl(filePath));
-    }
-
-    public CseValidFileResource createFileResource(String filePath) {
-        String filename = FilenameUtils.getName(filePath);
-        return createFileResource(filename, filePath);
+    public CseValidFileResource createFileResource(String filename, String fileUrl) {
+        if (fileUrl != null) {
+            return new CseValidFileResource(filename, fileUrl);
+        } else {
+            return new CseValidFileResource(filename, minioAdapter.generatePreSignedUrl(null));
+        }
     }
 }
