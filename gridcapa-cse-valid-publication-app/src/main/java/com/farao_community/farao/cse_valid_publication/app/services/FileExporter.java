@@ -39,7 +39,8 @@ public class FileExporter {
         String processCode = ProcessUtils.getProcessCode(process);
         String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
-        LOGGER.info("Save TTC validation file '{}'", filename);
+        String filenameForLog = filename.replaceAll("[\n\r\t]", "_");
+        LOGGER.info("Save TTC validation file '{}'", filenameForLog);
         minioAdapter.uploadOutput(filename, ttcValidationIs);
     }
 
