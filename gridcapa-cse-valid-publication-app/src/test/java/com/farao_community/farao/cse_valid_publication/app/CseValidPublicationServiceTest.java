@@ -10,6 +10,7 @@ import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
 import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
+import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileUtils;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TResultTimeseries;
@@ -53,6 +54,8 @@ class CseValidPublicationServiceTest {
     @MockBean
     private FileImporter fileImporter;
     @MockBean
+    private FileExporter fileExporter;
+    @MockBean
     private FileUtils fileUtils;
     @MockBean
     private CseValidClient cseValidClient;
@@ -94,6 +97,7 @@ class CseValidPublicationServiceTest {
         CseValidFileResource cseValidFileResource = new CseValidFileResource("name", "url");
         Mockito.when(fileUtils.createFileResource(Mockito.any(), Mockito.any())).thenReturn(cseValidFileResource);
         Mockito.when(cseValidClient.run(Mockito.any())).thenReturn(new CseValidResponse("id", "fileUrl", null, null));
+        Mockito.doNothing().when(fileExporter).saveTtcValidation(Mockito.any(), Mockito.any(), Mockito.any());
 
         assertDoesNotThrow(() -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
     }
