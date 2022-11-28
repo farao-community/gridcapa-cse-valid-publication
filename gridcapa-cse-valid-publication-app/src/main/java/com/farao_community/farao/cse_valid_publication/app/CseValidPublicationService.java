@@ -84,26 +84,21 @@ public class CseValidPublicationService {
         LOGGER.info("Requesting URL: {}", requestUrl);
         ResponseEntity<TaskDto[]> responseEntity = restTemplateBuilder.build().getForEntity(requestUrl, TaskDto[].class);
 
-        TaskDto[] taskDtoArray = responseEntity.getBody();
-        if (taskDtoArray != null && taskDtoArray.length > 0) {
-            Optional<ProcessFileDto> ttcAdjustmentFileDtoOpt = getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT");
+        TaskDto[] taskDtoArray = Optional.ofNullable(responseEntity.getBody())
+                .filter(taskDtos -> taskDtos.length > 0)
+                .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
 
-            if (ttcAdjustmentFileDtoOpt.isPresent()) {
-                TcDocumentType tcDocument = fileImporter.importTtcFile(ttcAdjustmentFileDtoOpt.get().getFileUrl(), "adjustment");
+        getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT")
+                .map(processFileDto -> fileImporter.importTtcFile(processFileDto.getFileUrl()))
+                .ifPresentOrElse(
+                    tcDocumentType -> validateTtc(process, initialTargetDate, targetDateWithOffset, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
+                    tcDocumentTypeWriter::fillWithNoTtcAdjustmentError);
 
-                if (tcDocument != null) {
-                    validateTtc(process, initialTargetDate, targetDateWithOffset, taskDtoArray, tcDocument, tcDocumentTypeWriter);
-                    return;
-                }
-            }
-        }
-
-        tcDocumentTypeWriter.fillWithNoTtcAdjustmentError();
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, targetDateWithOffset);
     }
 
     private void validateTtc(String process, String initialTargetDate, LocalDate targetDateWithOffset, TaskDto[] taskDtoArray, TcDocumentType tcDocument, TcDocumentTypeWriter tcDocumentTypeWriter) {
-        HashMap<TTimestamp, CseValidRequest> timestampCseValidRequests = new HashMap<>();
+        Map<TTimestamp, CseValidRequest> timestampCseValidRequests = new HashMap<>();
         List<TTimestamp> timestampsToBeValidated = tcDocument.getAdjustmentResults().get(0).getTimestamp();
         LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
 
@@ -159,7 +154,7 @@ public class CseValidPublicationService {
         throw new CseValidPublicationInvalidDataException(String.format("No task associated with the calculation time: %s", referenceCalculationTimeValue));
     }
 
-    private void runCseValidRequests(HashMap<TTimestamp, CseValidRequest> timestampCseValidRequests, Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCompletableFutures) throws ExecutionException, InterruptedException {
+    private void runCseValidRequests(Map<TTimestamp, CseValidRequest> timestampCseValidRequests, Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCompletableFutures) throws ExecutionException, InterruptedException {
         timestampCseValidRequests.forEach((ts, request) -> {
             CompletableFuture<CseValidResponse> cseValidResponseCompletable = runCseValidRequest(request);
             timestampCompletableFutures.put(ts, cseValidResponseCompletable);
@@ -201,7 +196,7 @@ public class CseValidPublicationService {
 
     private void fillWithCseValidResponse(TTimestamp ts, CseValidResponse cseValidResponse, TcDocumentTypeWriter tcDocumentTypeWriter) {
         if (cseValidResponse != null && cseValidResponse.getResultFileUrl() != null) {
-            TcDocumentType tcDocumentType = fileImporter.importTtcFile(cseValidResponse.getResultFileUrl(), "validation");
+            TcDocumentType tcDocumentType = fileImporter.importTtcFile(cseValidResponse.getResultFileUrl());
             TTimestamp timestampResult = getTimestampResult(tcDocumentType, ts.getTime());
             if (timestampResult != null) {
                 LOGGER.info("Filling timestamp result for time {}", ts.getTime().getV());

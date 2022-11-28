@@ -82,9 +82,10 @@ class CseValidPublicationServiceTest {
         TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, null, processFileDtoList, null, null)};
         Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
-        Mockito.when(fileImporter.importTtcFile("fileUrl", "adjustment")).thenReturn(tcDocumentType);
+        Mockito.when(fileImporter.importTtcFile("fileUrl")).thenReturn(tcDocumentType);
         TResultTimeseries resultTimeseries = Mockito.mock(TResultTimeseries.class);
         Mockito.when(tcDocumentType.getAdjustmentResults()).thenReturn(List.of(resultTimeseries));
+        Mockito.when(tcDocumentType.getValidationResults()).thenReturn(List.of(resultTimeseries));
         TTimestamp tTimestamp = new TTimestamp();
         Mockito.when(resultTimeseries.getTimestamp()).thenReturn(List.of(tTimestamp));
         TTime tTime = new TTime();

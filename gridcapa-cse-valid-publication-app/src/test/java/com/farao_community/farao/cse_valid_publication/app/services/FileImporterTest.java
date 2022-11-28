@@ -39,7 +39,7 @@ class FileImporterTest {
 
         InputStream inputStream = getClass().getResourceAsStream(testResourcePath + ttcValidationUrl);
         when(urlValidationService.openUrlStream(ttcValidationUrl)).thenReturn(inputStream);
-        TcDocumentType tcDocument = fileImporter.importTtcFile(ttcValidationUrl, "validation");
+        TcDocumentType tcDocument = fileImporter.importTtcFile(ttcValidationUrl);
         assertEquals("TTC_RTEValidation_20200813_2D4", tcDocument.getDocumentIdentification().getV());
     }
 
@@ -49,7 +49,7 @@ class FileImporterTest {
 
         InputStream inputStream = getClass().getResourceAsStream(testResourcePath + ttcValidationUrl);
         when(urlValidationService.openUrlStream(ttcValidationUrl)).thenReturn(inputStream);
-        TcDocumentType tcDocument = fileImporter.importTtcFile(ttcValidationUrl, "validation");
+        TcDocumentType tcDocument = fileImporter.importTtcFile(ttcValidationUrl);
         assertNull(tcDocument);
     }
 }

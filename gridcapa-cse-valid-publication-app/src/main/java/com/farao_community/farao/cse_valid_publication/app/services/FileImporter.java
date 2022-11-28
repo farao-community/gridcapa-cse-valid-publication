@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,15 +31,15 @@ public class FileImporter {
         this.urlValidationService = urlValidationService;
     }
 
-    public TcDocumentType importTtcFile(String ttcFileUrl, String ttcFileType) {
+    public TcDocumentType importTtcFile(String ttcFileUrl) {
         try (InputStream inputStream = urlValidationService.openUrlStream(ttcFileUrl)) {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
-        } catch (IOException e) {
-            LOGGER.warn("Cannot open TTC {} url {} with error {}", ttcFileType, ttcFileUrl, e.getMessage());
-            return null;
-        } catch (Exception e) {
-            LOGGER.warn("Cannot retrieve TTC {} file {} with error {}", ttcFileType, ttcFileUrl, e.getMessage());
+//            return (TcDocumentType) JAXBContext.newInstance(TcDocumentType.class)
+//                    .createUnmarshaller()
+//                    .unmarshal(inputStream);
+        } catch (IOException | JAXBException | IllegalArgumentException e) {
+            LOGGER.warn("Cannot open TTC file at url {}", ttcFileUrl, e);
             return null;
         }
     }
