@@ -243,6 +243,7 @@ public class CseValidPublicationService {
                 .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), pfd.getFileUrl()))
                 .orElseThrow(() -> new CseValidPublicationInvalidDataException(String.format("No %s file found in task for timestamp: %s", fileType, referenceCalculationTimeValue)));
     }
+
     private boolean isProcessFileDtoConsistent(ProcessFileDto processFileDto) {
         return processFileDto.getFilename() != null && processFileDto.getFileUrl() != null;
     }
