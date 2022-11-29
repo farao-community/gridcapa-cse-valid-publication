@@ -94,13 +94,13 @@ public class CseValidPublicationService {
         getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT")
                 .map(processFileDto -> fileImporter.importTtcFile(processFileDto.getFileUrl()))
                 .ifPresentOrElse(
-                    tcDocumentType -> validateTtc(process, initialTargetDate, targetDateWithOffset, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
+                    tcDocumentType -> validateTtc(process, initialTargetDate, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
                     tcDocumentTypeWriter::fillWithNoTtcAdjustmentError);
 
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, targetDateWithOffset);
     }
 
-    private void validateTtc(String process, String initialTargetDate, LocalDate targetDateWithOffset, TaskDto[] taskDtoArray, TcDocumentType tcDocument, TcDocumentTypeWriter tcDocumentTypeWriter) {
+    private void validateTtc(String process, String initialTargetDate, TaskDto[] taskDtoArray, TcDocumentType tcDocument, TcDocumentTypeWriter tcDocumentTypeWriter) {
         Map<TTimestamp, CseValidRequest> timestampCseValidRequests = new HashMap<>();
         List<TTimestamp> timestampsToBeValidated = tcDocument.getAdjustmentResults().get(0).getTimestamp();
         LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
@@ -118,7 +118,6 @@ public class CseValidPublicationService {
             throw new CseValidPublicationInternalException(String.format("Error during Cse valid running for date %s", initialTargetDate), e);
         }
         fillResultForAllTimestamps(timestampCseValidResponses, tcDocumentTypeWriter);
-        fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, targetDateWithOffset);
     }
 
     private CseValidRequest buildCseValidRequest(String process, TTimestamp ts, TaskDto taskDto) {
