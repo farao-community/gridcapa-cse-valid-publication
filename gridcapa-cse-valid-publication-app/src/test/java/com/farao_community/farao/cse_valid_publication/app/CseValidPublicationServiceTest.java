@@ -87,10 +87,10 @@ class CseValidPublicationServiceTest {
         Mockito.when(restTemplateBuilder.build()).thenReturn(restTemplate);
         ResponseEntity responseEntity = Mockito.mock(ResponseEntity.class);
         Mockito.when(restTemplate.getForEntity("http://mockUrl/2022-11-22", TaskDto[].class)).thenReturn(responseEntity);
-        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT", null, null, null, "fileUrl");
-        ProcessFileDto cgmFile = new ProcessFileDto("CGM", null, null, null, "fileUrl");
-        ProcessFileDto glskFile = new ProcessFileDto("GLSK", null, null, null, "fileUrl");
-        ProcessFileDto cracFile = new ProcessFileDto("IMPORT_CRAC", null, null, null, "fileUrl");
+        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT", null, "filename", null, "fileUrl");
+        ProcessFileDto cgmFile = new ProcessFileDto("CGM", null, "filename", null, "fileUrl");
+        ProcessFileDto glskFile = new ProcessFileDto("GLSK", null, "filename", null, "fileUrl");
+        ProcessFileDto cracFile = new ProcessFileDto("IMPORT_CRAC", null, "filename", null, "fileUrl");
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
         TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, null, processFileDtoList, null, null)};

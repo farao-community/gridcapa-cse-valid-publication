@@ -232,13 +232,18 @@ public class CseValidPublicationService {
 
     private CseValidFileResource getFileResource(TaskDto taskDto, String fileType) {
         return getProcessFile(taskDto, fileType)
+                .filter(this::isProcessFileDtoConsistent)
                 .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), pfd.getFileUrl()))
-                .orElseGet(() -> fileUtils.createFileResource("NOT_PRESENT", null));
+                .orElseGet(fileUtils::createEmptyFileResource);
     }
 
     private CseValidFileResource getFileResourceOrThrow(TaskDto taskDto, String fileType, String referenceCalculationTimeValue) {
         return getProcessFile(taskDto, fileType)
+                .filter(this::isProcessFileDtoConsistent)
                 .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), pfd.getFileUrl()))
                 .orElseThrow(() -> new CseValidPublicationInvalidDataException(String.format("No %s file found in task for timestamp: %s", fileType, referenceCalculationTimeValue)));
+    }
+    private boolean isProcessFileDtoConsistent(ProcessFileDto processFileDto) {
+        return processFileDto.getFilename() != null && processFileDto.getFileUrl() != null;
     }
 }

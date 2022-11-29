@@ -44,4 +44,8 @@ public class FileUtils {
             return new CseValidFileResource(filename, minioAdapter.generatePreSignedUrl(null));
         }
     }
+
+    public CseValidFileResource createEmptyFileResource() {
+        return createFileResource("NOT_PRESENT", null);
+    }
 }

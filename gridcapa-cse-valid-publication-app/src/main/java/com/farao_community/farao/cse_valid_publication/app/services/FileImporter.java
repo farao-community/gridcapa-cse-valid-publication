@@ -32,6 +32,10 @@ public class FileImporter {
     }
 
     public TcDocumentType importTtcFile(String ttcFileUrl) {
+        if (ttcFileUrl == null) {
+            return null;
+        }
+
         try (InputStream inputStream = urlValidationService.openUrlStream(ttcFileUrl)) {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
