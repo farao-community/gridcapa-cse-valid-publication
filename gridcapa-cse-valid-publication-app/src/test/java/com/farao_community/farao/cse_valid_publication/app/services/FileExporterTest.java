@@ -34,7 +34,7 @@ class FileExporterTest {
     @MockBean
     private MinioAdapter minioAdapter;
 
-    private LocalDate localDate = LocalDate.of(2020, 8, 13);
+    private final LocalDate localDate = LocalDate.of(2020, 8, 13);
 
     @Test
     void testSaveTtcValidation() {

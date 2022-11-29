@@ -33,37 +33,25 @@ class CseValidPublicationControllerTest {
 
     @Test
     void checkCorrectResponseWhenPublicationServiceSucceeds() throws Exception {
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenReturn(true);
+        Mockito.doNothing().when(cseValidPublicationService).publishProcess("IDCC", "2020-11-24", 0);
 
         mockMvc.perform(post("/publish")
-                        .param("id", "id")
-                        .param("process", "D2CC")
+                        .param("process", "IDCC")
                         .param("targetDate", "2020-11-24"))
                 .andExpect(status().isOk());
-    }
 
-    @Test
-    void checkCorrectResponseWhenPublicationServiceFailedWithD2ccOffset() throws Exception {
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 2)).thenReturn(false);
-
-        mockMvc.perform(post("/publish")
-                        .param("id", "id")
-                        .param("region", "CSE")
-                        .param("process", "D2CC")
-                        .param("targetDate", "2020-11-24")
-                        .param("targetDateOffset", "2"))
-                .andExpect(status().isNotFound());
+        Mockito.verify(cseValidPublicationService, Mockito.times(1)).publishProcess("IDCC", "2020-11-24", 0);
     }
 
     @Test
     void checkErrorWhenPublicationServiceFailsWithException() throws Exception {
         AbstractCseValidPublicationException exception = new CseValidPublicationInternalException("Something really bad happened");
-        Mockito.when(cseValidPublicationService.publishProcess("id", "D2CC", "2020-11-24", 0)).thenThrow(exception);
+        Mockito.doThrow(exception).when(cseValidPublicationService).publishProcess("D2CC", "2020-11-24", 2);
 
         mockMvc.perform(post("/publish")
-                        .param("id", "id")
                         .param("process", "D2CC")
-                        .param("targetDate", "2020-11-24"))
+                        .param("targetDate", "2020-11-24")
+                        .param("targetDateOffset", "2"))
                 .andExpect(status().isInternalServerError());
     }
 }

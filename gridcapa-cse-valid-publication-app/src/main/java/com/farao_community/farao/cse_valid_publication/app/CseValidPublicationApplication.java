@@ -7,6 +7,7 @@
 package com.farao_community.farao.cse_valid_publication.app;
 
 import com.farao_community.farao.cse_valid_publication.app.configuration.FilenamesConfiguration;
+import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +17,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @SuppressWarnings("hideutilityclassconstructor")
 @SpringBootApplication
-@EnableConfigurationProperties(FilenamesConfiguration.class)
+@EnableConfigurationProperties({FilenamesConfiguration.class, UrlConfiguration.class})
 public class CseValidPublicationApplication {
     public static void main(String[] args) {
         SpringApplication.run(CseValidPublicationApplication.class, args);
