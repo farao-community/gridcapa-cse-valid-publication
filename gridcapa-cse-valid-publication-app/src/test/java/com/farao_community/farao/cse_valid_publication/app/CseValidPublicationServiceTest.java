@@ -9,6 +9,7 @@ package com.farao_community.farao.cse_valid_publication.app;
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
 import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
+import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -67,6 +69,18 @@ class CseValidPublicationServiceTest {
     }
 
     @Test
+    void publishProcessTaskManagerError() {
+        Mockito.when(urlConfiguration.getTaskManagerBusinessDateUrl()).thenReturn("http://mockUrl/");
+        RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
+        Mockito.when(restTemplateBuilder.build()).thenReturn(restTemplate);
+        ResponseEntity responseEntity = Mockito.mock(ResponseEntity.class);
+        Mockito.when(restTemplate.getForEntity("http://mockUrl/2022-11-22", TaskDto[].class)).thenReturn(responseEntity);
+        Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        assertThrows(CseValidPublicationInternalException.class, () -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+    }
+
+    @Test
     void publishProcess() {
         Mockito.when(urlConfiguration.getTaskManagerBusinessDateUrl()).thenReturn("http://mockUrl/");
         RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
@@ -80,6 +94,7 @@ class CseValidPublicationServiceTest {
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
         TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, null, processFileDtoList, null, null)};
+        Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
         Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
         Mockito.when(fileImporter.importTtcFile("fileUrl")).thenReturn(tcDocumentType);

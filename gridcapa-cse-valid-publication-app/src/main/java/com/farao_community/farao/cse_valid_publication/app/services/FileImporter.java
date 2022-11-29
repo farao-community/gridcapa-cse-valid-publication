@@ -35,9 +35,6 @@ public class FileImporter {
         try (InputStream inputStream = urlValidationService.openUrlStream(ttcFileUrl)) {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
             return (TcDocumentType) JAXBIntrospector.getValue(jaxbContext.createUnmarshaller().unmarshal(inputStream));
-//            return (TcDocumentType) JAXBContext.newInstance(TcDocumentType.class)
-//                    .createUnmarshaller()
-//                    .unmarshal(inputStream);
         } catch (IOException | JAXBException | IllegalArgumentException e) {
             LOGGER.warn("Cannot open TTC file at url {}", ttcFileUrl, e);
             return null;

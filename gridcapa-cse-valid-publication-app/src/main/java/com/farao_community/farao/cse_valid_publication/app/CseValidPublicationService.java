@@ -27,6 +27,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -84,7 +85,9 @@ public class CseValidPublicationService {
         LOGGER.info("Requesting URL: {}", requestUrl);
         ResponseEntity<TaskDto[]> responseEntity = restTemplateBuilder.build().getForEntity(requestUrl, TaskDto[].class);
 
-        TaskDto[] taskDtoArray = Optional.ofNullable(responseEntity.getBody())
+        TaskDto[] taskDtoArray = Optional.of(responseEntity)
+                .filter(re -> re.getStatusCode() == HttpStatus.OK)
+                .map(ResponseEntity::getBody)
                 .filter(taskDtos -> taskDtos.length > 0)
                 .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
 
