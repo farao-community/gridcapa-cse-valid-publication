@@ -128,8 +128,8 @@ public class CseValidPublicationService {
             OffsetDateTime targetTimestamp = OffsetDateTime.parse(referenceCalculationTimeValue);
 
             CseValidFileResource ttcAdjustmentFile = getFileResourceOrThrow(taskDto, "TTC_ADJUSTMENT", referenceCalculationTimeValue);
-            CseValidFileResource cgmFile = getFileResourceOrThrow(taskDto, "CGM", referenceCalculationTimeValue);
-            CseValidFileResource glskFile = getFileResourceOrThrow(taskDto, "GLSK", referenceCalculationTimeValue);
+            CseValidFileResource cgmFile = getFileResource(taskDto, "CGM");
+            CseValidFileResource glskFile = getFileResource(taskDto, "GLSK");
             CseValidFileResource cracFile = getFileResource(taskDto, "IMPORT_CRAC");
 
             switch (process) {
