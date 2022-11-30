@@ -130,14 +130,16 @@ public class CseValidPublicationService {
             CseValidFileResource ttcAdjustmentFile = getFileResourceOrThrow(taskDto, "TTC_ADJUSTMENT", referenceCalculationTimeValue);
             CseValidFileResource cgmFile = getFileResource(taskDto, "CGM");
             CseValidFileResource glskFile = getFileResource(taskDto, "GLSK");
-            CseValidFileResource cracFile = getFileResource(taskDto, "IMPORT_CRAC");
+            CseValidFileResource importCracFile = getFileResource(taskDto, "IMPORT_CRAC");
+            CseValidFileResource exportCracFile = getFileResource(taskDto, "EXPORT_CRAC");
 
             switch (process) {
                 case "IDCC":
                     return CseValidRequest.buildIdccValidRequest(taskDto.getId().toString(),
                             targetTimestamp,
                             ttcAdjustmentFile,
-                            cracFile,
+                            importCracFile,
+                            exportCracFile,
                             cgmFile,
                             glskFile,
                             time);
@@ -145,7 +147,8 @@ public class CseValidPublicationService {
                     return CseValidRequest.buildD2ccValidRequest(taskDto.getId().toString(),
                             targetTimestamp,
                             ttcAdjustmentFile,
-                            cracFile,
+                            importCracFile,
+                            exportCracFile,
                             cgmFile,
                             glskFile,
                             time);
