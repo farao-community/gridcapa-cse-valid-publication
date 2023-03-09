@@ -22,6 +22,7 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TimeIntervalType;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
+import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,8 @@ class CseValidPublicationServiceTest {
     private FileUtils fileUtils;
     @MockBean
     private CseValidClient cseValidClient;
+    @MockBean
+    private MinioAdapter minioAdapter;
 
     @Test
     void publishProcessWithErrorDate() {
@@ -87,17 +90,22 @@ class CseValidPublicationServiceTest {
         Mockito.when(restTemplateBuilder.build()).thenReturn(restTemplate);
         ResponseEntity responseEntity = Mockito.mock(ResponseEntity.class);
         Mockito.when(restTemplate.getForEntity("http://mockUrl/2022-11-22", TaskDto[].class)).thenReturn(responseEntity);
-        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT", null, "filename", null, "fileUrl");
-        ProcessFileDto cgmFile = new ProcessFileDto("CGM", null, "filename", null, "fileUrl");
-        ProcessFileDto glskFile = new ProcessFileDto("GLSK", null, "filename", null, "fileUrl");
-        ProcessFileDto cracFile = new ProcessFileDto("IMPORT_CRAC", null, "filename", null, "fileUrl");
+        Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("TTC_ADJUSTMENT_FILE_PATH", 1)).thenReturn("TTC_ADJUSTMENT_FILE_URL");
+        Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("CGM_FILE_PATH", 1)).thenReturn("CGM_FILE_URL");
+        Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("GLSK_FILE_PATH", 1)).thenReturn("GLSK_FILE_URL");
+        Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("CRAC_FILE_PATH", 1)).thenReturn("CRAC_FILE_URL");
+
+        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT_FILE_PATH", "TTC_ADJUSTMENT", null, "TTC_ADJUSTMENT_FILENAME", null);
+        ProcessFileDto cgmFile = new ProcessFileDto("CGM_FILE_PATH", "CGM", null, "CGM_FILENAME", null);
+        ProcessFileDto glskFile = new ProcessFileDto("GLSK_FILE_PATH", "GLSK", null, "GLSK_FILENAME", null);
+        ProcessFileDto cracFile = new ProcessFileDto("CRAC_FILE_PATH", "IMPORT_CRAC", null, "CRAC_FILENAME", null);
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
         TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, null, processFileDtoList, null, null)};
         Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
         Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
-        Mockito.when(fileImporter.importTtcFile("fileUrl")).thenReturn(tcDocumentType);
+        Mockito.when(fileImporter.importTtcFile("TTC_ADJUSTMENT_FILE_URL")).thenReturn(tcDocumentType);
         TResultTimeseries resultTimeseries = Mockito.mock(TResultTimeseries.class);
         Mockito.when(tcDocumentType.getAdjustmentResults()).thenReturn(List.of(resultTimeseries));
         Mockito.when(tcDocumentType.getValidationResults()).thenReturn(List.of(resultTimeseries));

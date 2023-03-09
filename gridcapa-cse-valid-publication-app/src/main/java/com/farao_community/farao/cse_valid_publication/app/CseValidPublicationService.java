@@ -23,6 +23,7 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
+import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,14 +60,16 @@ public class CseValidPublicationService {
     private final FileUtils fileUtils;
     private final RestTemplateBuilder restTemplateBuilder;
     private final UrlConfiguration urlConfiguration;
+    private final MinioAdapter minioAdapter;
 
-    public CseValidPublicationService(CseValidClient cseValidClient, FileExporter fileExporter, FileImporter fileImporter, FileUtils fileUtils, RestTemplateBuilder restTemplateBuilder, UrlConfiguration urlConfiguration) {
+    public CseValidPublicationService(CseValidClient cseValidClient, FileExporter fileExporter, FileImporter fileImporter, FileUtils fileUtils, RestTemplateBuilder restTemplateBuilder, UrlConfiguration urlConfiguration, MinioAdapter minioAdapter) {
         this.cseValidClient = cseValidClient;
         this.fileExporter = fileExporter;
         this.fileImporter = fileImporter;
         this.fileUtils = fileUtils;
         this.restTemplateBuilder = restTemplateBuilder;
         this.urlConfiguration = urlConfiguration;
+        this.minioAdapter = minioAdapter;
     }
 
     public void publishProcess(String process, String initialTargetDate, int targetDateOffset) {
@@ -86,16 +89,16 @@ public class CseValidPublicationService {
         ResponseEntity<TaskDto[]> responseEntity = restTemplateBuilder.build().getForEntity(requestUrl, TaskDto[].class);
 
         TaskDto[] taskDtoArray = Optional.of(responseEntity)
-                .filter(re -> re.getStatusCode() == HttpStatus.OK)
-                .map(ResponseEntity::getBody)
-                .filter(taskDtos -> taskDtos.length > 0)
-                .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
+            .filter(re -> re.getStatusCode() == HttpStatus.OK)
+            .map(ResponseEntity::getBody)
+            .filter(taskDtos -> taskDtos.length > 0)
+            .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
 
         getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT")
-                .map(processFileDto -> fileImporter.importTtcFile(processFileDto.getFileUrl()))
-                .ifPresentOrElse(
-                    tcDocumentType -> validateTtc(process, initialTargetDate, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
-                    tcDocumentTypeWriter::fillWithNoTtcAdjustmentError);
+            .map(processFileDto -> fileImporter.importTtcFile(minioAdapter.generatePreSignedUrlFromFullMinioPath(processFileDto.getFilePath(), 1)))
+            .ifPresentOrElse(
+                tcDocumentType -> validateTtc(process, initialTargetDate, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
+                tcDocumentTypeWriter::fillWithNoTtcAdjustmentError);
 
         fileExporter.saveTtcValidation(tcDocumentTypeWriter, process, targetDateWithOffset);
     }
@@ -136,22 +139,22 @@ public class CseValidPublicationService {
             switch (process) {
                 case "IDCC":
                     return CseValidRequest.buildIdccValidRequest(taskDto.getId().toString(),
-                            targetTimestamp,
-                            ttcAdjustmentFile,
-                            importCracFile,
-                            exportCracFile,
-                            cgmFile,
-                            glskFile,
-                            time);
+                        targetTimestamp,
+                        ttcAdjustmentFile,
+                        importCracFile,
+                        exportCracFile,
+                        cgmFile,
+                        glskFile,
+                        time);
                 case "D2CC":
                     return CseValidRequest.buildD2ccValidRequest(taskDto.getId().toString(),
-                            targetTimestamp,
-                            ttcAdjustmentFile,
-                            importCracFile,
-                            exportCracFile,
-                            cgmFile,
-                            glskFile,
-                            time);
+                        targetTimestamp,
+                        ttcAdjustmentFile,
+                        importCracFile,
+                        exportCracFile,
+                        cgmFile,
+                        glskFile,
+                        time);
                 default:
                     throw new NotImplementedException(String.format("Unknown target process for CSE: %s", process));
             }
@@ -164,10 +167,10 @@ public class CseValidPublicationService {
             CompletableFuture<CseValidResponse> cseValidResponseCompletable = runCseValidRequest(request);
             timestampCompletableFutures.put(ts, cseValidResponseCompletable);
             cseValidResponseCompletable.thenAccept(cseValidResponse1 -> LOGGER.info("Cse valid response received {}", cseValidResponse1))
-                    .exceptionally(ex -> {
-                        LOGGER.error(String.format("Exception occurred during running Cse valid request for time %s", ts.getTime().getV()), ex);
-                        return null;
-                    });
+                .exceptionally(ex -> {
+                    LOGGER.error(String.format("Exception occurred during running Cse valid request for time %s", ts.getTime().getV()), ex);
+                    return null;
+                });
         });
         CompletableFuture.allOf(timestampCompletableFutures.values().toArray(new CompletableFuture[0])).get();
     }
@@ -178,10 +181,10 @@ public class CseValidPublicationService {
             return CompletableFuture.completedFuture(null);
         }
         return CompletableFuture.supplyAsync(() -> cseValidClient.run(cseValidRequest))
-                .exceptionally(ex -> {
-                    LOGGER.error(String.format("Exception during running Cse Valid request for timestamp '%s'", cseValidRequest.getTimestamp()), ex);
-                    return null;
-                });
+            .exceptionally(ex -> {
+                LOGGER.error(String.format("Exception during running Cse Valid request for timestamp '%s'", cseValidRequest.getTimestamp()), ex);
+                return null;
+            });
     }
 
     private void fillResultForAllTimestamps(Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCseValidResponses, TcDocumentTypeWriter tcDocumentTypeWriter) {
@@ -219,9 +222,9 @@ public class CseValidPublicationService {
     private TTimestamp getTimestampResult(TcDocumentType tcDocumentType, TTime time) {
         if (tcDocumentType != null && tcDocumentType.getValidationResults().get(0) != null) {
             return tcDocumentType.getValidationResults().get(0).getTimestamp().stream()
-                    .filter(t -> t.getTime().getV().equals(time.getV()))
-                    .findFirst()
-                    .orElse(null);
+                .filter(t -> t.getTime().getV().equals(time.getV()))
+                .findFirst()
+                .orElse(null);
         } else {
             return null;
         }
@@ -229,25 +232,25 @@ public class CseValidPublicationService {
 
     private static Optional<ProcessFileDto> getProcessFile(TaskDto taskDto, String fileType) {
         return taskDto.getInputs().stream()
-                .filter(f -> f.getFileType().equals(fileType))
-                .findFirst();
+            .filter(f -> f.getFileType().equals(fileType))
+            .findFirst();
     }
 
     private CseValidFileResource getFileResource(TaskDto taskDto, String fileType) {
         return getProcessFile(taskDto, fileType)
-                .filter(this::isProcessFileDtoConsistent)
-                .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), pfd.getFileUrl()))
-                .orElseGet(fileUtils::createEmptyFileResource);
+            .filter(this::isProcessFileDtoConsistent)
+            .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), minioAdapter.generatePreSignedUrlFromFullMinioPath(pfd.getFilePath(), 1)))
+            .orElseGet(fileUtils::createEmptyFileResource);
     }
 
     private CseValidFileResource getFileResourceOrThrow(TaskDto taskDto, String fileType, String referenceCalculationTimeValue) {
         return getProcessFile(taskDto, fileType)
-                .filter(this::isProcessFileDtoConsistent)
-                .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), pfd.getFileUrl()))
-                .orElseThrow(() -> new CseValidPublicationInvalidDataException(String.format("No %s file found in task for timestamp: %s", fileType, referenceCalculationTimeValue)));
+            .filter(this::isProcessFileDtoConsistent)
+            .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), minioAdapter.generatePreSignedUrlFromFullMinioPath(pfd.getFilePath(), 1)))
+            .orElseThrow(() -> new CseValidPublicationInvalidDataException(String.format("No %s file found in task for timestamp: %s", fileType, referenceCalculationTimeValue)));
     }
 
     private boolean isProcessFileDtoConsistent(ProcessFileDto processFileDto) {
-        return processFileDto.getFilename() != null && processFileDto.getFileUrl() != null;
+        return processFileDto.getFilename() != null && processFileDto.getFilePath() != null;
     }
 }
