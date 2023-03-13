@@ -95,6 +95,7 @@ public class CseValidPublicationService {
             .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
 
         getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT")
+            .filter(this::isProcessFileDtoConsistent)
             .map(processFileDto -> fileImporter.importTtcFile(minioAdapter.generatePreSignedUrlFromFullMinioPath(processFileDto.getFilePath(), 1)))
             .ifPresentOrElse(
                 tcDocumentType -> validateTtc(process, initialTargetDate, taskDtoArray, tcDocumentType, tcDocumentTypeWriter),
@@ -240,7 +241,7 @@ public class CseValidPublicationService {
         return getProcessFile(taskDto, fileType)
             .filter(this::isProcessFileDtoConsistent)
             .map(pfd -> fileUtils.createFileResource(pfd.getFilename(), minioAdapter.generatePreSignedUrlFromFullMinioPath(pfd.getFilePath(), 1)))
-            .orElseGet(fileUtils::createEmptyFileResource);
+            .orElse(null);
     }
 
     private CseValidFileResource getFileResourceOrThrow(TaskDto taskDto, String fileType, String referenceCalculationTimeValue) {
