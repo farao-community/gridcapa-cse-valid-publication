@@ -53,8 +53,8 @@
 
 
     <properties>
-        <cse-valid-runner.version>1.6.1</cse-valid-runner.version>
-        <task-manager.version>1.13.0</task-manager.version>
+        <cse-valid-runner.version>1.8.1</cse-valid-runner.version>
+        <task-manager.version>1.16.0</task-manager.version>
         <gridcapa.starter.minio.version>1.0.0</gridcapa.starter.minio.version>
         <jsonapi.converter.version>0.11</jsonapi.converter.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
