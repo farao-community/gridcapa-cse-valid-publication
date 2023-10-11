@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.farao-community.farao</groupId>
         <artifactId>farao-parent-ws</artifactId>
-        <version>1.4.0</version>
+        <version>1.5.0</version>
     </parent>
 
     <artifactId>gridcapa-cse-valid-publication</artifactId>
@@ -33,14 +33,14 @@
 
     <developers>
         <developer>
-            <name>Ameni WALHA</name>
-            <email>ameni.walha@rte-france.com</email>
+            <name>Oualid ALOUI</name>
+            <email>oualid.aloui@rte-france.com</email>
             <organization>RTE</organization>
             <organizationUrl>http://www.rte-france.com</organizationUrl>
         </developer>
         <developer>
-            <name>Theo PASCOLI</name>
-            <email>theo.pascoli@rte-france.com</email>
+            <name>Vincent BOCHET</name>
+            <email>vincent.bochet@rte-france.com</email>
             <organization>RTE</organization>
             <organizationUrl>http://www.rte-france.com</organizationUrl>
         </developer>
@@ -48,14 +48,13 @@
 
     <modules>
         <module>gridcapa-cse-valid-publication-app</module>
-
     </modules>
 
 
     <properties>
-        <cse-valid-runner.version>1.10.0</cse-valid-runner.version>
-        <task-manager.version>1.20.0</task-manager.version>
-        <gridcapa.starter.minio.version>1.0.0</gridcapa.starter.minio.version>
+        <cse-valid-runner.version>1.11.0</cse-valid-runner.version>
+        <task-manager.version>1.21.0</task-manager.version>
+        <gridcapa.starter.minio.version>1.1.1</gridcapa.starter.minio.version>
         <jsonapi.converter.version>0.11</jsonapi.converter.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
@@ -69,6 +68,13 @@
                     <groupId>org.jvnet.jaxb2.maven2</groupId>
                     <artifactId>maven-jaxb2-plugin</artifactId>
                     <version>${maven.jaxb2.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.glassfish.jaxb</groupId>
+                            <artifactId>jaxb-runtime</artifactId>
+                            <version>${jaxb-runtime.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
