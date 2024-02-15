@@ -72,7 +72,7 @@
     </build>
 
     <dependencies>
-        <!-- Compile dependencies -->
+        <!-- COMPILE DEPENDENCIES -->
         <dependency>
             <groupId>com.farao-community.farao</groupId>
             <artifactId>gridcapa-cse-valid-api</artifactId>
@@ -110,13 +110,14 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
 
-        <!-- RUNTIME -->
+        <!-- RUNTIME DEPENDENCIES -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Test dependencies -->
+
+        <!-- TEST DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
