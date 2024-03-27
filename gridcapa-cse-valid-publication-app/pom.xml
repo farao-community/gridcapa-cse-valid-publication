@@ -109,7 +109,10 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
         <!-- RUNTIME -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>

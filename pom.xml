@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.farao-community.farao</groupId>
         <artifactId>farao-parent-ws</artifactId>
-        <version>1.5.0</version>
+        <version>1.8.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>gridcapa-cse-valid-publication</artifactId>
@@ -52,9 +52,10 @@
 
 
     <properties>
-        <cse-valid-runner.version>1.12.0</cse-valid-runner.version>
+        <commons.io.version>2.11.0</commons.io.version>
+        <cse-valid-runner.version>1.13.0-SNAPSHOT</cse-valid-runner.version>
         <task-manager.version>1.21.1</task-manager.version>
-        <gridcapa.starter.minio.version>1.1.1</gridcapa.starter.minio.version>
+        <gridcapa.starter.minio.version>1.1.2-SNAPSHOT</gridcapa.starter.minio.version>
         <jsonapi.converter.version>0.11</jsonapi.converter.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
@@ -75,6 +76,13 @@
                             <version>${jaxb-runtime.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <parameters>true</parameters>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -112,7 +120,11 @@
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb-api.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
             <!-- RUNTIME DEPENDENCIES -->
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
