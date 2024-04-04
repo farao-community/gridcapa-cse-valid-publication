@@ -7,7 +7,6 @@
 package com.farao_community.farao.cse_valid_publication.app.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
@@ -15,7 +14,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @ConfigurationProperties(prefix = "cse-valid-publication.filenames")
 @EnableConfigurationProperties
-@ConstructorBinding
 public class FilenamesConfiguration {
     private final String ttcValidation;
 
