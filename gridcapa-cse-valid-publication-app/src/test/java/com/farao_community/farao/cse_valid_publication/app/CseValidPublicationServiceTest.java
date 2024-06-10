@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2024, RTE (http://www.rte-france.com)
  *  This Source Code Form is subject to the terms of the Mozilla Public
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -102,7 +102,7 @@ class CseValidPublicationServiceTest {
         ProcessFileDto cracFile = new ProcessFileDto("CRAC_FILE_PATH", "IMPORT_CRAC", null, "CRAC_FILENAME", null);
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
-        TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList())};
+        TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList())};
         Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
         Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
