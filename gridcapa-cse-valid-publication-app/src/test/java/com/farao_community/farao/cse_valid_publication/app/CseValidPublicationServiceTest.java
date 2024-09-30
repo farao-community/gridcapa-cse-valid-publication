@@ -20,6 +20,7 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TimeIntervalType;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
+import com.farao_community.farao.gridcapa.task_manager.api.ProcessRunDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
@@ -35,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -102,7 +104,9 @@ class CseValidPublicationServiceTest {
         ProcessFileDto cracFile = new ProcessFileDto("CRAC_FILE_PATH", "IMPORT_CRAC", null, "CRAC_FILENAME", "docId4", null);
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
-        TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList())};
+        List<ProcessRunDto> runHistory = new ArrayList<>();
+        runHistory.add(new ProcessRunDto(UUID.randomUUID(), OffsetDateTime.now(), Collections.emptyList()));
+        TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), runHistory, Collections.emptyList())};
         Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
         Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
