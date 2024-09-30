@@ -258,7 +258,7 @@ public class CseValidPublicationService {
         return processFileDto.getFilename() != null && processFileDto.getFilePath() != null;
     }
 
-    private String getCurrentRunId(TaskDto taskDto) {
+    String getCurrentRunId(TaskDto taskDto) {
         List<ProcessRunDto> runHistory = taskDto.getRunHistory();
         if (runHistory == null || runHistory.isEmpty()) {
             LOGGER.warn("Failed to handle run request on timestamp {} because it has no run history", taskDto.getTimestamp());

@@ -22,8 +22,10 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TimeIntervalType;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessRunDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
+import com.farao_community.farao.gridcapa.task_manager.api.TaskStatus;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,5 +131,14 @@ class CseValidPublicationServiceTest {
         Mockito.doNothing().when(fileExporter).saveTtcValidation(Mockito.any(), Mockito.any(), Mockito.any());
 
         assertDoesNotThrow(() -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+    }
+
+    @Test
+    void testgGeCurrentRunIdThrowsException() {
+        final TaskDto taskDto = new TaskDto(UUID.randomUUID(), OffsetDateTime.now(), TaskStatus.READY, List.of(), null, List.of(), List.of(), List.of(), List.of());
+        Assertions.assertThrows(
+                CseValidPublicationInternalException.class,
+                () -> cseValidPublicationService.getCurrentRunId(taskDto),
+                "Failed to handle run request on timestamp because it has no run history");
     }
 }
