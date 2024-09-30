@@ -21,6 +21,7 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TTime;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
+import com.farao_community.farao.gridcapa.task_manager.api.ProcessRunDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import com.farao_community.farao.gridcapa_cse_valid.starter.CseValidClient;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
@@ -136,10 +137,11 @@ public class CseValidPublicationService {
             CseValidFileResource glskFile = getFileResource(taskDto, "GLSK");
             CseValidFileResource importCracFile = getFileResource(taskDto, "IMPORT_CRAC");
             CseValidFileResource exportCracFile = getFileResource(taskDto, "EXPORT_CRAC");
-
+            String runId = getCurrentRunId(taskDto);
             switch (process) {
                 case "IDCC":
                     return CseValidRequest.buildIdccValidRequest(taskDto.getId().toString(),
+                        runId,
                         targetTimestamp,
                         ttcAdjustmentFile,
                         importCracFile,
@@ -149,6 +151,7 @@ public class CseValidPublicationService {
                         time);
                 case "D2CC":
                     return CseValidRequest.buildD2ccValidRequest(taskDto.getId().toString(),
+                        runId,
                         targetTimestamp,
                         ttcAdjustmentFile,
                         importCracFile,
@@ -253,5 +256,15 @@ public class CseValidPublicationService {
 
     private boolean isProcessFileDtoConsistent(ProcessFileDto processFileDto) {
         return processFileDto.getFilename() != null && processFileDto.getFilePath() != null;
+    }
+
+    private String getCurrentRunId(TaskDto taskDto) {
+        List<ProcessRunDto> runHistory = taskDto.getRunHistory();
+        if (runHistory == null || runHistory.isEmpty()) {
+            LOGGER.warn("Failed to handle run request on timestamp {} because it has no run history", taskDto.getTimestamp());
+            throw new CseValidPublicationInternalException("Failed to handle run request on timestamp because it has no run history");
+        }
+        runHistory.sort((o1, o2) -> o2.getExecutionDate().compareTo(o1.getExecutionDate()));
+        return runHistory.get(0).getId().toString();
     }
 }

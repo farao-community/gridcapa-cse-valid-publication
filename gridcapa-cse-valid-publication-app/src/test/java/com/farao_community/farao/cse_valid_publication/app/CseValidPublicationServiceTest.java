@@ -96,10 +96,10 @@ class CseValidPublicationServiceTest {
         Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("GLSK_FILE_PATH", 1)).thenReturn("GLSK_FILE_URL");
         Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("CRAC_FILE_PATH", 1)).thenReturn("CRAC_FILE_URL");
 
-        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT_FILE_PATH", "TTC_ADJUSTMENT", null, "TTC_ADJUSTMENT_FILENAME", null);
-        ProcessFileDto cgmFile = new ProcessFileDto("CGM_FILE_PATH", "CGM", null, "CGM_FILENAME", null);
-        ProcessFileDto glskFile = new ProcessFileDto("GLSK_FILE_PATH", "GLSK", null, "GLSK_FILENAME", null);
-        ProcessFileDto cracFile = new ProcessFileDto("CRAC_FILE_PATH", "IMPORT_CRAC", null, "CRAC_FILENAME", null);
+        ProcessFileDto ttcAdjFile = new ProcessFileDto("TTC_ADJUSTMENT_FILE_PATH", "TTC_ADJUSTMENT", null, "TTC_ADJUSTMENT_FILENAME", "docId1", null);
+        ProcessFileDto cgmFile = new ProcessFileDto("CGM_FILE_PATH", "CGM", null, "CGM_FILENAME", "docId2", null);
+        ProcessFileDto glskFile = new ProcessFileDto("GLSK_FILE_PATH", "GLSK", null, "GLSK_FILENAME", "docId3", null);
+        ProcessFileDto cracFile = new ProcessFileDto("CRAC_FILE_PATH", "IMPORT_CRAC", null, "CRAC_FILENAME", "docId4", null);
         OffsetDateTime offsetDateTime = OffsetDateTime.of(2022, 11, 22, 13, 30, 0, 0, ZoneOffset.UTC);
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
         TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList())};
