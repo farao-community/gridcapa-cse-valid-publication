@@ -118,6 +118,8 @@ class CseValidPublicationServiceTest {
         Mockito.when(taskManagerService.addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList)).thenReturn(Optional.of(taskDto));
 
         assertDoesNotThrow(() -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+
+        Mockito.verify(taskManagerService).addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList);
     }
 
     @Test

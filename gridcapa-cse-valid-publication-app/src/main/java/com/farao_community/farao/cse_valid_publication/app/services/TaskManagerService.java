@@ -8,6 +8,7 @@ package com.farao_community.farao.cse_valid_publication.app.services;
 
 import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.RetryException;
+import com.farao_community.farao.cse_valid_publication.app.util.LoggingUtil;
 import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import org.slf4j.Logger;
@@ -76,7 +77,7 @@ public class TaskManagerService {
             final int retryCount = getRetryCount();
             final HttpEntity<List<ProcessFileDto>> requestEntity = new HttpEntity<>(inputs);
             final String requestUrl = getTaskManagerTimestampUrl(timestamp) + "/runHistory";
-            final String sanifiedUrl = requestUrl; //LoggingUtil.sanifyString(requestUrl);
+            final String sanifiedUrl = LoggingUtil.sanifyString(requestUrl);
             LOGGER.info("Requesting URL: {} with parameters: {} (#{} attempt)", sanifiedUrl, inputs, retryCount);
             final ResponseEntity<TaskDto> responseEntity = restTemplateBuilder.build().exchange(requestUrl, HttpMethod.PUT, requestEntity, TaskDto.class);
             return getOptionalFromResponseEntity(responseEntity);
