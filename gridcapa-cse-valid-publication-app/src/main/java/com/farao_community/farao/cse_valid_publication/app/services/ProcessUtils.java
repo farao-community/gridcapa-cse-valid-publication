@@ -15,13 +15,10 @@ public final class ProcessUtils {
     }
 
     public static String getProcessCode(String process) {
-        switch (process) {
-            case "IDCC":
-                return "ID";
-            case "D2CC":
-                return "2D";
-            default:
-                throw new CseValidPublicationInvalidDataException(String.format("Unknown target process for CSE: %s", process));
-        }
+        return switch (process) {
+            case "IDCC" -> "ID";
+            case "D2CC" -> "2D";
+            default -> throw new CseValidPublicationInvalidDataException(String.format("Unknown target process for CSE: %s", process));
+        };
     }
 }

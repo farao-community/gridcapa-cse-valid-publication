@@ -35,7 +35,7 @@ public class FileExporter {
     }
 
     public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, String process, LocalDate localDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.ttcValidation());
         String processCode = ProcessUtils.getProcessCode(process);
         String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
@@ -60,7 +60,7 @@ public class FileExporter {
             }
 
             String processCode = ProcessUtils.getProcessCode(process);
-            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.getTtcValidation(), Locale.FRANCE)), processCode);
+            String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.ttcValidation(), Locale.FRANCE)), processCode);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);
             return String.format("%s%s", folder, filenameFormatted);

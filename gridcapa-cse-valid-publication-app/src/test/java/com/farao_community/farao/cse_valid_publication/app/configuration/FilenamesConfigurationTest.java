@@ -22,6 +22,6 @@ class FilenamesConfigurationTest {
 
     @Test
     void getTtcValidation() {
-        assertEquals("'TTC_RTEValidation_'yyyyMMdd'_%s'e'_(?<version>[0-9]{1,2}).xml'", filenamesConfiguration.getTtcValidation());
+        assertEquals("'TTC_RTEValidation_'yyyyMMdd'_%s'e'_(?<version>[0-9]{1,2}).xml'", filenamesConfiguration.ttcValidation());
     }
 }

@@ -19,6 +19,6 @@ class UrlConfigurationTest {
 
     @Test
     void getTtcValidation() {
-        assertEquals("http://localhost:8080/tasks/businessdate/", urlConfiguration.getTaskManagerBusinessDateUrl());
+        assertEquals("http://localhost:8080/tasks/businessdate/", urlConfiguration.taskManagerBusinessDateUrl());
     }
 }
