@@ -13,7 +13,6 @@ import com.farao_community.farao.gridcapa.task_manager.api.ProcessFileDto;
 import com.farao_community.farao.gridcapa.task_manager.api.TaskDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.retry.support.RetrySynchronizationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,11 +39,11 @@ public class TaskManagerService {
     private static final String REQUESTING_URL_ATTEMPT = "Requesting URL: {} (#{} attempt)";
 
     private final UrlConfiguration urlConfiguration;
-    private final RestTemplateBuilder restTemplateBuilder;
+    private final RestTemplate restTemplate;
 
-    public TaskManagerService(UrlConfiguration urlConfiguration, RestTemplateBuilder restTemplateBuilder) {
+    public TaskManagerService(UrlConfiguration urlConfiguration, RestTemplate restTemplate) {
         this.urlConfiguration = urlConfiguration;
-        this.restTemplateBuilder = restTemplateBuilder;
+        this.restTemplate = restTemplate;
     }
 
     @Retryable(retryFor = RetryException.class,
@@ -55,7 +55,7 @@ public class TaskManagerService {
             final int retryCount = getRetryCount();
             final String requestUrl = getTaskManagerBusinessDateUrl(startingDate);
             LOGGER.info(REQUESTING_URL_ATTEMPT, requestUrl, retryCount);
-            final ResponseEntity<TaskDto[]> responseEntity = restTemplateBuilder.build().getForEntity(requestUrl, TaskDto[].class);
+            final ResponseEntity<TaskDto[]> responseEntity = restTemplate.getForEntity(requestUrl, TaskDto[].class);
             return getOptionalFromResponseEntity(responseEntity);
         } catch (RestClientException e) {
             throw new RetryException(EXCEPTION_OCCURRED_DURING_REQUEST_TO_TASK_MANAGER, e);
@@ -79,7 +79,7 @@ public class TaskManagerService {
             final String requestUrl = getTaskManagerTimestampUrl(timestamp) + "/runHistory";
             final String sanifiedUrl = LoggingUtil.sanifyString(requestUrl);
             LOGGER.info("Requesting URL: {} with parameters: {} (#{} attempt)", sanifiedUrl, inputs, retryCount);
-            final ResponseEntity<TaskDto> responseEntity = restTemplateBuilder.build().exchange(requestUrl, HttpMethod.PUT, requestEntity, TaskDto.class);
+            final ResponseEntity<TaskDto> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.PUT, requestEntity, TaskDto.class);
             return getOptionalFromResponseEntity(responseEntity);
         } catch (RestClientException e) {
             throw new RetryException(EXCEPTION_OCCURRED_DURING_REQUEST_TO_TASK_MANAGER, e);
@@ -102,6 +102,10 @@ public class TaskManagerService {
                 && responseEntity.getBody() != null
                 && responseEntity.getStatusCode() == HttpStatus.OK) {
             return Optional.of(responseEntity.getBody());
+        } else if (responseEntity != null
+                && responseEntity.getBody() != null
+                && responseEntity.getStatusCode().is2xxSuccessful()) {
+            return Optional.empty();
         } else {
             throw new RetryException("Unexpected response from the task-manager");
         }
