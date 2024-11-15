@@ -3,6 +3,7 @@ cse-valid-publication:
     ttc-validation: "'TTC_RTEValidation_'yyyyMMdd'_%s'e'_(?<version>[0-9]{1,2}).xml'"
   url:
     task-manager-business-date-url: http://localhost:8080/tasks/businessdate/
+    task-manager-timestamp-url: http://localhost:8080/tasks/timestamp/
   whitelist:
     - http://localhost:9000
     - http://minio:9000
@@ -13,3 +14,9 @@ minio-adapter:
   access-key: gridcapa
   secret-key: gridcapa-secret
   url: https://minio.test/
+
+retry:
+  backoff:
+    delay: 300
+    multiplier: 2
+  max-attempts: 3

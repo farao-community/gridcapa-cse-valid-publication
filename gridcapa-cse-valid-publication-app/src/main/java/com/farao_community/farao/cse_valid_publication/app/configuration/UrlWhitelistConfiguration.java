@@ -7,8 +7,6 @@
 package com.farao_community.farao.cse_valid_publication.app.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +14,6 @@ import java.util.List;
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
  */
-@Configuration
-@EnableConfigurationProperties
 @ConfigurationProperties("cse-valid-publication")
 public class UrlWhitelistConfiguration {
     private final List<String> whitelist = new ArrayList<>();

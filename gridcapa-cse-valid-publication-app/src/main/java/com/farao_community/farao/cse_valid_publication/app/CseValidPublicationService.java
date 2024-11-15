@@ -9,13 +9,13 @@ package com.farao_community.farao.cse_valid_publication.app;
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidRequest;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
-import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileUtils;
 import com.farao_community.farao.cse_valid_publication.app.services.ProcessUtils;
+import com.farao_community.farao.cse_valid_publication.app.services.TaskManagerService;
 import com.farao_community.farao.cse_valid_publication.app.services.TcDocumentTypeWriter;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TTime;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
@@ -28,9 +28,6 @@ import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -59,18 +56,16 @@ public class CseValidPublicationService {
     private final FileExporter fileExporter;
     private final FileImporter fileImporter;
     private final FileUtils fileUtils;
-    private final RestTemplateBuilder restTemplateBuilder;
-    private final UrlConfiguration urlConfiguration;
     private final MinioAdapter minioAdapter;
+    private final TaskManagerService taskManagerService;
 
-    public CseValidPublicationService(CseValidClient cseValidClient, FileExporter fileExporter, FileImporter fileImporter, FileUtils fileUtils, RestTemplateBuilder restTemplateBuilder, UrlConfiguration urlConfiguration, MinioAdapter minioAdapter) {
+    public CseValidPublicationService(CseValidClient cseValidClient, FileExporter fileExporter, FileImporter fileImporter, FileUtils fileUtils, MinioAdapter minioAdapter, final TaskManagerService taskManagerService) {
         this.cseValidClient = cseValidClient;
         this.fileExporter = fileExporter;
         this.fileImporter = fileImporter;
         this.fileUtils = fileUtils;
-        this.restTemplateBuilder = restTemplateBuilder;
-        this.urlConfiguration = urlConfiguration;
         this.minioAdapter = minioAdapter;
+        this.taskManagerService = taskManagerService;
     }
 
     public void publishProcess(String process, String initialTargetDate, int targetDateOffset) {
@@ -82,18 +77,12 @@ public class CseValidPublicationService {
         }
         LOGGER.info("Target date with offset: {}", targetDateWithOffset);
 
-        String processCode = ProcessUtils.getProcessCode(process);
-        TcDocumentTypeWriter tcDocumentTypeWriter = new TcDocumentTypeWriter(processCode, targetDateWithOffset);
+        final String processCode = ProcessUtils.getProcessCode(process);
+        final TcDocumentTypeWriter tcDocumentTypeWriter = new TcDocumentTypeWriter(processCode, targetDateWithOffset);
 
-        String requestUrl = urlConfiguration.getTaskManagerBusinessDateUrl() + targetDateWithOffset;
-        LOGGER.info("Requesting URL: {}", requestUrl);
-        ResponseEntity<TaskDto[]> responseEntity = restTemplateBuilder.build().getForEntity(requestUrl, TaskDto[].class);
-
-        TaskDto[] taskDtoArray = Optional.of(responseEntity)
-            .filter(re -> re.getStatusCode() == HttpStatus.OK)
-            .map(ResponseEntity::getBody)
-            .filter(taskDtos -> taskDtos.length > 0)
-            .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
+        final TaskDto[] taskDtoArray = taskManagerService.getTasksFromBusinessDate(targetDateWithOffset.toString())
+                .filter(taskDtos -> taskDtos.length > 0)
+                .orElseThrow(() -> new CseValidPublicationInternalException("Failed to retrieve task DTOs on business date"));
 
         getProcessFile(taskDtoArray[0], "TTC_ADJUSTMENT")
             .filter(this::isProcessFileDtoConsistent)
@@ -110,7 +99,11 @@ public class CseValidPublicationService {
         List<TTimestamp> timestampsToBeValidated = tcDocument.getAdjustmentResults().get(0).getTimestamp();
         LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
 
-        Map<String, TaskDto> taskDtoMap = Arrays.stream(taskDtoArray).collect(Collectors.toMap(td -> td.getTimestamp().format(TIMESTAMP_FORMATTER), Function.identity()));
+        Map<String, TaskDto> taskDtoMap = Arrays.stream(taskDtoArray)
+                .map(dto -> taskManagerService.addNewRunInTaskHistory(dto.getTimestamp().toString(), dto.getInputs()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toMap(td -> td.getTimestamp().format(TIMESTAMP_FORMATTER), Function.identity()));
         timestampsToBeValidated.forEach(ts -> timestampCseValidRequests.put(ts, buildCseValidRequest(process, ts, taskDtoMap.get(ts.getReferenceCalculationTime().getV()))));
 
         Map<TTimestamp, CompletableFuture<CseValidResponse>> timestampCseValidResponses = new HashMap<>();

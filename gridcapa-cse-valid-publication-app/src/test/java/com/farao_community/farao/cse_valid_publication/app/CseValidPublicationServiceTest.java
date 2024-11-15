@@ -8,12 +8,12 @@ package com.farao_community.farao.cse_valid_publication.app;
 
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
-import com.farao_community.farao.cse_valid_publication.app.configuration.UrlConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileImporter;
 import com.farao_community.farao.cse_valid_publication.app.services.FileUtils;
+import com.farao_community.farao.cse_valid_publication.app.services.TaskManagerService;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TResultTimeseries;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TTime;
 import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
@@ -31,16 +31,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -56,9 +53,7 @@ class CseValidPublicationServiceTest {
     private CseValidPublicationService cseValidPublicationService;
 
     @MockBean
-    private UrlConfiguration urlConfiguration;
-    @MockBean
-    private RestTemplateBuilder restTemplateBuilder;
+    private CseValidClient cseValidClient;
     @MockBean
     private FileImporter fileImporter;
     @MockBean
@@ -66,9 +61,9 @@ class CseValidPublicationServiceTest {
     @MockBean
     private FileUtils fileUtils;
     @MockBean
-    private CseValidClient cseValidClient;
-    @MockBean
     private MinioAdapter minioAdapter;
+    @MockBean
+    private TaskManagerService taskManagerService;
 
     @Test
     void publishProcessWithErrorDate() {
@@ -78,23 +73,14 @@ class CseValidPublicationServiceTest {
 
     @Test
     void publishProcessTaskManagerError() {
-        Mockito.when(urlConfiguration.getTaskManagerBusinessDateUrl()).thenReturn("http://mockUrl/");
-        RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
-        Mockito.when(restTemplateBuilder.build()).thenReturn(restTemplate);
-        ResponseEntity responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(restTemplate.getForEntity("http://mockUrl/2022-11-22", TaskDto[].class)).thenReturn(responseEntity);
-        Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR);
+        Mockito.when(taskManagerService.getTasksFromBusinessDate("2022-11-22"))
+                        .thenReturn(Optional.empty());
 
         assertThrows(CseValidPublicationInternalException.class, () -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
     }
 
     @Test
     void publishProcess() {
-        Mockito.when(urlConfiguration.getTaskManagerBusinessDateUrl()).thenReturn("http://mockUrl/");
-        RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
-        Mockito.when(restTemplateBuilder.build()).thenReturn(restTemplate);
-        ResponseEntity responseEntity = Mockito.mock(ResponseEntity.class);
-        Mockito.when(restTemplate.getForEntity("http://mockUrl/2022-11-22", TaskDto[].class)).thenReturn(responseEntity);
         Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("TTC_ADJUSTMENT_FILE_PATH", 1)).thenReturn("TTC_ADJUSTMENT_FILE_URL");
         Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("CGM_FILE_PATH", 1)).thenReturn("CGM_FILE_URL");
         Mockito.when(minioAdapter.generatePreSignedUrlFromFullMinioPath("GLSK_FILE_PATH", 1)).thenReturn("GLSK_FILE_URL");
@@ -108,9 +94,9 @@ class CseValidPublicationServiceTest {
         List<ProcessFileDto> processFileDtoList = List.of(ttcAdjFile, cgmFile, glskFile, cracFile);
         List<ProcessRunDto> runHistory = new ArrayList<>();
         runHistory.add(new ProcessRunDto(UUID.randomUUID(), OffsetDateTime.now(), Collections.emptyList()));
-        TaskDto[] taskDtoArray = {new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), runHistory, Collections.emptyList())};
-        Mockito.when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
-        Mockito.when(responseEntity.getBody()).thenReturn(taskDtoArray);
+        final TaskDto taskDto = new TaskDto(UUID.randomUUID(), offsetDateTime, null, processFileDtoList, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), runHistory, Collections.emptyList());
+        TaskDto[] taskDtoArray = {taskDto};
+        Mockito.when(taskManagerService.getTasksFromBusinessDate("2022-11-22")).thenReturn(Optional.of(taskDtoArray));
         TcDocumentType tcDocumentType = Mockito.mock(TcDocumentType.class);
         Mockito.when(fileImporter.importTtcFile("TTC_ADJUSTMENT_FILE_URL")).thenReturn(tcDocumentType);
         TResultTimeseries resultTimeseries = Mockito.mock(TResultTimeseries.class);
@@ -129,8 +115,11 @@ class CseValidPublicationServiceTest {
         Mockito.when(fileUtils.createFileResource(Mockito.any(), Mockito.any())).thenReturn(cseValidFileResource);
         Mockito.when(cseValidClient.run(Mockito.any())).thenReturn(new CseValidResponse("id", "fileUrl", null, null));
         Mockito.doNothing().when(fileExporter).saveTtcValidation(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.when(taskManagerService.addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList)).thenReturn(Optional.of(taskDto));
 
         assertDoesNotThrow(() -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+
+        Mockito.verify(taskManagerService).addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList);
     }
 
     @Test

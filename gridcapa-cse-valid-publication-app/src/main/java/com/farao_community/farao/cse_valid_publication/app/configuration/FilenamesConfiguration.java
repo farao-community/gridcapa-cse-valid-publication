@@ -7,21 +7,10 @@
 package com.farao_community.farao.cse_valid_publication.app.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
  */
 @ConfigurationProperties(prefix = "cse-valid-publication.filenames")
-@EnableConfigurationProperties
-public class FilenamesConfiguration {
-    private final String ttcValidation;
-
-    public FilenamesConfiguration(String ttcValidation) {
-        this.ttcValidation = ttcValidation;
-    }
-
-    public String getTtcValidation() {
-        return ttcValidation;
-    }
+public record FilenamesConfiguration(String ttcValidation) {
 }
