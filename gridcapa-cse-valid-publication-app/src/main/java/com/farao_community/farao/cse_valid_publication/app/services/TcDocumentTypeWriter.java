@@ -8,7 +8,31 @@ package com.farao_community.farao.cse_valid_publication.app.services;
 
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
-import com.farao_community.farao.cse_valid_publication.app.xsd.*;
+import com.farao_community.farao.cse_valid_publication.app.xsd.AreaType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.BusinessType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.BusinessTypeList;
+import com.farao_community.farao.cse_valid_publication.app.xsd.CodingSchemeType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.EnergyProductType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.IdentificationType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.LongIdentificationType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.MessageDateTimeType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.MessageType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.MessageTypeList;
+import com.farao_community.farao.cse_valid_publication.app.xsd.PartyType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.ProcessType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.ProcessTypeList;
+import com.farao_community.farao.cse_valid_publication.app.xsd.RoleType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.RoleTypeList;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TNumber;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TResultTimeseries;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TTime;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TTimestamp;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TextType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.TimeIntervalType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.UnitOfMeasureType;
+import com.farao_community.farao.cse_valid_publication.app.xsd.UnitOfMeasureTypeList;
+import com.farao_community.farao.cse_valid_publication.app.xsd.VersionType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -26,9 +50,20 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 
-import static com.farao_community.farao.cse_valid_publication.app.services.Constants.*;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.DOMAIN;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.EUROPE_BRUSSELS_ZONE_ID;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.IN_AREA;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.OUT_AREA;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.PRODUCT;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.RECEIVER_IDENTIFICATION;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.SENDER_IDENTIFICATION;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.STATUS_ERROR_MESSAGE;
+import static com.farao_community.farao.cse_valid_publication.app.services.Constants.TIMESERIES_IDENTIFICATION_PATTERN;
 
 /**
  * @author Theo Pascoli {@literal <theo.pascoli at rte-france.com>}
