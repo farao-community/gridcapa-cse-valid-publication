@@ -8,6 +8,7 @@ package com.farao_community.farao.cse_valid_publication.app;
 
 import com.farao_community.farao.cse_valid.api.resource.CseValidFileResource;
 import com.farao_community.farao.cse_valid.api.resource.CseValidResponse;
+import com.farao_community.farao.cse_valid.api.resource.ProcessType;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInvalidDataException;
 import com.farao_community.farao.cse_valid_publication.app.services.FileExporter;
@@ -45,6 +46,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
+ * @author Vincent Bochet {@literal <vincent.bochet at rte-france.com>}
+ * @author Oualid Aloui {@literal <oualid.aloui at rte-france.com>}
  */
 @SpringBootTest
 class CseValidPublicationServiceTest {
@@ -68,15 +71,15 @@ class CseValidPublicationServiceTest {
     @Test
     void publishProcessWithErrorDate() {
         String message = String.format("Incorrect format for target date : '%s' is invalid, please use ISO-8601 format", "INCORRECT_DATE");
-        assertThrows(CseValidPublicationInvalidDataException.class, () -> cseValidPublicationService.publishProcess("D2CC", "INCORRECT_DATE", 0), message);
+        assertThrows(CseValidPublicationInvalidDataException.class, () -> cseValidPublicationService.publishProcess(ProcessType.D2CC, "INCORRECT_DATE", 0), message);
     }
 
     @Test
     void publishProcessTaskManagerError() {
         Mockito.when(taskManagerService.getTasksFromBusinessDate("2022-11-22"))
-                        .thenReturn(Optional.empty());
+                .thenReturn(Optional.empty());
 
-        assertThrows(CseValidPublicationInternalException.class, () -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+        assertThrows(CseValidPublicationInternalException.class, () -> cseValidPublicationService.publishProcess(ProcessType.D2CC, "2022-11-22", 0));
     }
 
     @Test
@@ -117,7 +120,7 @@ class CseValidPublicationServiceTest {
         Mockito.doNothing().when(fileExporter).saveTtcValidation(Mockito.any(), Mockito.any(), Mockito.any());
         Mockito.when(taskManagerService.addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList)).thenReturn(Optional.of(taskDto));
 
-        assertDoesNotThrow(() -> cseValidPublicationService.publishProcess("D2CC", "2022-11-22", 0));
+        assertDoesNotThrow(() -> cseValidPublicationService.publishProcess(ProcessType.D2CC, "2022-11-22", 0));
 
         Mockito.verify(taskManagerService).addNewRunInTaskHistory(offsetDateTime.toString(), processFileDtoList);
     }

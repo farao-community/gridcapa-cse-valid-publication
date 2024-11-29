@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2024, RTE (http://www.rte-france.com)
  *  This Source Code Form is subject to the terms of the Mozilla Public
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package com.farao_community.farao.cse_valid_publication.app.services;
 
+import com.farao_community.farao.cse_valid.api.resource.ProcessType;
 import com.farao_community.farao.cse_valid_publication.app.configuration.FilenamesConfiguration;
 import com.farao_community.farao.cse_valid_publication.app.exception.CseValidPublicationInternalException;
 import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
@@ -21,6 +22,8 @@ import java.util.Locale;
 
 /**
  * @author Ameni Walha {@literal <ameni.walha at rte-france.com>}
+ * @author Vincent Bochet {@literal <vincent.bochet at rte-france.com>}
+ * @author Oualid Aloui {@literal <oualid.aloui at rte-france.com>}
  */
 @Service
 public class FileExporter {
@@ -34,18 +37,18 @@ public class FileExporter {
         this.filenamesConfiguration = properties;
     }
 
-    public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, String process, LocalDate localDate) {
+    public void saveTtcValidation(TcDocumentTypeWriter tcDocumentTypeWriter, ProcessType processType, LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(filenamesConfiguration.ttcValidation());
-        String processCode = ProcessUtils.getProcessCode(process);
-        String filename = putMostRecentFile(localDate, process, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
+        String processCode = processType.getCode();
+        String filename = putMostRecentFile(localDate, processType, String.format(localDate.format(formatter), processCode), tcDocumentTypeWriter);
         InputStream ttcValidationIs = tcDocumentTypeWriter.buildTcDocumentType();
         String filenameForLog = filename.replaceAll("[\n\r\t]", "_");
         LOGGER.info("Save TTC validation file '{}'", filenameForLog);
         minioAdapter.uploadOutput(filename, ttcValidationIs);
     }
 
-    private String putMostRecentFile(LocalDate localDate, String process, String regex, TcDocumentTypeWriter tcDocumentTypeWriter) {
-        String folder = String.format("%s/TTC_VALIDATION/", process);
+    private String putMostRecentFile(LocalDate localDate, ProcessType processType, String regex, TcDocumentTypeWriter tcDocumentTypeWriter) {
+        String folder = String.format("%s/TTC_VALIDATION/", processType);
         List<String> files = minioAdapter.listFiles(folder);
 
         try {
@@ -59,13 +62,13 @@ public class FileExporter {
                 }
             }
 
-            String processCode = ProcessUtils.getProcessCode(process);
+            String processCode = processType.getCode();
             String filenameFormatted = String.format(localDate.format(DateTimeFormatter.ofPattern(filenamesConfiguration.ttcValidation(), Locale.FRANCE)), processCode);
             filenameFormatted = filenameFormatted.replace("(?<version>[0-9]{1,2})", String.valueOf(mostRecentVersion + 1));
             tcDocumentTypeWriter.setVersionNumber(mostRecentVersion + 1);
             return String.format("%s%s", folder, filenameFormatted);
         } catch (Exception e) {
-            String message = String.format("Cannot upload TTC validation file for process '%s', target date '%s'", process, localDate);
+            String message = String.format("Cannot upload TTC validation file for process '%s', target date '%s'", processType, localDate);
             throw new CseValidPublicationInternalException(message, e);
         }
     }
