@@ -29,13 +29,12 @@ public class CseValidPublicationController {
     }
 
     @PostMapping(value = "/publish")
-    public ResponseEntity<Void> publishProcess(@RequestParam String process, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
+    public ResponseEntity<Void> publishProcess(@RequestParam ProcessType processType, @RequestParam String targetDate, @RequestParam(required = false, defaultValue = "0") int targetDateOffset) {
         final String formattedTargetDate = targetDate.replaceAll("[\n\r\t]", "_");
-        final String formattedProcess = process.replaceAll("[\n\r\t]", "_");
+        final String formattedProcess = processType.name().replaceAll("[\n\r\t]", "_");
         LOGGER.info("Process publication request received with following attributes: process={} targetDate={}", formattedProcess, formattedTargetDate);
 
         try {
-            final ProcessType processType = ProcessType.valueOf(process);
             cseValidPublicationService.publishProcess(processType, targetDate, targetDateOffset);
             return ResponseEntity.ok().build();
         } catch (Exception e) {

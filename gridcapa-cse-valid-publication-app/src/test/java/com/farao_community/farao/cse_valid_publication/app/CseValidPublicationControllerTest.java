@@ -39,7 +39,7 @@ class CseValidPublicationControllerTest {
         Mockito.doNothing().when(cseValidPublicationService).publishProcess(ProcessType.IDCC, "2020-11-24", 0);
 
         mockMvc.perform(post("/publish")
-                        .param("process", "IDCC")
+                        .param("processType", "IDCC")
                         .param("targetDate", "2020-11-24"))
                 .andExpect(status().isOk());
 
@@ -52,7 +52,7 @@ class CseValidPublicationControllerTest {
         Mockito.doThrow(exception).when(cseValidPublicationService).publishProcess(ProcessType.D2CC, "2020-11-24", 2);
 
         mockMvc.perform(post("/publish")
-                        .param("process", "D2CC")
+                        .param("processType", "D2CC")
                         .param("targetDate", "2020-11-24")
                         .param("targetDateOffset", "2"))
                 .andExpect(status().isInternalServerError());
