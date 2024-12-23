@@ -53,25 +53,26 @@
 
     <properties>
         <!-- TECHNICAL DEPENDENCIES -->
-        <commons.io.version>2.11.0</commons.io.version>
+        <commons.io.version>2.15.1</commons.io.version>
         <jsonapi.converter.version>0.11</jsonapi.converter.version>
-        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
-        <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
-        <maven.jaxb2.version>0.14.0</maven.jaxb2.version>
+        <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
+        <jaxb.impl.version>4.0.0</jaxb.impl.version>
+        <jaxb-runtime.version>4.0.5</jaxb-runtime.version>
+        <maven.jaxb.version>4.0.8</maven.jaxb.version>
 
         <!-- BUSINESS DEPENDENCIES -->
-        <cse-valid-runner.version>1.22.0</cse-valid-runner.version>
-        <task-manager.version>1.32.0</task-manager.version>
-        <gridcapa.starter.minio.version>1.1.2</gridcapa.starter.minio.version>
+        <cse-valid-runner.version>1.24.0</cse-valid-runner.version>
+        <task-manager.version>1.34.0</task-manager.version>
+        <gridcapa.starter.minio.version>1.4.0</gridcapa.starter.minio.version>
     </properties>
 
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.jvnet.jaxb2.maven2</groupId>
-                    <artifactId>maven-jaxb2-plugin</artifactId>
-                    <version>${maven.jaxb2.version}</version>
+                    <groupId>org.jvnet.jaxb</groupId>
+                    <artifactId>jaxb-maven-plugin</artifactId>
+                    <version>${maven.jaxb.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.glassfish.jaxb</groupId>
@@ -113,9 +114,9 @@
                 <version>${jsonapi.converter.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.xml.bind.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -123,6 +124,12 @@
                 <version>${commons.io.version}</version>
             </dependency>
             <!-- RUNTIME DEPENDENCIES -->
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb.impl.version}</version>
+                <scope>runtime</scope>
+            </dependency>
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
