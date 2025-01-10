@@ -61,7 +61,7 @@
         <maven.jaxb.version>4.0.8</maven.jaxb.version>
 
         <!-- BUSINESS DEPENDENCIES -->
-        <cse-valid-runner.version>1.24.0</cse-valid-runner.version>
+        <cse-valid-runner.version>1.25.0-SNAPSHOT</cse-valid-runner.version>
         <task-manager.version>1.34.0</task-manager.version>
         <gridcapa.starter.minio.version>1.4.0</gridcapa.starter.minio.version>
     </properties>
