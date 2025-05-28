@@ -28,10 +28,10 @@ The server does not embed Swagger client yet. One may run tests using standard t
 
 Next command line publishes a process using cURL with explicit target date:
 ```bash
-curl -X POST -d "process=D2CC&targetDate=2020-11-24" http://localhost:8080/publish
+curl -X POST -d "processType=D2CC&targetDate=2020-11-24" http://localhost:8080/publish
 ```
 
 Next command line publishes a process using cURL with current local date:
 ```bash
-curl -X POST -d "process=D2CC&targetDate=$(date --iso-8601)" http://localhost:8080/publish
+curl -X POST -d "processType=D2CC&targetDate=$(date --iso-8601)" http://localhost:8080/publish
 ```
