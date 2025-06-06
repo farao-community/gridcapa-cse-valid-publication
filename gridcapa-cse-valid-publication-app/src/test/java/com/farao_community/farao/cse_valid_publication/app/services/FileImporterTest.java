@@ -10,7 +10,7 @@ import com.farao_community.farao.cse_valid_publication.app.xsd.TcDocumentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ class FileImporterTest {
     @Autowired
     private FileImporter fileImporter;
 
-    @MockBean
+    @MockitoBean
     private UrlValidationService urlValidationService;
 
     private final String testResourcePath = "/services/";

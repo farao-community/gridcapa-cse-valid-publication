@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -34,7 +34,7 @@ class FileExporterTest {
     @Autowired
     private FileExporter fileExporter;
 
-    @MockBean
+    @MockitoBean
     private MinioAdapter minioAdapter;
 
     private final LocalDate localDate = LocalDate.of(2020, 8, 13);

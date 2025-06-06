@@ -11,7 +11,7 @@ import com.farao_community.farao.minio_adapter.starter.MinioAdapter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,7 +27,7 @@ class FileUtilsTest {
     @Autowired
     private FileUtils fileUtils;
 
-    @MockBean
+    @MockitoBean
     MinioAdapter minioAdapter;
 
     @Test
