@@ -229,7 +229,7 @@ public class CseValidPublicationService {
     private void fillWithCseValidResponse(final TTimestamp timestamp,
                                           final CseValidResponse cseValidResponse,
                                           final TcDocumentTypeWriter tcDocumentTypeWriter) {
-        String time = timestamp.getTime().getV();
+        final String time = timestamp.getTime().getV();
 
         if (cseValidResponse == null || cseValidResponse.getResultFileUrl() == null) {
             LOGGER.warn("No TTC validation url found for time {}", time);
