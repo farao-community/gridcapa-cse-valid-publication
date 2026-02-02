@@ -221,7 +221,7 @@ public class CseValidPublicationService {
             } catch (final InterruptedException e) {
                 LOGGER.error(String.format("Exception occurred during results creation for timestamp %s", timestamp.getTime().getV()), e);
                 Thread.currentThread().interrupt();
-                tcDocumentTypeWriter.fillWithError(timestamp, "Process failed: execution have been interrupted");
+                tcDocumentTypeWriter.fillWithError(timestamp, "Process failed: execution has been interrupted");
             }
         });
     }
