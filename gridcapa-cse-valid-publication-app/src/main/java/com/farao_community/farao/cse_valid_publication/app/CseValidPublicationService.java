@@ -293,7 +293,7 @@ public class CseValidPublicationService {
             LOGGER.warn("Failed to handle run request on timestamp {} because it has no run history", taskDto.getTimestamp());
             throw new CseValidPublicationInternalException("Failed to handle run request on timestamp because it has no run history");
         }
-        runHistory.sort(comparing(ProcessRunDto::getExecutionDate));
+        runHistory.sort(comparing(ProcessRunDto::getExecutionDate).reversed());
         return runHistory.getFirst().getId().toString();
     }
 }
