@@ -117,6 +117,11 @@ public class CseValidPublicationService {
                              final TcDocumentTypeWriter tcDocumentTypeWriter) {
         final Map<TTimestamp, CseValidRequest> timestampCseValidRequests = new HashMap<>();
         final List<TTimestamp> timestampsToBeValidated = tcDocument.getAdjustmentResults().getFirst().getTimestamp();
+
+        if (timestampsToBeValidated == null) {
+            throw new CseValidPublicationInvalidDataException("TTC adjustment file has no timestamp");
+        }
+
         LOGGER.info("TTC adjustment file contains {} timestamps to be validated", timestampsToBeValidated.size());
 
         final Map<String, TaskDto> taskDtoMap = Arrays.stream(taskDtoArray)
